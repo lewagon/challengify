@@ -15,6 +15,12 @@ pip uninstall -y challengify
 pip uninstall -y wagon_common
 ```
 
+# aliases
+
+``` bash
+alias cha="challengify $@"
+```
+
 # about
 
 generate challenges from solutions

@@ -1,13 +1,13 @@
 # directory
-challengify/wagon_sync
+wagon_sync
 
 # specific files
-challengify/wagon_sync/run_sync.py
-challengify/wagon_sync/run_sync.py
-challengify/wagon_sync/run_sync.py
+wagon_sync/run_sync.py
+wagon_sync/run_sync.py
+wagon_sync/run_sync.py
 
 # files
-challengify/README.md
-challengify/README.md
-challengify/a.png
-challengify/wagon_sync/run_sync.py
+README.md
+README.md
+a.png
+wagon_sync/run_sync.py

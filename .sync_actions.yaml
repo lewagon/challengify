@@ -1,0 +1,23 @@
+actions:
+  - source: wagon_sync
+    destination: a/b/c/
+  - source: wagon_sync/helpers/file.py
+    destination: a/d
+  - action: clone
+    repo: ../../taxifare-challenge
+    solutions:
+      - branch: challenge-1
+        source: .
+        destination: a/f_1
+      - branch: challenge-2
+        source: .
+        destination: a/f_2
+      - branch: challenge-3
+        source: .
+        destination: a/f_3
+      - branch: challenge-4
+        source: .
+        destination: a/f_4
+      - branch: challenge-5
+        source: .
+        destination: a/f_5

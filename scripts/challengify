@@ -1,0 +1,237 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from wagon_sync.run_sync import run_sync
+from wagon_sync.run_inject import run_inject
+from wagon_sync.run_iterate import run_iterate
+from wagon_sync.run_clean import clean_test_challengifications
+from wagon_sync.params.home_defaults import (
+    load_home_defaults,
+    create_home_defaults,
+    CMD_RUN_DESTINATION_DEFAULT)
+
+import click
+
+from colorama import Fore, Style
+
+
+@click.group()
+def wasync():
+    pass
+
+
+@wasync.command()
+@click.argument(
+    "sources",                          # list of sources to sync
+    nargs=-1,                           # variable number of arguments
+    type=click.Path(exists=True))       # verify that the source params exist
+@click.option(
+    "-d", "--destination",
+    default=None,
+    help=f"Path to the destination directory from the root of the project (default: {CMD_RUN_DESTINATION_DEFAULT}).")
+@click.option(
+    "-i", "--ignore-cwd",
+    default=None,
+    is_flag=True,
+    help="Ignore the position of the current working directory relative to the root of the project when generating the destination path for the challenges.")
+@click.option(
+    "-f", "--force/--no-force",
+    default=None,
+    is_flag=True,
+    help="Force challenge generation in the destination directory even if the git status is not clean (default: False).")
+@click.option(
+    "-r", "--dry-run/--run",
+    default=None,
+    is_flag=True,
+    help="Do not generate the challenges in the destination directory (default: False).")
+@click.option(
+    "-v", "--verbose/--no-verbose",
+    default=None,
+    is_flag=True,
+    help="List file selection process: scope, expanded scope, git controlled, sync ignored (default: False).")
+@click.option(
+    "-a", "--all/--no-all",
+    default=None,
+    is_flag=True,
+    help="Select the content of the current directory as source if no parameters are provided (default: False).")
+@click.option(
+    "-t", "--test/--no-test",
+    default=None,
+    is_flag=True,
+    help="Generate test challengification files for the scope (default: False).")
+def run(sources, destination, ignore_cwd, force, dry_run, verbose, all, test):
+    """
+    Generate challenges from provided source files and directories of solutions.
+    """
+
+    return run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all, test)
+
+
+def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all, test):
+    """
+    Decorationless command handler callable from multiple decorated commands
+    """
+
+    if verbose:
+        print(Fore.BLUE
+              + "\nCommand parameters:"
+              + Style.RESET_ALL
+              + f"\nsource {sources}"
+              + f"\ndestination {destination}"
+              + f"\nignore cwd {ignore_cwd}"
+              + f"\nforce {force}"
+              + f"\ndry_run {dry_run}"
+              + f"\nverbose {verbose}"
+              + f"\nall {all}"
+              + f"\ntest {test}")
+
+    # load default parameters
+    run_destination_default, \
+        run_ignore_cwd_default, \
+        run_force_default, \
+        run_dry_run_default, \
+        run_verbose_default, \
+        run_all_default, \
+        run_test_default = load_home_defaults(verbose)
+
+    # click flag options do not allow to know whether the user entered a flag
+    # or whether the default value was used unless the default is None
+
+    # apply loaded defaults
+    if destination is None:
+        destination = run_destination_default
+    if ignore_cwd is None:
+        ignore_cwd = run_ignore_cwd_default
+    if force is None:
+        force = run_force_default
+    if dry_run is None:
+        dry_run = run_dry_run_default
+    if verbose is None:
+        verbose = run_verbose_default
+    if all is None:
+        all = run_all_default
+    if test is None:
+        test = run_test_default
+
+    if verbose:
+        print(Fore.BLUE
+              + "\nApplied default parameters:"
+              + Style.RESET_ALL
+              + f"\nsource {sources}"
+              + f"\ndestination {destination}"
+              + f"\nignore cwd {ignore_cwd}"
+              + f"\nforce {force}"
+              + f"\ndry_run {dry_run}"
+              + f"\nverbose {verbose}"
+              + f"\nall {all}"
+              + f"\ntest {test}")
+
+    # verify that at least one directory was provided
+    if not all and len(sources) < 1:
+
+        print(Fore.RED
+              + "\nPlease provide at least one file or directory as a parameter 🙏"
+              + Style.RESET_ALL)
+
+        # no sync
+        return
+
+    # run synchronization
+    run_sync(
+        sources,
+        destination,
+        force,
+        dry_run,
+        verbose,
+        test=test,
+        ignore_tld=ignore_cwd)
+
+
+@wasync.command()
+@click.argument(
+    "sources",
+    nargs=-1,
+    type=click.Path(exists=True))
+@click.option(
+    "-v", "--verbose/--no-verbose",
+    default=None,
+    is_flag=True,
+    help="Detailed command logs (default: False).")
+def test(sources, verbose):
+    """
+    Proxy for the challengify run command with --test option
+    """
+
+    # call the challengify run command
+    run_function(
+        sources=sources, destination=None, ignore_cwd=None, force=None,
+        dry_run=None, verbose=verbose, all=None, test=True)
+
+
+@wasync.command()
+def clean():
+    """
+    Clean test challengification files
+    """
+
+    clean_test_challengifications()
+
+
+@wasync.command()
+@click.option(
+    "-f", "--force",
+    default=False,
+    is_flag=True,
+    help="Resets conf file if it already exists (default: False).")
+def gen(force):
+    """
+    Generate default parameters conf file in `~/.challengify.yaml`.
+    """
+
+    # run generation
+    create_home_defaults(force)
+
+
+@wasync.command()
+@click.argument(
+    "yaml_path",
+    type=click.Path(exists=True))
+def inject(yaml_path):
+    """
+    Inject solutions from external sources.
+    """
+
+    # run injection
+    run_inject(yaml_path)
+
+
+@wasync.command()
+@click.argument(
+    "source",
+    type=click.Path(exists=True))
+@click.option(
+    "-f", "--force/--no-force",
+    default=False,
+    is_flag=True,
+    help="Force challenge generation in the destination directory even if the git status is not clean (default: False).")
+@click.option(
+    "-r", "--dry-run/--run",
+    default=False,
+    is_flag=True,
+    help="Do not generate the challenges in the destination directory (default: False).")
+@click.option(
+    "-v", "--verbose/--no-verbose",
+    default=False,
+    is_flag=True,
+    help="List file selection process: scope, expanded scope, git controlled, sync ignored (default: False).")
+def iterate(source, force, dry_run, verbose):
+    """
+    Iterate on ssot to generate solutions.
+    """
+
+    # run iteration
+    run_iterate(source, force, dry_run, verbose)
+
+
+if __name__ == '__main__':
+    wasync()

@@ -4,8 +4,8 @@
 🚨 `wagon_common` is required as a dependency but is not yet published to PyPI and needs to be manually installed first
 
 ``` bash
-pip install git+ssh://git@github.com/lewagon/utils.git#subdirectory=wagon_common
-pip install git+ssh://git@github.com/lewagon/utils.git#subdirectory=challengify
+pip install git+ssh://git@github.com/lewagon/python-utilities.git
+pip install git+ssh://git@github.com/lewagon/challengify.git
 ```
 
 # uninstall

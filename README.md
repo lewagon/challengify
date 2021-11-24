@@ -1,7 +1,13 @@
 
 # install
 
-🚨 `wagon_common` is required as a dependency but is not yet published to PyPI and needs to be manually installed first
+from gemfury:
+
+``` bash
+pip install challengify
+```
+
+from github:
 
 ``` bash
 pip install git+ssh://git@github.com/lewagon/python-utilities.git

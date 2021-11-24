@@ -4,12 +4,14 @@ from setuptools import setup, find_packages
 import os
 
 with open("requirements.txt") as f:
-    content = f.readlines()
-requirements = [x.strip() for x in content]
+    requirements = [c.strip() for c in f.readlines()]
 
 setup(name="challengify",
       version="0.3.0",
       description="Le Wagon challenge generator tool",
+      url="https://github.com/lewagon/challengify/",
+      author="Sébastien Saunier",
+      author_email="seb@lewagon.org",
       packages=find_packages(),
       install_requires=requirements,
       scripts=[os.path.join("scripts", "challengify")])

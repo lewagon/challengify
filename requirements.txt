@@ -3,3 +3,5 @@ colorama
 nbclean
 pyyaml
 black
+
+wagon_common

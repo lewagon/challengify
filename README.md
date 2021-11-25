@@ -1,18 +1,22 @@
 
 # install
 
-🚨 `wagon_common` is required as a dependency but is not yet published to PyPI and needs to be manually installed first
+from gemfury with `~/.pip/pip.conf`:
 
 ``` bash
-pip install git+ssh://git@github.com/lewagon/utils.git#subdirectory=wagon_common
-pip install git+ssh://git@github.com/lewagon/utils.git#subdirectory=challengify
+pip install challengify
 ```
 
 # uninstall
 
 ``` bash
 pip uninstall -y challengify
-pip uninstall -y wagon_common
+```
+
+# aliases
+
+``` bash
+alias cha="challengify $@"
 ```
 
 # about

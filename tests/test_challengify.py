@@ -42,7 +42,18 @@ class TestNotebookActions(unittest.TestCase):
         self.assertEqual(out_raw, processed_raw)
 
     def test_clean_notebook_output(self):
+        """
+        clean the output of all notebook cells
+        notebook has a filled metadata
+        """
         self.__transformation_test("test_clean_notebook_output")
+
+    def test_clean_cleaned_notebook_output(self):
+        """
+        clean the output of all notebook cells
+        notebook metadata has been cleaned by nbcleanmeta
+        """
+        self.__transformation_test("test_clean_cleaned_notebook_output")
 
     def test_clean_notebook_stderr(self):
         self.__transformation_test("test_clean_notebook_stderr")

@@ -56,9 +56,23 @@ class TestNotebookActions(unittest.TestCase):
         self.__transformation_test("test_clean_cleaned_notebook_output")
 
     def test_clean_notebook_stderr(self):
+        """
+        clean the stderr of all notebook cells
+        notebook has a filled metadata
+        """
         self.__transformation_test("test_clean_notebook_stderr")
 
+    def test_clean_cleaned_notebook_stderr(self):
+        """
+        clean the stderr of all notebook cells
+        notebook metadata has been cleaned by nbcleanmeta
+        """
+        self.__transformation_test("test_clean_cleaned_notebook_stderr")
+
     def test_clean_cells_with_clean_tag(self):
+        """
+        only clean the output and stderr of cells with corresponding tag
+        """
         self.__transformation_test("test_clean_cells_with_clean_tag")
 
     def test_delete_cells_with_delete_tag(self):

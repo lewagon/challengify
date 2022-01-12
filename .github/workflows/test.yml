@@ -13,6 +13,13 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
+      - name: Add pipconf
+        run: |
+          mkdir ~/.pip
+          touch ~/.pip/pip.conf
+          echo '[global]' > pip.conf
+          echo 'trusted-host = pypi.fury.io' >> pip.conf
+          echo 'extra-index-url = https://{{secrets.GEMFURY_KEY}}:@pypi.fury.io/ssaunier'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip

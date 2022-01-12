@@ -1,4 +1,4 @@
-
+import re
 # - - - - - delimiters for challengify run
 
 # tags and delimiters for notebooks 👇
@@ -27,12 +27,12 @@ LEWAGON_SOLUTION_NB_METADATA_OPT_KEEP_OUTPUT_DEFAULT = False
 # delimiters for code 👇
 
 # code delete
-LEWAGON_SOLUTION_CODE_DELETE_BEGIN = "# \$DELETE_BEGIN"  # $ escaped for re
-LEWAGON_SOLUTION_CODE_DELETE_END = "# \$DELETE_END"
+LEWAGON_SOLUTION_CODE_DELETE_BEGIN = re.escape("# $DELETE_BEGIN")  # $ escaped for re
+LEWAGON_SOLUTION_CODE_DELETE_END = re.escape("# $DELETE_END")
 
 # code challengify
-LEWAGON_SOLUTION_CODE_CHALLENGIFY_BEGIN = "# \$CHALLENGIFY_BEGIN"
-LEWAGON_SOLUTION_CODE_CHALLENGIFY_END = "# \$CHALLENGIFY_END"
+LEWAGON_SOLUTION_CODE_CHALLENGIFY_BEGIN = re.escape("# $CHALLENGIFY_BEGIN")
+LEWAGON_SOLUTION_CODE_CHALLENGIFY_END = re.escape("# $CHALLENGIFY_END")
 
 # replacements 👇
 

@@ -1,4 +1,3 @@
-
 from wagon_sync.params.delimiters import (
     LEWAGON_SOLUTION_NB_TAG_DELETE,
     LEWAGON_SOLUTION_NB_TAG_DELETE_BEGIN,
@@ -21,8 +20,8 @@ from wagon_sync.params.delimiters import (
 from wagon_common.helpers.notebook import read_notebook, save_notebook
 
 import re
+from wagon_sync.wotebook import Wotebook
 
-import nbclean as nbc
 
 
 def cellify(content):
@@ -129,7 +128,7 @@ def get_notebook_metadata_options(notebook_content):
 
 
 def clean_notebook(source, destination, file_extension, nb_options):
-    """ clean notebook using nbclean """
+    """ clean notebook """
 
     # get notebook options
     keep_output = nb_options.get(
@@ -143,21 +142,25 @@ def clean_notebook(source, destination, file_extension, nb_options):
         solution_code_replacement = LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON
 
     # create notebook cleaner
-    ntbk = nbc.NotebookCleaner(source)
+    # ntbk = nbc.NotebookCleaner(source)
+    ntbk = Wotebook(source)
 
     # handle cells output and standard error
     if keep_output:
 
         # clean only tagged cells
-        ntbk.clear(["output", "stderr"], tag=LEWAGON_SOLUTION_NB_TAG_CLEAR_OUTPUT)
+        # ntbk.clear(["output", "stderr"], tag=LEWAGON_SOLUTION_NB_TAG_CLEAR_OUTPUT)
+        ntbk.clear_outputs(tag=LEWAGON_SOLUTION_NB_TAG_CLEAR_OUTPUT)
 
     else:
 
         # clean all cells of the notebook
-        ntbk.clear(["output", "stderr"])
+        # ntbk.clear(["output", "stderr"])
+        ntbk.clear_outputs()
 
     # remove cells marked with solution tag
-    ntbk.remove_cells(tag=LEWAGON_SOLUTION_NB_TAG_DELETE)
+    # ntbk.remove_cells(tag=LEWAGON_SOLUTION_NB_TAG_DELETE)
+    ntbk.remove_cells(LEWAGON_SOLUTION_NB_TAG_DELETE)
 
     # remove content within delimiters
     ntbk.replace_text(

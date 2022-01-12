@@ -2,7 +2,7 @@
 from wagon_sync.process_notebook import process_notebook
 
 import unittest
-import inspect
+# import inspect
 
 import os
 import re

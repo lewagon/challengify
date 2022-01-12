@@ -35,6 +35,7 @@ class Wotebook:
 
     def save(self, destination):
         self.processed['cells'] = [cell.serialize() for cell in self.cells]
+        self.processed['metadata'].pop('celltoolbar', None)
         save_notebook(self.processed, destination)
 
 

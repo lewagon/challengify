@@ -16,10 +16,11 @@ jobs:
       - name: Add pipconf
         run: |
           mkdir ~/.pip
-          touch ~/.pip/pip.conf
-          echo '[global]' > pip.conf
-          echo 'trusted-host = pypi.fury.io' >> pip.conf
-          echo 'extra-index-url = https://{{secrets.GEMFURY_KEY}}:@pypi.fury.io/ssaunier'
+          cat << EOF >> ~/.pip/pip.conf
+          [global]
+          trusted-host = pypi.fury.io
+          extra-index-url = https://${{ secrets.GEMFURY_KEY }}@pypi.fury.io/ssaunier
+          EOF
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip

@@ -150,13 +150,13 @@ def clean_notebook(source, destination, file_extension, nb_options):
 
         # clean only tagged cells
         # ntbk.clear(["output", "stderr"], tag=LEWAGON_SOLUTION_NB_TAG_CLEAR_OUTPUT)
-        ntbk.clear(tag=LEWAGON_SOLUTION_NB_TAG_CLEAR_OUTPUT)
+        ntbk.clear_outputs(tag=LEWAGON_SOLUTION_NB_TAG_CLEAR_OUTPUT)
 
     else:
 
         # clean all cells of the notebook
         # ntbk.clear(["output", "stderr"])
-        ntbk.clear()
+        ntbk.clear_outputs()
 
     # remove cells marked with solution tag
     # ntbk.remove_cells(tag=LEWAGON_SOLUTION_NB_TAG_DELETE)

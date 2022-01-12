@@ -1,7 +1,7 @@
 import os
 import json
 import copy
-from wotebook_cell import WotebookCell
+from wagon_sync.wotebook_cell import WotebookCell
 from wagon_common.helpers.notebook import read_notebook, save_notebook
 
 

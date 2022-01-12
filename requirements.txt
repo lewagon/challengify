@@ -1,6 +1,5 @@
 click
 colorama
-nbclean
 pyyaml
 black
 

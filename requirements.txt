@@ -2,5 +2,6 @@ click
 colorama
 pyyaml
 black
-
+pylint
+pytest
 wagon_common

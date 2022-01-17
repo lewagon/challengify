@@ -56,6 +56,21 @@ def get_destination_cwd(destination):
     return abs_target
 
 
+def get_iterate_destination_cwd(destination):
+    """ corrects destination relatively to tld """
+
+    # retrieve project root
+    tld = get_git_top_level_directory()
+
+    # build target path
+    target = os.path.join(tld, destination)
+
+    # get absolute path
+    abs_target = os.path.abspath(target)
+
+    return abs_target
+
+
 def load_ignored_files():
     """
     return the set of ignored files
@@ -117,7 +132,14 @@ def run_sync(
 
     # correct destination
     if not ignore_tld:
+
+        # challengify run
         destination = get_destination_cwd(destination)
+
+    else:
+
+        # challengify iterate
+        destination = get_iterate_destination_cwd(destination)
 
     # verify that destination directory does not exist
     # or is a git repo and has a clean status

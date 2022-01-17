@@ -13,7 +13,7 @@ def load_conf_file(source, verbose):
     # build conf path
     conf_path = os.path.join(
         source,
-        ".challengify_iterate.yaml")
+        ".challengify_iterate.yml")
 
     # check if conf exists
     if not os.path.isfile(conf_path):

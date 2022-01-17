@@ -110,7 +110,7 @@ run:
 
 ## iterate
 
-generate iterative solution exercices based on the `.challengify_iterate.yaml`
+generate iterative solution exercices based on the `.challengify_iterate.yml`
 
 ``` bash
 challengify iterate .                   # generate iterative solution exercices

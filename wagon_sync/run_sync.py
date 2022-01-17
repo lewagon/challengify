@@ -121,6 +121,7 @@ def run_sync(
         test,
         user_autoformater=False,        # autoformat generated code
         ignore_tld=False,               # ignore current path in git directory
+        iterate_yaml_path=None,         # path to iterate yaml
         additional_ignores=[],          # ignored files and preprocessing
         version_pre_clean=None):        # for the challengify iterate command
     """
@@ -130,16 +131,16 @@ def run_sync(
     synchronize source
     """
 
-    # correct destination
-    if not ignore_tld:
-
-        # challengify run
-        destination = get_destination_cwd(destination)
-
-    else:
+    # correct destination tld
+    if ignore_tld:
 
         # challengify iterate
         destination = get_iterate_destination_cwd(destination)
+
+    else:
+
+        # challengify run
+        destination = get_destination_cwd(destination)
 
     # verify that destination directory does not exist
     # or is a git repo and has a clean status
@@ -203,6 +204,7 @@ def run_sync(
             # synchronize file
             process(
                 candidate_file, destination,
+                ignore_tld=ignore_tld, iterate_yaml_path=iterate_yaml_path,
                 test=test, version_pre_clean=version_pre_clean)
 
         # autoformat generated code

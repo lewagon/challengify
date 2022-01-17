@@ -11,7 +11,10 @@ from wagon_sync.params.delimiters import TEST_CHALLENGIFICATION_SUFFIX
 import os
 
 
-def process(file_path, destination, test, version_pre_clean=None):
+def process(
+        file_path, destination,
+        ignore_tld, iterate_yaml_path,
+        test, version_pre_clean=None):
     """
     process file extension and process it accordingly
     """
@@ -33,6 +36,12 @@ def process(file_path, destination, test, version_pre_clean=None):
     else:
 
         destination_file_path = file_path
+
+    # correct destination path
+    if ignore_tld:
+
+        # correct destination path relative to iterate yaml path
+        destination_file_path = os.path.relpath(destination_file_path, iterate_yaml_path)
 
     # build destination path
     destination_path = os.path.join(

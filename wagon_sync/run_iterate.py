@@ -148,5 +148,6 @@ def run_iterate(source, force, dry_run, verbose):
             test=False,
             user_autoformater=True,               # autoformat generated code
             ignore_tld=True,                      # do not append path in git directory
+            iterate_yaml_path=source,             # path to iterate yaml
             additional_ignores=ignored,           # handle ignored files
             version_pre_clean=versions)           # handle version delimiters

@@ -199,16 +199,21 @@ def run_sync(
               + Style.RESET_ALL)
 
         # synchronize files
+        corrected_files = []
+
         for candidate_file in candidate_files:
 
             # synchronize file
-            process(
+            destination_path = process(
                 candidate_file, destination,
                 ignore_tld=ignore_tld, iterate_yaml_path=iterate_yaml_path,
                 test=test, version_pre_clean=version_pre_clean)
+
+            # append corrected files
+            corrected_files.append(destination_path)
 
         # autoformat generated code
         if user_autoformater:
 
             # auformat code
-            autoformat_code(candidate_files, destination)
+            autoformat_code(corrected_files)

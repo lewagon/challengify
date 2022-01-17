@@ -22,13 +22,13 @@ def format_python_code_files(files):
     return rc == 0, rc, output, error
 
 
-def autoformat_code(files, destination):
+def autoformat_code(files):
     """
     run code autoformatter on files
     """
 
     # python formatter
-    target_files = [os.path.join(destination, f) for f in files if f[-3:] == ".py"]
+    target_files = [f for f in files if f[-3:] == ".py"]
 
     formatted, rc, output, error = format_python_code_files(target_files)
 

@@ -70,3 +70,5 @@ def process(
         destination_path,
         file_extension,
         version_pre_clean=version_pre_clean)
+
+    return destination_path

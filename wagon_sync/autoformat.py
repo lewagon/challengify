@@ -1,8 +1,6 @@
 
 from wagon_common.helpers.subprocess import run_command
 
-import os
-
 from colorama import Fore, Style
 
 

@@ -96,7 +96,7 @@ def process_ignored_files(source, version, ignore_before, ignore_after, verbose)
     ignored += [f for v, ff in ignore_after.items() for f in ff if version > v]
 
     # correct additional ignores relative to source path
-    ignored = [os.path.join(source, i) for i in ignored]
+    ignored = [os.path.join(source, path) for path in ignored]
 
     if verbose:
         print(Fore.BLUE

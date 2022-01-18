@@ -107,7 +107,7 @@ def process_ignored_files(source, version, ignore_before, ignore_after, verbose)
     return ignored
 
 
-def run_iterate(source, min_ver, max_ver, force, dry_run, verbose):
+def run_iterate(source, min_version, max_version, force, dry_run, verbose):
 
     # load conf
     conf = load_conf_file(source, verbose)

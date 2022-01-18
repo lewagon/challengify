@@ -125,8 +125,8 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
     for version, destination in destinations.items():
 
         # only generate challenge version if specified
-        if (min_ver is not None and version < min_ver) \
-           or (max_ver is not None and version > max_ver):
+        if (min_version is not None and version < min_version) \
+           or (max_version is not None and version > max_version):
 
             if verbose:
                 print(Fore.BLUE

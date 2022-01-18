@@ -2,6 +2,10 @@
 from wagon_common.helpers.file import ensure_path_directory_exists
 
 from wagon_sync.params.delimiters import (
+    RAW_CODE_DELETE_BEGIN,
+    RAW_CODE_DELETE_END,
+    RAW_CODE_CHALLENGIFY_BEGIN,
+    RAW_CODE_CHALLENGIFY_END,
     LEWAGON_SOLUTION_CODE_DELETE_BEGIN,
     LEWAGON_SOLUTION_CODE_DELETE_END,
     LEWAGON_SOLUTION_CODE_CHALLENGIFY_BEGIN,
@@ -14,12 +18,16 @@ from wagon_sync.params.delimiters import (
     META_DELIMITER_BEFORE_END,
     META_DELIMITER_AFTER_BEGIN,
     META_DELIMITER_AFTER_END,
+    ITERATE_IGNORE_CODE_DELETE_BEGIN,
+    ITERATE_IGNORE_CODE_DELETE_END,
+    ITERATE_IGNORE_CODE_CHALLENGIFY_BEGIN,
+    ITERATE_IGNORE_CODE_CHALLENGIFY_END,
 )
 
 import re
 
 
-def process_code(source, destination, file_extension, version_pre_clean=None):
+def process_code(source, destination, file_extension, ignore_run_delimiters, version_pre_clean=None):
 
     # create destination directory
     ensure_path_directory_exists(destination)
@@ -27,6 +35,17 @@ def process_code(source, destination, file_extension, version_pre_clean=None):
     # read content
     with open(source, "r") as file:
         source_content = file.read()
+
+    # replace challengify run delimiters
+    if ignore_run_delimiters:
+
+        # ignore code delete
+        source_content = source_content.replace(RAW_CODE_DELETE_BEGIN, ITERATE_IGNORE_CODE_DELETE_BEGIN)
+        source_content = source_content.replace(RAW_CODE_DELETE_END, ITERATE_IGNORE_CODE_DELETE_END)
+
+        # ignore code challengify
+        source_content = source_content.replace(RAW_CODE_CHALLENGIFY_BEGIN, ITERATE_IGNORE_CODE_CHALLENGIFY_BEGIN)
+        source_content = source_content.replace(RAW_CODE_CHALLENGIFY_END, ITERATE_IGNORE_CODE_CHALLENGIFY_END)
 
     # handle preprocessing for challengify iterate command
     if version_pre_clean is not None:
@@ -84,6 +103,17 @@ def process_code(source, destination, file_extension, version_pre_clean=None):
     # remove all content within le wagon solution delete delimiters
     pattern = f"{LEWAGON_SOLUTION_CODE_DELETE_BEGIN}(.|\n)*?(?<!{LEWAGON_SOLUTION_CODE_DELETE_END}){LEWAGON_SOLUTION_CODE_DELETE_END}"
     replaced_content = re.sub(pattern, "", replaced_content)
+
+    # replace back challengify run delimiters
+    if ignore_run_delimiters:
+
+        # ignore code delete
+        replaced_content = replaced_content.replace(ITERATE_IGNORE_CODE_DELETE_BEGIN, RAW_CODE_DELETE_BEGIN)
+        replaced_content = replaced_content.replace(ITERATE_IGNORE_CODE_DELETE_END, RAW_CODE_DELETE_END)
+
+        # ignore code challengify
+        replaced_content = replaced_content.replace(ITERATE_IGNORE_CODE_CHALLENGIFY_BEGIN, RAW_CODE_CHALLENGIFY_BEGIN)
+        replaced_content = replaced_content.replace(ITERATE_IGNORE_CODE_CHALLENGIFY_END, RAW_CODE_CHALLENGIFY_END)
 
     # write content
     with open(destination, "w") as file:

@@ -120,6 +120,7 @@ def run_sync(
         verbose,
         test,
         user_autoformater=False,        # autoformat generated code
+        ignore_run_delimiters=False,    # ignore challengify run delimiters
         ignore_tld=False,               # ignore current path in git directory
         iterate_yaml_path=None,         # path to iterate yaml
         additional_ignores=[],          # ignored files and preprocessing
@@ -206,6 +207,7 @@ def run_sync(
             # synchronize file
             destination_path = process(
                 candidate_file, destination,
+                ignore_run_delimiters=ignore_run_delimiters,
                 ignore_tld=ignore_tld, iterate_yaml_path=iterate_yaml_path,
                 test=test, version_pre_clean=version_pre_clean)
 

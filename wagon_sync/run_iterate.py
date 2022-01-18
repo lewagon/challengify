@@ -159,6 +159,7 @@ def run_iterate(source, min_ver, max_ver, force, dry_run, verbose):
             verbose,
             test=False,
             user_autoformater=True,               # autoformat generated code
+            ignore_run_delimiters=True,           # ignore challengify run delimiters
             ignore_tld=True,                      # do not append path in git directory
             iterate_yaml_path=source,             # path to iterate yaml
             additional_ignores=ignored,           # handle ignored files

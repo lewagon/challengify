@@ -13,6 +13,7 @@ import os
 
 def process(
         file_path, destination,
+        ignore_run_delimiters,
         ignore_tld, iterate_yaml_path,
         test, version_pre_clean=None):
     """
@@ -69,6 +70,7 @@ def process(
         file_path,
         destination_path,
         file_extension,
+        ignore_run_delimiters,
         version_pre_clean=version_pre_clean)
 
     return destination_path

@@ -242,7 +242,7 @@ def iterate(source, challenge, force, dry_run, verbose):
         min_ver = max_ver = int(challenge)
 
     # run iteration
-    run_iterate(source, min_ver, max_ver, force, dry_run, verbose)
+    run_iterate(source, min_version, max_version, force, dry_run, verbose)
 
 
 if __name__ == '__main__':

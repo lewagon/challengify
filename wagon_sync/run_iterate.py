@@ -104,7 +104,7 @@ def process_ignored_files(version, ignore_before, ignore_after, verbose):
     return ignored
 
 
-def run_iterate(source, force, dry_run, verbose):
+def run_iterate(source, challenge_version, force, dry_run, verbose):
 
     # load conf
     conf = load_conf_file(source, verbose)
@@ -120,6 +120,17 @@ def run_iterate(source, force, dry_run, verbose):
 
     # iterate through challenge versions
     for version, destination in destinations.items():
+
+        # only generate challenge version if specified
+        if challenge_version is not None and challenge_version != version:
+
+            if verbose:
+                print(Fore.BLUE
+                      + f"\nSkip challenge version {version}..."
+                      + Style.RESET_ALL)
+
+            # skip challenge version
+            continue
 
         ignored = process_ignored_files(version, ignore_before, ignore_after, verbose)
 

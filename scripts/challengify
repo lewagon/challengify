@@ -210,6 +210,11 @@ def inject(yaml_path):
     "source",
     type=click.Path(exists=True))
 @click.option(
+    "-c", "--challenge",
+    type=int,
+    default=None,
+    help="Version of the challenge to generate from .challengify_iterate.yml destinations (default: all).")
+@click.option(
     "-f", "--force/--no-force",
     default=False,
     is_flag=True,
@@ -224,13 +229,13 @@ def inject(yaml_path):
     default=False,
     is_flag=True,
     help="List file selection process: scope, expanded scope, git controlled, sync ignored (default: False).")
-def iterate(source, force, dry_run, verbose):
+def iterate(source, challenge, force, dry_run, verbose):
     """
     Iterate on ssot to generate solutions.
     """
 
     # run iteration
-    run_iterate(source, force, dry_run, verbose)
+    run_iterate(source, challenge, force, dry_run, verbose)
 
 
 if __name__ == '__main__':

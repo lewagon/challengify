@@ -26,7 +26,7 @@ def autoformat_code(files):
     """
 
     # python formatter
-    target_files = [f for f in files if f[-3:] == ".py"]
+    target_files = [file for file in files if file[-3:] == ".py"]
 
     formatted, rc, output, error = format_python_code_files(target_files)
 

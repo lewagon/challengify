@@ -104,7 +104,7 @@ def process_ignored_files(version, ignore_before, ignore_after, verbose):
     return ignored
 
 
-def run_iterate(source, challenge_version, force, dry_run, verbose):
+def run_iterate(source, min_ver, max_ver, force, dry_run, verbose):
 
     # load conf
     conf = load_conf_file(source, verbose)
@@ -122,7 +122,8 @@ def run_iterate(source, challenge_version, force, dry_run, verbose):
     for version, destination in destinations.items():
 
         # only generate challenge version if specified
-        if challenge_version is not None and challenge_version != version:
+        if (min_ver is not None and version < min_ver) \
+           or (max_ver is not None and version > max_ver):
 
             if verbose:
                 print(Fore.BLUE

@@ -80,7 +80,7 @@ def read_conf(source, conf, verbose):
     return source_directory, project_name, destinations, ignore_before, ignore_after
 
 
-def process_ignored_files(version, ignore_before, ignore_after, verbose):
+def process_ignored_files(source, version, ignore_before, ignore_after, verbose):
     """
     process a list of ignored files from version number
     and list of before and after rules
@@ -94,6 +94,9 @@ def process_ignored_files(version, ignore_before, ignore_after, verbose):
 
     # the current version is strictly after the version of the rule
     ignored += [f for v, ff in ignore_after.items() for f in ff if version > v]
+
+    # correct additional ignores relative to source path
+    ignored = [os.path.join(source, i) for i in ignored]
 
     if verbose:
         print(Fore.BLUE
@@ -133,7 +136,7 @@ def run_iterate(source, min_ver, max_ver, force, dry_run, verbose):
             # skip challenge version
             continue
 
-        ignored = process_ignored_files(version, ignore_before, ignore_after, verbose)
+        ignored = process_ignored_files(source, version, ignore_before, ignore_after, verbose)
 
         # build version destination
         version_destination = os.path.join(destination, project_name)

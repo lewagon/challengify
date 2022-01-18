@@ -181,7 +181,7 @@ def clean_notebook(source, destination, file_extension, nb_options):
     ntbk.save(destination)
 
 
-def process_notebook(source, destination, file_extension, ignore_run_delimiters, version_pre_clean=None):
+def process_notebook(source, destination, file_extension, ignore_run_delimiters=False, version_pre_clean=None):
     """
     control notebook processes
     """

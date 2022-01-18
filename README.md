@@ -114,6 +114,9 @@ generate iterative solution exercices based on the `.challengify_iterate.yml`
 
 ``` bash
 challengify iterate .                   # generate iterative solution exercices
+
+challengify iterate . -c 2              # only generate challenge version 2
+challengify iterate . -c 1-3            # generate challenge versions from 1 to 3 included
 ```
 
 iterate conf file:

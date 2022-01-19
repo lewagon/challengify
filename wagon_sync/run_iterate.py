@@ -71,10 +71,10 @@ def read_conf(source, conf, verbose):
         print("- destinations:")
         [print(f"  - version {str(version).rjust(2)}: {destination}") for version, destination in destinations.items()]
 
-        print("- ignore before:")
+        print("- only from:")
         [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in only_from.items() for file in files]
 
-        print("- ignore after:")
+        print("- only to:")
         [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in only_to.items() for file in files]
 
     return source_directory, project_name, destinations, only_from, only_to

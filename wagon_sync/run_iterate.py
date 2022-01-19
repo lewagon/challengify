@@ -69,13 +69,13 @@ def read_conf(source, conf, verbose):
               + f"\n- project name: {project_name}")
 
         print("- destinations:")
-        [print(f"  - version {str(v).rjust(2)}: {d}") for v, d in destinations.items()]
+        [print(f"  - version {str(version).rjust(2)}: {destination}") for version, destination in destinations.items()]
 
         print("- ignore before:")
-        [print(f"  - version {str(v).rjust(2)}: {f}") for v, ff in ignore_before.items() for f in ff]
+        [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in ignore_before.items() for file in files]
 
         print("- ignore after:")
-        [print(f"  - version {str(v).rjust(2)}: {f}") for v, ff in ignore_after.items() for f in ff]
+        [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in ignore_after.items() for file in files]
 
     return source_directory, project_name, destinations, ignore_before, ignore_after
 
@@ -90,10 +90,10 @@ def process_ignored_files(source, version, ignore_before, ignore_after, verbose)
     ignored = []
 
     # the current version is strictly before the version of the rule
-    ignored += [f for v, ff in ignore_before.items() for f in ff if version < v]
+    ignored += [file for rule_version, files in ignore_before.items() for file in files if version < rule_version]
 
     # the current version is strictly after the version of the rule
-    ignored += [f for v, ff in ignore_after.items() for f in ff if version > v]
+    ignored += [file for rule_version, files in ignore_after.items() for file in files if version > rule_version]
 
     # correct additional ignores relative to source path
     ignored = [os.path.join(source, path) for path in ignored]

@@ -60,7 +60,7 @@ def read_conf(source, conf, verbose):
 
     only = conf.get("only", {})
     only_to = only.get("to", {}) or {}      # the yaml loader yields None
-    only_for = only.get("for", {}) or {}    # if the key has no values
+    only_for = only.get("for", {}) or {}    # if the key has no value
     only_from = only.get("from", {}) or {}
 
     if verbose:

@@ -10,12 +10,14 @@ from wagon_sync.params.home_defaults import (
     create_home_defaults,
     CMD_RUN_DESTINATION_DEFAULT)
 
+from wagon_common.helpers.click.aliased_group import AliasedGroup
+
 import click
 
 from colorama import Fore, Style
 
 
-@click.group()
+@click.group(cls=AliasedGroup)
 def wasync():
     pass
 

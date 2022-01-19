@@ -93,13 +93,13 @@ def process_ignored_files(source, version, only_to, only_on, only_from, verbose)
     # append the files ignored for because
     ignored = []
 
-    # the current version is strictly after the version of the rule
+    # files are ignored if the challenge version is after the version of the rule
     ignored += [file for rule_version, files in only_to.items() for file in files if version > rule_version]
 
-    # the current version is strictly equal to the version of the rule
+    # files are ignored if the challenge version is not equal to the version of the rule
     ignored += [file for rule_version, files in only_on.items() for file in files if version != rule_version]
 
-    # the current version is strictly before the version of the rule
+    # files are ignored if the challenge version is before the version of the rule
     ignored += [file for rule_version, files in only_from.items() for file in files if version < rule_version]
 
     # correct additional ignores relative to source path

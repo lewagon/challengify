@@ -170,6 +170,8 @@ example:
     # $ONLY_12_END
 ```
 
+troubleshoot: a delimiter having a version (`12`) outside of the range of destinations defined in the conf file (`14` to `15`) will be ignored
+
 ## injection
 
 generate solutions from branches of a repo

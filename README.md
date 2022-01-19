@@ -131,14 +131,20 @@ iterate:
     2: 07-Data-Engineering/02-ML-Iteration/04-MLFlow-quickstart
     3: 07-Data-Engineering/02-ML-Iteration/05-Iterate-with-MLFlow
 
-  ignore:
-    before:
+  only:
+    to:
       2:
-        - taxifaremodel/mlflow.py
-        - taxifaremodel/kaggle.py
-    after:
+        - taxifare/kaggle.py
+    on:
+      15:
+        - taxifare/notebooks/api_boilerplate.ipynb
+        - taxifare/notebooks/api_usage.ipynb
+    from:
       2:
-        - taxifaremodel/kaggle.py
+        - taxifare/mlflow.py
+        - taxifare/kaggle.py
+      12:
+        - api/fast.py
 ```
 
 ## injection

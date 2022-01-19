@@ -119,7 +119,7 @@ challengify iterate . -c 2              # only generate challenge version 2
 challengify iterate . -c 1-3            # generate challenge versions from 1 to 3 included
 ```
 
-iterate conf file:
+### conf file
 
 ``` yaml
 iterate:
@@ -145,6 +145,29 @@ iterate:
         - taxifare/kaggle.py
       12:
         - api/fast.py
+```
+
+### delimiters
+
+#### notebooks
+
+currently not supported
+
+#### code files
+
+delimiters:
+- `# $BEFORE_number_BEGIN`    # content for challenge with lesser version
+- `# $BEFORE_number_END`
+- `# $ONLY_number_BEGIN`      # content for challenge exact version
+- `# $ONLY_number_END`
+- `# $AFTER_number_BEGIN`     # content for challenge with greater version
+- `# $AFTER_number_END`
+
+example:
+``` python
+    # $ONLY_12_BEGIN
+    # content only available for version 12 of the challenge
+    # $ONLY_12_END
 ```
 
 ## injection

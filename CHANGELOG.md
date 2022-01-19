@@ -5,6 +5,7 @@
 - Allows the use of prefixes for the `iterate` command through wagon_common AliasedGroup (i.e. `challengify ite` instead of `challengify iterate`)
 - Allows to generate a specific or a range of challenge versions through the `-c` option
 - Adds the `iterate` command conf file param `only.for`
+- Adds `# $ONLY_number_BEGIN` and `# $ONLY_number_END` code delimiters for `challengify iterate`
 * Fixed
 - Does not consume anymore the delimiters of the `run` command
 - Corrects the path of the generated challenge files

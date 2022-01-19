@@ -16,6 +16,8 @@ from wagon_sync.params.delimiters import (
     META_DELIMITER_VERSION_REPLACEMENT,
     META_DELIMITER_BEFORE_BEGIN,
     META_DELIMITER_BEFORE_END,
+    META_DELIMITER_ONLY_BEGIN,
+    META_DELIMITER_ONLY_END,
     META_DELIMITER_AFTER_BEGIN,
     META_DELIMITER_AFTER_END,
     ITERATE_IGNORE_CODE_DELETE_BEGIN,
@@ -59,6 +61,8 @@ def process_code(source, destination, file_extension, ignore_run_delimiters, ver
             # build meta version delimiters
             meta_before_begin = META_DELIMITER_BEFORE_BEGIN.replace(META_DELIMITER_VERSION_REPLACEMENT, str(meta_version))
             meta_before_end = META_DELIMITER_BEFORE_END.replace(META_DELIMITER_VERSION_REPLACEMENT, str(meta_version))
+            meta_only_begin = META_DELIMITER_ONLY_BEGIN.replace(META_DELIMITER_VERSION_REPLACEMENT, str(meta_version))
+            meta_only_end = META_DELIMITER_ONLY_END.replace(META_DELIMITER_VERSION_REPLACEMENT, str(meta_version))
             meta_after_begin = META_DELIMITER_AFTER_BEGIN.replace(META_DELIMITER_VERSION_REPLACEMENT, str(meta_version))
             meta_after_end = META_DELIMITER_AFTER_END.replace(META_DELIMITER_VERSION_REPLACEMENT, str(meta_version))
 
@@ -66,8 +70,8 @@ def process_code(source, destination, file_extension, ignore_run_delimiters, ver
             if version >= meta_version:
 
                 # replace meta delimiters outside of version number by DELETE delimiters (remove content)
-                source_content = source_content.replace(meta_before_begin, LEWAGON_SOLUTION_CODE_DELETE_BEGIN.replace("\\", ""))
-                source_content = source_content.replace(meta_before_end, LEWAGON_SOLUTION_CODE_DELETE_END.replace("\\", ""))
+                source_content = source_content.replace(meta_before_begin, RAW_CODE_DELETE_BEGIN)
+                source_content = source_content.replace(meta_before_end, RAW_CODE_DELETE_END)
 
             else:
 
@@ -75,12 +79,25 @@ def process_code(source, destination, file_extension, ignore_run_delimiters, ver
                 source_content = source_content.replace(meta_before_begin, "")
                 source_content = source_content.replace(meta_before_end, "")
 
+            # version x removes content with meta delimiters if not equal to x
+            if version != meta_version:
+
+                # replace meta delimiters outside of version number by DELETE delimiters (remove content)
+                source_content = source_content.replace(meta_only_begin, RAW_CODE_DELETE_BEGIN)
+                source_content = source_content.replace(meta_only_end, RAW_CODE_DELETE_END)
+
+            else:
+
+                # remove delimiters inside of version number (keep content)
+                source_content = source_content.replace(meta_only_begin, "")
+                source_content = source_content.replace(meta_only_end, "")
+
             # version x removes content with meta delimiters after x and up
             if version <= meta_version:
 
                 # replace meta delimiters outside of version number by DELETE delimiters (remove content)
-                source_content = source_content.replace(meta_after_begin, LEWAGON_SOLUTION_CODE_DELETE_BEGIN.replace("\\", ""))
-                source_content = source_content.replace(meta_after_end, LEWAGON_SOLUTION_CODE_DELETE_END.replace("\\", ""))
+                source_content = source_content.replace(meta_after_begin, RAW_CODE_DELETE_BEGIN)
+                source_content = source_content.replace(meta_after_end, RAW_CODE_DELETE_END)
 
             else:
 

@@ -57,10 +57,11 @@ def read_conf(source, conf, verbose):
     source_directory = conf.get("source", source)
     project_name = conf.get("project_name", "")
     destinations = conf.get("destination", {})
+
     only = conf.get("only", {})
-    only_to = only.get("to", {})
-    only_on = only.get("on", {})
-    only_from = only.get("from", {})
+    only_to = only.get("to", {}) or {}      # the yaml loader yields None
+    only_for = only.get("for", {}) or {}    # if the key has no values
+    only_from = only.get("from", {}) or {}
 
     if verbose:
         print(Fore.BLUE
@@ -75,16 +76,16 @@ def read_conf(source, conf, verbose):
         print("- only to:")
         [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in only_to.items() for file in files]
 
-        print("- only on:")
-        [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in only_on.items() for file in files]
+        print("- only for:")
+        [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in only_for.items() for file in files]
 
         print("- only from:")
         [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in only_from.items() for file in files]
 
-    return source_directory, project_name, destinations, only_to, only_on, only_from
+    return source_directory, project_name, destinations, only_to, only_for, only_from
 
 
-def process_ignored_files(source, version, only_to, only_on, only_from, verbose):
+def process_ignored_files(source, version, only_to, only_for, only_from, verbose):
     """
     process a list of ignored files from version number
     and list of before and after rules
@@ -97,13 +98,14 @@ def process_ignored_files(source, version, only_to, only_on, only_from, verbose)
     ignored += [file for rule_version, files in only_to.items() for file in files if version > rule_version]
 
     # files are ignored if the challenge version is not equal to the version of the rule
-    ignored += [file for rule_version, files in only_on.items() for file in files if version != rule_version]
+    ignored += [file for rule_version, files in only_for.items() for file in files if version != rule_version]
 
     # files are ignored if the challenge version is before the version of the rule
     ignored += [file for rule_version, files in only_from.items() for file in files if version < rule_version]
 
     # correct additional ignores relative to source path
-    ignored = [os.path.join(source, path) for path in ignored]
+    if source != ".":
+        ignored = [os.path.join(source, path) for path in ignored]
 
     if verbose:
         print(Fore.BLUE
@@ -125,7 +127,7 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
         return
 
     # read conf
-    source_directory, project_name, destinations, only_to, only_on, only_from = \
+    source_directory, project_name, destinations, only_to, only_for, only_from = \
         read_conf(source, conf, verbose)
 
     # iterate through challenge versions
@@ -143,7 +145,7 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
             # skip challenge version
             continue
 
-        ignored = process_ignored_files(source, version, only_to, only_on, only_from, verbose)
+        ignored = process_ignored_files(source, version, only_to, only_for, only_from, verbose)
 
         # build version destination
         version_destination = os.path.join(destination, project_name)

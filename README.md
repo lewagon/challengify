@@ -135,7 +135,7 @@ iterate:
     to:
       2:
         - taxifare/kaggle.py
-    on:
+    for:
       15:
         - taxifare/notebooks/api_boilerplate.ipynb
         - taxifare/notebooks/api_usage.ipynb

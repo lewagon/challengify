@@ -58,8 +58,8 @@ def read_conf(source, conf, verbose):
     project_name = conf.get("project_name", "")
     destinations = conf.get("destination", {})
     ignores = conf.get("ignore", {})
-    ignore_before = ignores.get("before", {})
-    ignore_after = ignores.get("after", {})
+    ignore_before = ignores.get("before", {})  # TODO change to inclusive only_from
+    ignore_after = ignores.get("after", {})  # TODO change to inclusive only_to
 
     if verbose:
         print(Fore.BLUE

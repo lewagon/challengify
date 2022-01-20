@@ -54,11 +54,18 @@ def process(
     # get file extension
     _, ext = os.path.splitext(file_path)
 
+    # checking filenames without an extension
+    if ext == "":
+
+        # default profile for extensionless or dot files is shell
+        ext = ".sh"
+
     # extension handlers
     handlers = dict(
         ipynb=process_notebook,
         py=process_code,
         rb=process_code,
+        sh=process_code,
         )
 
     # retrieve handler function

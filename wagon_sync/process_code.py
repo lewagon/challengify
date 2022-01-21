@@ -108,7 +108,7 @@ def process_code(source, destination, file_extension, ignore_run_delimiters, ver
     # select replacement string for solution code depending on code language
     if file_extension == "py":
         solution_code_replacement = LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON
-    else:  # "rb" or "sh"
+    else:  # "rb", "sh" or "txt"
         solution_code_replacement = LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY
 
     # replace all content within le wagon solution pass delimiters

@@ -66,6 +66,7 @@ def process(
         py=process_code,
         rb=process_code,
         sh=process_code,
+        txt=process_code,
         )
 
     # retrieve handler function

@@ -1,8 +1,8 @@
-name: "Test"
+name: "Run Test"
 
 on:
   pull_request:
-    types: [synchronize, opened]
+    types: [opened, synchronize]
 
 jobs:
   run-test:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
@@ -23,7 +23,7 @@ jobs:
           cat << EOF >> ~/.pip/pip.conf
           [global]
           trusted-host = pypi.fury.io
-          extra-index-url = https://${{ secrets.GEMFURY_KEY }}@pypi.fury.io/ssaunier
+          extra-index-url = https://${{ secrets.GEMFURY_PULL_TOKEN }}@pypi.fury.io/ssaunier
           EOF
 
       - name: Install dependencies

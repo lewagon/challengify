@@ -52,10 +52,8 @@ class TestCodeActions(unittest.TestCase):
         """
         test shell code file transformations
         """
-        self.__code_transformation_test("shell/.zshrc")
-        self.__code_transformation_test("shell/Dockerfile")
-        self.__code_transformation_test("shell/Makefile")
-        self.__code_transformation_test("shell/script.sh")
+        for file in [".zshrc",  "Dockerfile",  "Makefile",  "script.sh"]:
+            self.__code_transformation_test(f"shell/{file}")
 
     def test_text(self):
         """

@@ -54,6 +54,7 @@ class TestCodeActions(unittest.TestCase):
         """
         self.__code_transformation_test("shell/Dockerfile")
         self.__code_transformation_test("shell/Makefile")
+        self.__code_transformation_test("shell/script.sh")
 
     def test_text(self):
         """

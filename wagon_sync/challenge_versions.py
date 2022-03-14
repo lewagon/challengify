@@ -71,11 +71,9 @@ class ChallengeVersions:
         """
 
         if isinstance(key, slice):
-            print(key)
             return self.versions[key]
 
         if isinstance(key, int):
-            print(f"kkk{key}")
             return self.versions[key]
 
         raise TypeError("Invalid argument type.")

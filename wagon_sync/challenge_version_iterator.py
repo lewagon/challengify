@@ -1,6 +1,8 @@
 
 from wagon_sync.challenge_version import ChallengeVersion
 
+from colorama import Fore, Style
+
 
 class ChallengeVersionIterator:
     """
@@ -13,6 +15,7 @@ class ChallengeVersionIterator:
     def __init__(self, destinations):
 
         self.versions = [ChallengeVersion(v, i, d) for i, (v, d) in enumerate(destinations.items())]
+        self.positions = {c.version:c.position for c in self.versions}
         self.min_position = 0
         self.max_position = len(self.versions)
 
@@ -25,6 +28,17 @@ class ChallengeVersionIterator:
         self.max_position = self.__find_version_index(max_position) + 1  # excluded
 
         return self
+
+    def position(self, version):
+
+        if version not in self.positions:
+
+            print(Fore.RED
+                  + "\nVersion does not exist 🤕"
+                  + Style.RESET_ALL
+                  + f"\nPlease verify that the version {version} is declared in the `destination` section of the conf file.")
+
+        return self.positions[version]
 
     def __find_version_index(self, version, min=False):
         """
@@ -41,7 +55,7 @@ class ChallengeVersionIterator:
             return version
 
         if type(version) is str:
-            return [i for i, c in enumerate(self.versions) if c.version == version][0]
+            return self.position(version)
 
         raise TypeError(f"Unsupported version type {type(version)}")
 

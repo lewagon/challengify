@@ -29,7 +29,7 @@ from wagon_sync.params.delimiters import (
 import re
 
 
-def process_code(source, destination, file_extension, ignore_run_delimiters, version_pre_clean=None):
+def process_code(source, destination, file_extension, ignore_run_delimiters=False, version_pre_clean=None):
 
     # create destination directory
     ensure_path_directory_exists(destination)

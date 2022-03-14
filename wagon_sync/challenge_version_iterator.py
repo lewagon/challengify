@@ -2,7 +2,7 @@
 from wagon_sync.challenge_version import ChallengeVersion
 
 
-class ChallengeVersions:
+class ChallengeVersionIterator:
     """
     stores all existing challenge versions
     stores range of versions on which to run the script
@@ -10,9 +10,9 @@ class ChallengeVersions:
     allows to iterate on delimiter versions
     """
 
-    def __init__(self, challenge_versions):
+    def __init__(self, destinations):
 
-        self.versions = [ChallengeVersion(v) for v in challenge_versions]
+        self.versions = [ChallengeVersion(v, d) for v, d in destinations.items()]
         self.min_version = 0
         self.max_version = len(self.versions)
 

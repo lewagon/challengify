@@ -1,5 +1,5 @@
 
-from wagon_sync.challenge_versions import ChallengeVersions
+from wagon_sync.challenge_version_iterator import ChallengeVersionIterator
 
 import pytest
 
@@ -14,14 +14,14 @@ class TestChallengeVersions:
 
         # Arrange
         # TODO: replace with loader object
-        loaded_priorities = dict(
+        destinations = dict(
             base="07-ML-Ops/01-Train-at-scale/04-Investigating-bottlenecks",
             api="07-ML-Ops/04-Predict-in-production/01-Build-your-API",
             docker_image="07-ML-Ops/04-Predict-in-production/02-Docker-image",
             docker_prod="07-ML-Ops/04-Predict-in-production/03-Deploy-to-Cloud-Run",
             api_advanced="07-ML-Ops/04-Predict-in-production/04-API-advanced")
 
-        challenge_versions = ChallengeVersions(list(loaded_priorities))
+        challenge_versions = ChallengeVersionIterator(destinations)
 
         self.loaded_versions = ["base", "api", "docker_image", "docker_prod", "api_advanced"]
 

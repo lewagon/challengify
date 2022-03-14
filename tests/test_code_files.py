@@ -48,6 +48,12 @@ class TestCodeActions(unittest.TestCase):
         """
         self.__code_transformation_test("ruby/code.rb")
 
+    def test_shell(self):
+        """
+        test shell code file transformations
+        """
+        self.__code_transformation_test("shell/Dockerfile")
+
     def test_text(self):
         """
         test text code file transformations

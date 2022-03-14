@@ -9,6 +9,10 @@ import re
 
 
 class TestNotebookActions(unittest.TestCase):
+    """
+    basic tests to verify that the outcome of the transformation
+    on notebook files does not change appart from the generated `id` attributes
+    """
 
     def __transformation_test(self, caller_name):
 

@@ -12,17 +12,17 @@ class ChallengeVersionIterator:
 
     def __init__(self, destinations):
 
-        self.versions = [ChallengeVersion(v, d) for v, d in destinations.items()]
-        self.min_version = 0
-        self.max_version = len(self.versions)
+        self.versions = [ChallengeVersion(v, i, d) for i, (v, d) in enumerate(destinations.items())]
+        self.min_position = 0
+        self.max_position = len(self.versions)
 
-    def filter(self, min_version, max_version):
+    def filter(self, min_position, max_position):
         """
         filters versions on which to run the script
         """
 
-        self.min_version = self.__find_version_index(min_version, min=True)
-        self.max_version = self.__find_version_index(max_version) + 1  # excluded
+        self.min_position = self.__find_version_index(min_position, min=True)
+        self.max_position = self.__find_version_index(max_position) + 1  # excluded
 
         return self
 
@@ -50,7 +50,7 @@ class ChallengeVersionIterator:
         iterator initializer
         """
 
-        self.n = self.min_version
+        self.iterated_position = self.min_position
         return self
 
     def __next__(self):
@@ -58,9 +58,9 @@ class ChallengeVersionIterator:
         iterator increment
         """
 
-        if self.n < self.max_version:
-            result = self.versions[self.n]
-            self.n += 1
+        if self.iterated_position < self.max_position:
+            result = self.versions[self.iterated_position]
+            self.iterated_position += 1
             return result
         else:
             raise StopIteration

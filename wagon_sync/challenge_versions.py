@@ -22,7 +22,7 @@ class ChallengeVersions:
         """
 
         self.min_version = self.__find_version_index(min_version, min=True)
-        self.max_version = self.__find_version_index(max_version)
+        self.max_version = self.__find_version_index(max_version) + 1  # excluded
 
         return self
 
@@ -35,13 +35,13 @@ class ChallengeVersions:
             if min:
                 return 0
             else:
-                return len(self.versions)
+                return len(self.versions) - 1  # included
 
         if type(version) is int:
             return version
 
         if type(version) is str:
-            return self.version.index(version)
+            return [i for i, c in enumerate(self.versions) if c.version == version][0]
 
         raise TypeError(f"Unsupported version type {type(version)}")
 

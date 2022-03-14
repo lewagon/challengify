@@ -53,6 +53,7 @@ class TestCodeActions(unittest.TestCase):
         test shell code file transformations
         """
         self.__code_transformation_test("shell/Dockerfile")
+        self.__code_transformation_test("shell/Makefile")
 
     def test_text(self):
         """

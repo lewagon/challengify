@@ -11,6 +11,20 @@ from wagon_sync.params.delimiters import TEST_CHALLENGIFICATION_SUFFIX
 import os
 
 
+def get_file_extension(file_path):
+
+    # get file extension
+    _, ext = os.path.splitext(file_path)
+
+    # checking filenames without an extension
+    if ext == "":
+
+        # default profile for extensionless or dot files is shell
+        ext = ".sh"
+
+    return ext[1:]
+
+
 def process(
         file_path, destination,
         ignore_run_delimiters,
@@ -51,15 +65,6 @@ def process(
 
     print(f"{file_path} {os.path.relpath(destination_path)}")
 
-    # get file extension
-    _, ext = os.path.splitext(file_path)
-
-    # checking filenames without an extension
-    if ext == "":
-
-        # default profile for extensionless or dot files is shell
-        ext = ".sh"
-
     # extension handlers
     handlers = dict(
         ipynb=process_notebook,
@@ -70,7 +75,7 @@ def process(
         )
 
     # retrieve handler function
-    file_extension = ext[1:]
+    file_extension = get_file_extension(file_path)
     handler_function = handlers.get(file_extension, process_file)  # default handler
 
     # call handler

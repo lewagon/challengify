@@ -239,9 +239,9 @@ def iterate(source, challenge, force, dry_run, verbose):
     if challenge is None:
         min_version = max_version = None
     elif "-" in challenge:
-        min_version, max_version = [int(version) for version in challenge.split("-")]
+        min_version, max_version = [version for version in challenge.split("-")]
     else:
-        min_version = max_version = int(challenge)
+        min_version = max_version = challenge
 
     # run iteration
     run_iterate(source, min_version, max_version, force, dry_run, verbose)

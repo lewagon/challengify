@@ -124,7 +124,7 @@ def run_sync(
         ignore_tld=False,               # ignore current path in git directory
         iterate_yaml_path=None,         # path to iterate yaml
         additional_ignores=[],          # ignored files and preprocessing
-        version_pre_clean=None):        # for the challengify iterate command
+        version_iterator=None):         # for the challengify iterate command
     """
     iterate through sources
     expand source path
@@ -209,7 +209,8 @@ def run_sync(
                 candidate_file, destination,
                 ignore_run_delimiters=ignore_run_delimiters,
                 ignore_tld=ignore_tld, iterate_yaml_path=iterate_yaml_path,
-                test=test, version_pre_clean=version_pre_clean)
+                test=test,
+                version_iterator=version_iterator)
 
             # append corrected files
             corrected_files.append(destination_path)

@@ -1,4 +1,5 @@
 
+from wagon_sync.challenge_version_iterator import ChallengeVersionIterator
 from wagon_sync.run_sync import run_sync
 
 import os
@@ -71,37 +72,39 @@ def read_conf(source, conf, verbose):
               + f"\n- project name: {project_name}")
 
         print("- destinations:")
-        [print(f"  - version {str(version).rjust(2)}: {destination}") for version, destination in destinations.items()]
+        [print(f"  - version {version}: {destination}") for version, destination in destinations.items()]
 
         print("- only to:")
-        [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in only_to.items() for file in files]
+        [print(f"  - version {version}: {file}") for version, files in only_to.items() for file in files]
 
         print("- only for:")
-        [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in only_for.items() for file in files]
+        [print(f"  - version {version}: {file}") for version, files in only_for.items() for file in files]
 
         print("- only from:")
-        [print(f"  - version {str(version).rjust(2)}: {file}") for version, files in only_from.items() for file in files]
+        [print(f"  - version {version}: {file}") for version, files in only_from.items() for file in files]
 
     return source_directory, project_name, destinations, only_to, only_for, only_from
 
 
-def process_ignored_files(source, version, only_to, only_for, only_from, verbose):
+def process_ignored_files(source, version, position, version_iterator, only_to, only_for, only_from, verbose):
     """
     process a list of ignored files from version number
     and list of before and after rules
     """
 
+    pos = version_iterator.position
+
     # append the files ignored for because
     ignored = []
 
     # files are ignored if the challenge version is after the version of the rule
-    ignored += [file for rule_version, files in only_to.items() for file in files if version > rule_version]
+    ignored += [file for rule_version, files in only_to.items() for file in files if position > pos(rule_version)]
 
     # files are ignored if the challenge version is not equal to the version of the rule
-    ignored += [file for rule_version, files in only_for.items() for file in files if version != rule_version]
+    ignored += [file for rule_version, files in only_for.items() for file in files if position != pos(rule_version)]
 
     # files are ignored if the challenge version is before the version of the rule
-    ignored += [file for rule_version, files in only_from.items() for file in files if version < rule_version]
+    ignored += [file for rule_version, files in only_from.items() for file in files if position < pos(rule_version)]
 
     # correct additional ignores relative to source path
     if source != ".":
@@ -109,7 +112,7 @@ def process_ignored_files(source, version, only_to, only_for, only_from, verbose
 
     if verbose:
         print(Fore.BLUE
-              + f"\nIgnored files for version {version}:"
+              + f"\nIgnored files for version {version} position {position}:"
               + Style.RESET_ALL)
         [print(f"- {file}") for file in ignored]
 
@@ -130,37 +133,25 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
     source_directory, project_name, destinations, only_to, only_for, only_from = \
         read_conf(source, conf, verbose)
 
+    # create iterator
+    version_iterator = ChallengeVersionIterator(destinations)
+    version_iterator.filter(min_version, max_version)
+
     # iterate through challenge versions
-    for version, destination in destinations.items():
+    for challenge_version in version_iterator:
 
-        # only generate challenge version if specified
-        if (min_version is not None and version < min_version) \
-           or (max_version is not None and version > max_version):
-
-            if verbose:
-                print(Fore.BLUE
-                      + f"\nSkip challenge version {version}..."
-                      + Style.RESET_ALL)
-
-            # skip challenge version
-            continue
-
-        ignored = process_ignored_files(source, version, only_to, only_for, only_from, verbose)
+        ignored = process_ignored_files(source, challenge_version.version, challenge_version.position, version_iterator, only_to, only_for, only_from, verbose)
 
         # build version destination
-        version_destination = os.path.join(destination, project_name)
-
-        # build versions
-        versions = min(destinations.keys()), max(destinations.keys()), version
+        version_destination = os.path.join(challenge_version.destination, project_name)
 
         if verbose:
             print(Fore.BLUE
-                  + f"\nProcess version {version}:"
+                  + f"\nProcess version {challenge_version.version}:"
                   + Style.RESET_ALL
                   + f"\n- source: {source_directory}"
                   + f"\n- destination: {version_destination}"
-                  + f"\n- ignored: {ignored}"
-                  + f"\n- versions: {versions}")
+                  + f"\n- ignored: {ignored}")
 
         # challengify the challenge version
         run_sync(
@@ -175,4 +166,4 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
             ignore_tld=True,                      # do not append path in git directory
             iterate_yaml_path=source,             # path to iterate yaml
             additional_ignores=ignored,           # handle ignored files
-            version_pre_clean=versions)           # handle version delimiters
+            version_iterator=version_iterator)    # handle version delimiters

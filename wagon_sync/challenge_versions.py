@@ -16,6 +16,16 @@ class ChallengeVersions:
         self.min_version = 0
         self.max_version = len(self.versions)
 
+    def filter(self, min_version, max_version):
+        """
+        filters versions on which to run the script
+        """
+
+        self.min_version = self.__find_version_index(min_version, min=True)
+        self.max_version = self.__find_version_index(max_version)
+
+        return self
+
     def __find_version_index(self, version, min=False):
         """
         allows to access version from name or index
@@ -34,16 +44,6 @@ class ChallengeVersions:
             return self.version.index(version)
 
         raise TypeError(f"Unsupported version type {type(version)}")
-
-    def filter(self, min_version, max_version):
-        """
-        filters versions on which to run the script
-        """
-
-        self.min_version = self.__find_version_index(min_version, min=True)
-        self.max_version = self.__find_version_index(max_version)
-
-        return self
 
     def __iter__(self):
         """

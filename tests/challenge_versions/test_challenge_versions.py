@@ -67,6 +67,18 @@ class TestChallengeVersions:
         assert stored_versions == self.loaded_versions
         assert slice_versions == self.loaded_versions[0:4]
 
+    def test_filter_and_slices(self, challenge_versions):
+
+        # Act
+        challenge_versions.filter(1, 3)
+
+        # Assert
+        stored_versions = [c.version for c in challenge_versions.versions]
+        slice_versions = [c.version for c in challenge_versions[0:4]]
+
+        assert stored_versions == self.loaded_versions
+        assert slice_versions == self.loaded_versions[0:4]
+
     def test_get(self, challenge_versions):
 
         # Act

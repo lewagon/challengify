@@ -8,6 +8,10 @@ import os
 
 
 class TestCodeActions(unittest.TestCase):
+    """
+    basic tests to verify that the outcome of the transformation
+    on code files does not change
+    """
 
     def __code_transformation_test(self, source_file):
 

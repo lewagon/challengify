@@ -186,7 +186,7 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
                   + f"\n- ignored: {ignored}")
 
         # challengify the challenge version
-        changes = run_sync(
+        processed_files = run_sync(
             [source_directory],
             version_destination,
             force,
@@ -201,11 +201,9 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
             version_iterator=version_iterator,    # handle version delimiters
             version_info=challenge_version.version)  # version info
 
-        # check changes
-        if changes is not None:
-
-            if verbose:
-                print(Fore.BLUE
-                      + "\nProcessed files:"
-                      + Style.RESET_ALL)
-                [print(f"- {os.path.relpath(f)}") for f in changes]
+        # list processed files
+        if verbose:
+            print(Fore.BLUE
+                  + "\nProcessed files:"
+                  + Style.RESET_ALL)
+            [print(f"- {os.path.relpath(f)}") for f in processed_files]

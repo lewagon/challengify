@@ -101,7 +101,7 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
 
     if verbose:
         print(Fore.BLUE
-              + f"\nFiles ignored by rule `only to` for version {version} position {position}:"
+              + f"\nFiles ignored by rule `only to` for version {version}:"
               + Style.RESET_ALL)
         [print(f"- {file}") for file in ignored_to]
 
@@ -110,7 +110,7 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
 
     if verbose:
         print(Fore.BLUE
-              + f"\nFiles ignored by rule `only for` for version {version} position {position}:"
+              + f"\nFiles ignored by rule `only for` for version {version}:"
               + Style.RESET_ALL)
         [print(f"- {file}") for file in ignored_for]
 
@@ -119,7 +119,7 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
 
     if verbose:
         print(Fore.BLUE
-              + f"\nFiles ignored by rule `only from` for version {version} position {position}:"
+              + f"\nFiles ignored by rule `only from` for version {version}:"
               + Style.RESET_ALL)
         [print(f"- {file}") for file in ignored_from]
 
@@ -132,7 +132,7 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
 
     if verbose:
         print(Fore.BLUE
-              + f"\nIgnored files for version {version} position {position}:"
+              + f"\nIgnored files for version {version}:"
               + Style.RESET_ALL)
         [print(f"- {file}") for file in ignored]
 

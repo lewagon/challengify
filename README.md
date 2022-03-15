@@ -123,29 +123,41 @@ challengify iterate . -c 1-3            # generate challenge versions from 1 to 
 
 ``` yaml
 iterate:
-  source: .challengify/TaxiFareModel
-  project_name: TaxiFareModel
+
+  source: taxifare
+  target: ../data-solutions/07-ML-Ops
+
   destination:
 
-    1: 07-Data-Engineering/02-ML-Iteration/03-Notebook-to-package
-    2: 07-Data-Engineering/02-ML-Iteration/04-MLFlow-quickstart
-    3: 07-Data-Engineering/02-ML-Iteration/05-Iterate-with-MLFlow
+    base: 01-Train-at-scale/04-Investigating-bottlenecks
+    api: 04-Predict-in-production/01-Build-your-API
+    docker_image: 04-Predict-in-production/02-Docker-image
+    docker_prod: 04-Predict-in-production/03-Deploy-to-Cloud-Run
+    api_advanced: 04-Predict-in-production/04-API-advanced
+
+  project_name: .
 
   only:
     to:
-      2:
-        - taxifare/kaggle.py
+      api:
+        - taxifare/introduction.md
     for:
-      15:
+      api:
         - taxifare/notebooks/api_boilerplate.ipynb
         - taxifare/notebooks/api_usage.ipynb
     from:
-      2:
-        - taxifare/mlflow.py
-        - taxifare/kaggle.py
-      12:
-        - api/fast.py
+      api:
+        - taxifare/api/__init__.py
+        - taxifare/api/fast.py
+      docker_image:
+        - taxifare/Dockerfile
+        - taxifare/Dockerfile_intel
+        - taxifare/Dockerfile_silicon
+        - taxifare/requirements_intel.txt
+        - taxifare/requirements_silicon.txt
 ```
+
+![version rules](doc/challengify-iterate.png)
 
 ### delimiters
 

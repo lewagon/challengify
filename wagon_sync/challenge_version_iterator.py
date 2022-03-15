@@ -21,7 +21,7 @@ class ChallengeVersionIterator:
 
     def filter(self, min_position, max_position):
         """
-        filters versions on which to run the script by name or sequence number
+        filters versions on which to run the script by name or sequence position
         """
 
         self.min_position = self.__find_version_index(min_position, min=True)
@@ -30,6 +30,9 @@ class ChallengeVersionIterator:
         return self
 
     def position(self, version):
+        """
+        returns version sequence position from name or sequence position
+        """
 
         # check if param is a number
         if version.isdigit():
@@ -59,7 +62,7 @@ class ChallengeVersionIterator:
 
     def __find_version_index(self, version, min=False):
         """
-        allows to access version from name or index
+        allows to access version by name or sequence position
         """
 
         if version is None:

@@ -94,17 +94,35 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
 
     pos = version_iterator.position
 
-    # append the files ignored for because
-    ignored = []
-
     # files are ignored if the challenge version is after the version of the rule
-    ignored += [file for rule_version, files in only_to.items() for file in files if position > pos(rule_version)]
+    ignored_to = [file for rule_version, files in only_to.items() for file in files if position > pos(rule_version)]
+
+    if verbose:
+        print(Fore.BLUE
+              + f"\nFiles ignored by rule `only to` for version {version} position {position}:"
+              + Style.RESET_ALL)
+        [print(f"- {file}") for file in ignored_to]
 
     # files are ignored if the challenge version is not equal to the version of the rule
-    ignored += [file for rule_version, files in only_for.items() for file in files if position != pos(rule_version)]
+    ignored_for = [file for rule_version, files in only_for.items() for file in files if position != pos(rule_version)]
+
+    if verbose:
+        print(Fore.BLUE
+              + f"\nFiles ignored by rule `only for` for version {version} position {position}:"
+              + Style.RESET_ALL)
+        [print(f"- {file}") for file in ignored_for]
 
     # files are ignored if the challenge version is before the version of the rule
-    ignored += [file for rule_version, files in only_from.items() for file in files if position < pos(rule_version)]
+    ignored_from = [file for rule_version, files in only_from.items() for file in files if position < pos(rule_version)]
+
+    if verbose:
+        print(Fore.BLUE
+              + f"\nFiles ignored by rule `only from` for version {version} position {position}:"
+              + Style.RESET_ALL)
+        [print(f"- {file}") for file in ignored_from]
+
+    # append the ignored files
+    ignored = ignored_to + ignored_for + ignored_from
 
     # correct additional ignores relative to source path
     if source != ".":

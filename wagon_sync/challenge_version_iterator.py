@@ -7,9 +7,9 @@ from colorama import Fore, Style
 class ChallengeVersionIterator:
     """
     stores all existing challenge versions
-    stores range of versions on which to run the script
-    allows to iterate on challenge versions
-    allows to iterate on delimiter versions
+    stores filtered range of versions on which to run the script
+    allows to iterate on filtered challenge versions (default)
+    allows to iterate on all challenge versions (used for delimiters)
     """
 
     def __init__(self, destinations):
@@ -21,7 +21,7 @@ class ChallengeVersionIterator:
 
     def filter(self, min_position, max_position):
         """
-        filters versions on which to run the script
+        filters versions on which to run the script by name or sequence number
         """
 
         self.min_position = self.__find_version_index(min_position, min=True)

@@ -1,4 +1,15 @@
 
+# TBD (TBD)
+
+### Added
+
+- Replaces numeric versions with ordered text versions in `.challengify_iterate.yml`
+- Add tests for code transformations
+
+### Changed
+
+- Refactores the code in order to use a version iterator
+
 # 0.3.2 (2022-01-19)
 
 ### Added

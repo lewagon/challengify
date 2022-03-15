@@ -230,7 +230,12 @@ def inject(yaml_path):
     default=False,
     is_flag=True,
     help="List file selection process: scope, expanded scope, git controlled, sync ignored (default: False).")
-def iterate(source, challenge, force, dry_run, verbose):
+@click.option(
+    "-i", "--ignore-metadata/--no-ignore-metadata",
+    default=False,
+    is_flag=True,
+    help="Do not write metadata file in generated challenge versions.")
+def iterate(source, challenge, force, dry_run, verbose, ignore_metadata):
     """
     Iterate on ssot to generate solutions.
     """
@@ -248,7 +253,7 @@ def iterate(source, challenge, force, dry_run, verbose):
         min_version = max_version = challenge
 
     # run iteration
-    run_iterate(source, min_version, max_version, force, dry_run, verbose)
+    run_iterate(source, min_version, max_version, force, dry_run, verbose, ignore_metadata)
 
 
 if __name__ == '__main__':

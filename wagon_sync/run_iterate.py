@@ -139,7 +139,20 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
     return ignored
 
 
-def run_iterate(source, min_version, max_version, force, dry_run, verbose):
+def write_challenge_metadata(version_destination, original_files):
+
+    metadata_filename = ".lewagon/.challengify_generated.txt"
+    metadata_path = os.path.join(version_destination, metadata_filename)
+
+    # create metadata directory
+    os.makedirs(os.path.dirname(metadata_path), exist_ok=True)
+
+    # write content
+    with open(metadata_path, "w") as file:
+        file.write("\n".join([metadata_filename] + original_files) + "\n")
+
+
+def run_iterate(source, min_version, max_version, force, dry_run, verbose, ignore_metadata):
 
     # load conf
     conf = load_conf_file(source, verbose)
@@ -186,7 +199,7 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
                   + f"\n- ignored: {ignored}")
 
         # challengify the challenge version
-        processed_files = run_sync(
+        original_files, processed_files = run_sync(
             [source_directory],
             version_destination,
             force,
@@ -200,6 +213,10 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
             additional_ignores=ignored,           # handle ignored files
             version_iterator=version_iterator,    # handle version delimiters
             version_info=challenge_version.version)  # version info
+
+        # generate metadata
+        if not dry_run and not ignore_metadata:
+            write_challenge_metadata(version_destination, original_files)
 
         # list processed files
         if verbose:

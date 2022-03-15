@@ -88,4 +88,4 @@ def process(
             ignore_run_delimiters,
             version_iterator=version_iterator)
 
-    return destination_path
+    return destination_file_path, destination_path

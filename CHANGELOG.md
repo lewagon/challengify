@@ -10,6 +10,8 @@
 - Adds a `target` directory in the conf file for the root of the generated challenge versions
 - Adds the `iterate` command conf file param `only.for`
 - Adds `# $ONLY_number_BEGIN` and `# $ONLY_number_END` code delimiters for `challengify iterate`
+- Generates a per challenge version `.lewagon/.challengify_generated.txt` containing the list of generated files
+- Add `--ignore-metadata` option to ignore metadata file generation
 - Add tests for code transformations
 
 ### Fixed

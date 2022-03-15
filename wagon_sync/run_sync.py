@@ -206,11 +206,12 @@ def run_sync(
 
     # synchronize files
     corrected_files = []
+    original_files = []
 
     for candidate_file in candidate_files:
 
         # synchronize file
-        destination_path = process(
+        destination_file_path, destination_path = process(
             candidate_file, destination, dry_run,
             ignore_run_delimiters=ignore_run_delimiters,
             ignore_tld=ignore_tld, iterate_yaml_path=iterate_yaml_path,
@@ -219,6 +220,7 @@ def run_sync(
 
         # append corrected files
         corrected_files.append(destination_path)
+        original_files.append(destination_file_path)
 
     # autoformat generated code
     if not dry_run and user_autoformater:
@@ -227,4 +229,4 @@ def run_sync(
         autoformat_code(corrected_files)
 
     # return changes
-    return corrected_files
+    return original_files, corrected_files

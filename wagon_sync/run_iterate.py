@@ -137,6 +137,17 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
     version_iterator = ChallengeVersionIterator(destinations)
     version_iterator.filter(min_version, max_version)
 
+    if verbose:
+        print(Fore.BLUE
+              + "\nAll challenges:"
+              + Style.RESET_ALL)
+        [print(f"- {c.version}") for c in version_iterator.versions]
+
+        print(Fore.BLUE
+              + "\nFiltered challenges:"
+              + Style.RESET_ALL)
+        [print(f"- {c.version}") for c in version_iterator]
+
     # iterate through challenge versions
     for challenge_version in version_iterator:
 

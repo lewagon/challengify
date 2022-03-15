@@ -240,6 +240,10 @@ def iterate(source, challenge, force, dry_run, verbose):
         min_version = max_version = None
     elif "-" in challenge:
         min_version, max_version = [version for version in challenge.split("-")]
+        if min_version == "":
+            min_version = None
+        if max_version == "":
+            max_version = None
     else:
         min_version = max_version = challenge
 

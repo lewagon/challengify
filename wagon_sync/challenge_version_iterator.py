@@ -31,6 +31,23 @@ class ChallengeVersionIterator:
 
     def position(self, version):
 
+        # check if param is a number
+        if version.isdigit():
+
+            version = int(version)
+
+            if version < 0 or version >= len(self.versions):
+
+                print(Fore.RED
+                      + "\nInvalid version 🤕"
+                      + Style.RESET_ALL
+                      + f"\nPlease verify that the version {version} corresponds to a valid sequence in the `destination` section of the conf file.")
+
+                raise ValueError("Invalid version")
+
+            return version
+
+        # verify if version exists
         if version not in self.positions:
 
             print(Fore.RED

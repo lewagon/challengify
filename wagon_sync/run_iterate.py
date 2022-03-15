@@ -56,8 +56,9 @@ def read_conf(source, conf, verbose):
 
     # retrieve parameters
     source_directory = conf.get("source", source)
-    project_name = conf.get("project_name", "")
+    target_directory = conf.get("target", ".")
     destinations = conf.get("destination", {})
+    project_name = conf.get("project_name", "")
 
     only = conf.get("only", {})
     only_to = only.get("to", {}) or {}      # the yaml loader yields None
@@ -69,6 +70,7 @@ def read_conf(source, conf, verbose):
               + "\nLoaded conf:"
               + Style.RESET_ALL
               + f"\n- source directory: {source_directory}"
+              + f"\n- target directory: {target_directory}"
               + f"\n- project name: {project_name}")
 
         print("- destinations:")
@@ -83,7 +85,7 @@ def read_conf(source, conf, verbose):
         print("- only from:")
         [print(f"  - version {version}: {file}") for version, files in only_from.items() for file in files]
 
-    return source_directory, project_name, destinations, only_to, only_for, only_from
+    return source_directory, target_directory, destinations, project_name, only_to, only_for, only_from
 
 
 def process_ignored_files(source, version, position, version_iterator, only_to, only_for, only_from, verbose):
@@ -148,8 +150,8 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
         return
 
     # read conf
-    source_directory, project_name, destinations, only_to, only_for, only_from = \
-        read_conf(source, conf, verbose)
+    source_directory, target_directory, destinations, project_name, \
+        only_to, only_for, only_from = read_conf(source, conf, verbose)
 
     # create iterator
     version_iterator = ChallengeVersionIterator(destinations)
@@ -172,7 +174,8 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
         ignored = process_ignored_files(source, challenge_version.version, challenge_version.position, version_iterator, only_to, only_for, only_from, verbose)
 
         # build version destination
-        version_destination = os.path.join(challenge_version.destination, project_name)
+        version_destination = os.path.join(
+            target_directory, challenge_version.destination, project_name)
 
         if verbose:
             print(Fore.BLUE

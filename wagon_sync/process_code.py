@@ -59,7 +59,7 @@ def process_code(source, destination, file_extension, ignore_run_delimiters=Fals
         for delimiter_version in version_iterator.versions:  # iterate through all versions without using the iterator
 
             # retrieve challenge versions for delimiters
-            meta_version_priority = delimiter_version.priority
+            meta_version_position = delimiter_version.position
             meta_version_name = delimiter_version.version
 
             # build meta version delimiters
@@ -71,7 +71,7 @@ def process_code(source, destination, file_extension, ignore_run_delimiters=Fals
             meta_after_end = META_DELIMITER_AFTER_END.replace(META_DELIMITER_VERSION_REPLACEMENT, meta_version_name)
 
             # version x removes content with meta delimiters before x and down
-            if challenge_position >= meta_version_priority:
+            if challenge_position >= meta_version_position:
 
                 # replace meta delimiters outside of version number by DELETE delimiters (remove content)
                 source_content = source_content.replace(meta_before_begin, RAW_CODE_DELETE_BEGIN)
@@ -84,7 +84,7 @@ def process_code(source, destination, file_extension, ignore_run_delimiters=Fals
                 source_content = source_content.replace(meta_before_end, "")
 
             # version x removes content with meta delimiters if not equal to x
-            if challenge_position != meta_version_priority:
+            if challenge_position != meta_version_position:
 
                 # replace meta delimiters outside of version number by DELETE delimiters (remove content)
                 source_content = source_content.replace(meta_only_begin, RAW_CODE_DELETE_BEGIN)
@@ -97,7 +97,7 @@ def process_code(source, destination, file_extension, ignore_run_delimiters=Fals
                 source_content = source_content.replace(meta_only_end, "")
 
             # version x removes content with meta delimiters after x and up
-            if challenge_position <= meta_version_priority:
+            if challenge_position <= meta_version_position:
 
                 # replace meta delimiters outside of version number by DELETE delimiters (remove content)
                 source_content = source_content.replace(meta_after_begin, RAW_CODE_DELETE_BEGIN)

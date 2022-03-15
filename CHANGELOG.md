@@ -9,6 +9,7 @@
 - Adds the `iterate` command conf file param `only.for`
 - Adds `# $ONLY_number_BEGIN` and `# $ONLY_number_END` code delimiters for `challengify iterate`
 - Add tests for code transformations
+- Dry run now lists the destination path of the files that would be generated
 
 ### Fixed
 

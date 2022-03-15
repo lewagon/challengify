@@ -186,7 +186,7 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
                   + f"\n- ignored: {ignored}")
 
         # challengify the challenge version
-        run_sync(
+        changes = run_sync(
             [source_directory],
             version_destination,
             force,
@@ -198,4 +198,14 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose):
             ignore_tld=True,                      # do not append path in git directory
             iterate_yaml_path=source,             # path to iterate yaml
             additional_ignores=ignored,           # handle ignored files
-            version_iterator=version_iterator)    # handle version delimiters
+            version_iterator=version_iterator,    # handle version delimiters
+            version_info=challenge_version.version)  # version info
+
+        # check changes
+        if changes is not None:
+
+            if verbose:
+                print(Fore.BLUE
+                      + "\nProcessed files:"
+                      + Style.RESET_ALL)
+                [print(f"- {os.path.relpath(f)}") for f in changes]

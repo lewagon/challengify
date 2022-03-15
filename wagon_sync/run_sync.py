@@ -124,7 +124,8 @@ def run_sync(
         ignore_tld=False,               # ignore current path in git directory
         iterate_yaml_path=None,         # path to iterate yaml
         additional_ignores=[],          # ignored files and preprocessing
-        version_iterator=None):         # for the challengify iterate command
+        version_iterator=None,          # for the challengify iterate command
+        version_info=None):             # version info for challengify iterate
     """
     iterate through sources
     expand source path
@@ -192,31 +193,38 @@ def run_sync(
 
     print_files("green", "Files candidate", candidate_files)
 
-    # check if actions should be performed
-    if not dry_run:
+    version_info = f" ({version_info})" if version_info is not None else ""
 
+    if dry_run:
+        print(Fore.BLUE
+              + f"\nDry run on files{version_info}:"
+              + Style.RESET_ALL)
+    else:
         print(Fore.GREEN
-              + "\nCopy files:"
+              + f"\nCopy files{version_info}:"
               + Style.RESET_ALL)
 
-        # synchronize files
-        corrected_files = []
+    # synchronize files
+    corrected_files = []
 
-        for candidate_file in candidate_files:
+    for candidate_file in candidate_files:
 
-            # synchronize file
-            destination_path = process(
-                candidate_file, destination,
-                ignore_run_delimiters=ignore_run_delimiters,
-                ignore_tld=ignore_tld, iterate_yaml_path=iterate_yaml_path,
-                test=test,
-                version_iterator=version_iterator)
+        # synchronize file
+        destination_path = process(
+            candidate_file, destination, dry_run,
+            ignore_run_delimiters=ignore_run_delimiters,
+            ignore_tld=ignore_tld, iterate_yaml_path=iterate_yaml_path,
+            test=test,
+            version_iterator=version_iterator)
 
-            # append corrected files
-            corrected_files.append(destination_path)
+        # append corrected files
+        corrected_files.append(destination_path)
 
-        # autoformat generated code
-        if user_autoformater:
+    # autoformat generated code
+    if not dry_run and user_autoformater:
 
-            # auformat code
-            autoformat_code(corrected_files)
+        # auformat code
+        autoformat_code(corrected_files)
+
+    # return changes
+    return corrected_files

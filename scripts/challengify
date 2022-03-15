@@ -214,7 +214,7 @@ def inject(yaml_path):
 @click.option(
     "-c", "--challenge",
     default=None,
-    help="Version (`2`) or range (`1-3`) of challenges to generate from .challengify_iterate.yml destinations (default: all).")
+    help="Version (`api`, `2`) or range (`api..`, `1..3`) of challenges to generate from .challengify_iterate.yml destinations (default: all).")
 @click.option(
     "-f", "--force/--no-force",
     default=False,

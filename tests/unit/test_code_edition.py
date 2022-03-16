@@ -13,13 +13,13 @@ class TestCodeEdition():
             $END
             after
         """
-        replacement = "replacement"
+        replacement = "pass"
         begin = "$BEGIN"
         end = "$END"
 
         expected_result = """
             before
-            replacement
+            pass
             after
         """
 
@@ -40,13 +40,13 @@ class TestCodeEdition():
                 $END
             after
         """
-        replacement = "replacement"
+        replacement = "pass"
         begin = "$BEGIN"
         end = "$END"
 
         expected_result = """
             before
-                replacement
+                pass
             after
         """
 

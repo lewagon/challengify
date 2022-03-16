@@ -3,16 +3,25 @@
 
 ### Added
 
+#### Challengify iterate
+
 - Replaces numeric versions with ordered text versions in `.challengify_iterate.yml`
 - Allows the use of prefixes for the `iterate` command through wagon_common AliasedGroup (i.e. `challengify ite` instead of `challengify iterate`)
 - Allows to generate a specific or a range of challenge versions through the `-c` option (i.e. `-c api`, `-c api..api_advanced`, `-c api..`, `-c ..api`, `-c 3`, -c 3..4`, `-c 3..`, `-c ..3`, `-c 0..api`)
-- `--dry-run` now lists the destination path of the files that would be generated
 - Adds a `target` directory in the conf file for the root of the generated challenge versions
 - Adds the `iterate` command conf file param `only.for`
 - Adds `# $ONLY_number_BEGIN` and `# $ONLY_number_END` code delimiters for `challengify iterate`
 - Generates a per challenge version `.lewagon/.challengify_generated.txt` containing the list of generated files
-- Add `--ignore-metadata` option to ignore metadata file generation
-- Add tests for code transformations
+- Adds `--ignore-metadata` option to ignore metadata file generation
+
+#### Challengify run
+
+- Adds `# $DEL_BEGIN` / `# $DEL_END` delimiters
+- Adds `# $ERASE_BEGIN` / `# $ERASE_END` delimiters consuming block newline
+- Adds `# $WIPE_BEGIN` / `# $WIPE_END` delimiters consuming block + following newline
+- Adds `# $IMPLODE_BEGIN` / `# $IMPLODE_END` delimiters consuming block + surrounding newlines
+- `--dry-run` now lists the destination path of the files that would be generated
+- Adds tests for code transformations
 
 ### Fixed
 

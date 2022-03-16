@@ -85,7 +85,7 @@ def process_code(source, destination, file_extension, version_iterator=None):
         # retrieve versions
         versions_before_current = version_iterator.get_versions_before()
         versions_after_current = version_iterator.get_versions_after()
-        version_current = version_iterator.get_version_current()  # remove usage of version_iterator.iterated_position
+        version_current = version_iterator.get_version_current()
 
         # process only to
         content = process_versions(content, "only_to", versions_before_current, keep=False)

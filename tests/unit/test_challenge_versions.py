@@ -102,3 +102,43 @@ class TestChallengeVersions:
 
         assert stored_versions == self.loaded_versions
         assert slice_versions == self.loaded_versions[-1]
+
+    def test_versions_1_iteration(self, challenge_versions):
+
+        # Act
+        iterator = iter(challenge_versions)
+        first = next(iterator)
+
+        # Assert
+        assert first.version == self.loaded_versions[0]
+
+        versions_before = []
+        version_current = "base"
+        versions_after = ["api", "docker_image", "docker_prod", "api_advanced"]
+
+        assert challenge_versions.get_versions_before() == versions_before
+        assert challenge_versions.get_version_current() == version_current
+        assert challenge_versions.get_versions_after() == versions_after
+
+    def test_versions_4_iterations(self, challenge_versions):
+
+        # Act
+        iterator = iter(challenge_versions)
+        first = next(iterator)
+        second = next(iterator)
+        third = next(iterator)
+        fourth = next(iterator)
+
+        # Assert
+        assert first.version == self.loaded_versions[0]
+        assert second.version == self.loaded_versions[1]
+        assert third.version == self.loaded_versions[2]
+        assert fourth.version == self.loaded_versions[3]
+
+        versions_before = ["base", "api", "docker_image"]
+        version_current = "docker_prod"
+        versions_after = ["api_advanced"]
+
+        assert challenge_versions.get_versions_before() == versions_before
+        assert challenge_versions.get_version_current() == version_current
+        assert challenge_versions.get_versions_after() == versions_after

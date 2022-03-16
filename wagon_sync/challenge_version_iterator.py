@@ -60,6 +60,27 @@ class ChallengeVersionIterator:
 
         return self.positions[version]
 
+    def get_versions_before(self):
+        """
+        retrieve the list of versions before the current version
+        """
+
+        return [v.version for v in self.versions[:self.iterated_position]]
+
+    def get_versions_after(self):
+        """
+        retrieve the list of versions after the current version
+        """
+
+        return [v.version for v in self.versions[self.iterated_position + 1:]]
+
+    def get_version_current(self):
+        """
+        retrieve the current iterated version
+        """
+
+        return self.versions[self.iterated_position].version
+
     def __find_version_index(self, version, min=False):
         """
         allows to access version by name or sequence position
@@ -84,7 +105,7 @@ class ChallengeVersionIterator:
         iterator initializer
         """
 
-        self.iterated_position = self.min_position
+        self.iterated_position = self.min_position - 1
         return self
 
     def __next__(self):
@@ -92,9 +113,10 @@ class ChallengeVersionIterator:
         iterator increment
         """
 
+        self.iterated_position += 1
+
         if self.iterated_position < self.max_position:
             result = self.versions[self.iterated_position]
-            self.iterated_position += 1
             return result
         else:
             raise StopIteration

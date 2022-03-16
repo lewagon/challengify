@@ -27,7 +27,6 @@ def get_file_extension(file_path):
 
 def process(
         file_path, destination, dry_run,
-        ignore_run_delimiters,
         ignore_tld, iterate_yaml_path,
         test, version_iterator=None):
     """
@@ -85,7 +84,6 @@ def process(
             file_path,
             destination_path,
             file_extension,
-            ignore_run_delimiters,
             version_iterator=version_iterator)
 
     return destination_file_path, destination_path

@@ -24,7 +24,7 @@ LEWAGON_SOLUTION_NB_METADATA_OPT = "challengify"
 LEWAGON_SOLUTION_NB_METADATA_OPT_KEEP_OUTPUT = "keep_output"
 LEWAGON_SOLUTION_NB_METADATA_OPT_KEEP_OUTPUT_DEFAULT = False
 
-# new raw delimiters 👇
+# raw delimiters 👇
 
 CHALLENGIFY_DELIMITERS = dict(
     challengify=[
@@ -37,17 +37,14 @@ CHALLENGIFY_DELIMITERS = dict(
         dict(begin="# $WIPE_BEGIN",         end="# $WIPE_END\n\n"),             # erase + consume the line below the delimited block
         dict(begin="\n# $IMPLODE_BEGIN",    end="# $IMPLODE_END\n\n")])         # wipe + consumes the line above the delimited block
 
-# raw delimiters 👇
-
-# code delete
-RAW_CODE_DELETE_BEGIN = "# $DELETE_BEGIN"
-RAW_CODE_DELETE_END = "# $DELETE_END"
-
-# code challengify
-RAW_CODE_CHALLENGIFY_BEGIN = "# $CHALLENGIFY_BEGIN"
-RAW_CODE_CHALLENGIFY_END = "# $CHALLENGIFY_END"
-
 # replacements 👇
+
+CHALLENGIFY_REPLACEMENTS = dict(
+    challengify=dict(
+        py="pass  # YOUR CODE HERE",
+        default="# YOUR CODE HERE"),  # "rb", "sh", "txt"
+    delete=dict(
+        default=""))
 
 # notebook replacements
 LEWAGON_SOLUTION_NB_MARKDOWN_REPLACEMENT = "> YOUR ANSWER HERE"
@@ -75,14 +72,6 @@ META_DELIMITER_ONLY_END = "# $ONLY_number_END"
 # after
 META_DELIMITER_AFTER_BEGIN = "# $AFTER_number_BEGIN"
 META_DELIMITER_AFTER_END = "# $AFTER_number_END"
-
-# ignore code delete
-ITERATE_IGNORE_CODE_DELETE_BEGIN = "# $IGNORED_DELETE_BEGIN"
-ITERATE_IGNORE_CODE_DELETE_END = "# $IGNORED_DELETE_END"
-
-# ignore code challengify
-ITERATE_IGNORE_CODE_CHALLENGIFY_BEGIN = "# $IGNORED_CHALLENGIFY_BEGIN"
-ITERATE_IGNORE_CODE_CHALLENGIFY_END = "# $IGNORED_CHALLENGIFY_END"
 
 # - - - - - file patterns for challengify test and clean
 

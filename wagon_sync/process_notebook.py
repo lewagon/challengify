@@ -181,12 +181,12 @@ def clean_notebook(source, destination, file_extension, nb_options):
     ntbk.save(destination)
 
 
-def process_notebook(source, destination, file_extension, ignore_run_delimiters=False, version_iterator=None):
+def process_notebook(source, destination, file_extension, version_iterator=None):
     """
     control notebook processes
     """
 
-    # TODO: handle challengify iterate (ignore_run_delimiters, version_iterator)
+    # TODO: handle challengify iterate (version_iterator)
 
     # read notebook into a python dictionary
     notebook_content = read_notebook(source)

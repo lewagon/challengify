@@ -37,13 +37,14 @@ this_is_not_removed_either = True
 # the delete delimiters do not consume the line of the block
 # before the block
 # $DEL_BEGIN
+tralala = True
 # $DEL_END
 # after the block
 
 # the erase delimiters consume the line of the block
 # before the block
 # $ERASE_BEGIN
-tralala = True
+trololo = True
 # $ERASE_END
 # after the block
 
@@ -52,7 +53,7 @@ tralala = True
 # before the block
 
 # $WIPE_BEGIN
-trololo = True
+trilili = True
 # $WIPE_END
 
 # after the block
@@ -62,7 +63,7 @@ trololo = True
 # before the block
 
 # $IMPLODE_BEGIN
-trilili = True
+trululu = True
 # $IMPLODE_END
 
 # after the block

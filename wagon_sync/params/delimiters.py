@@ -56,22 +56,12 @@ CHALLENGIFY_REPLACEMENTS = dict(
 
 # - - - - - delimiters for challengify iterate
 
-# delimiters for code 👇
+# raw delimiters 👇
 
-# version replacement
-META_DELIMITER_VERSION_REPLACEMENT = "number"
-
-# before
-META_DELIMITER_BEFORE_BEGIN = "# $BEFORE_number_BEGIN"
-META_DELIMITER_BEFORE_END = "# $BEFORE_number_END"
-
-# only
-META_DELIMITER_ONLY_BEGIN = "# $ONLY_number_BEGIN"
-META_DELIMITER_ONLY_END = "# $ONLY_number_END"
-
-# after
-META_DELIMITER_AFTER_BEGIN = "# $AFTER_number_BEGIN"
-META_DELIMITER_AFTER_END = "# $AFTER_number_END"
+ITERATE_DELIMITERS = dict(
+    only_to=dict(begin="# $ONLY_TO_version_BEGIN",  end="# $ONLY_TO_version_END"),
+    only_for=dict(begin="# $ONLY_FOR_version_BEGIN",  end="# $ONLY_FOR_version_END"),
+    only_from=dict(begin="# $ONLY_FROM_version_BEGIN",  end="# $ONLY_FROM_version_END"))
 
 # - - - - - file patterns for challengify test and clean
 

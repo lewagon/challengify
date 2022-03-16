@@ -25,11 +25,16 @@
 
 ### Fixed
 
+#### Challengify iterate
+
 - Does not consume anymore the delimiters of the `run` command
 - Corrects the path of the generated challenge files
 
 ### Changed
 
+#### Challengify iterate
+
+- Refactor the code handling version generation
 - Renames the `iterate` command conf file params `ignore.before` and `ignore.after` into `only.from` and `only.to`
 - Renames the conf file for the `iterate` command from `.challengify_iterate.yaml` to `.challengify_iterate.yml`
 - Refactores the code in order to use a version iterator

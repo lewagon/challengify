@@ -57,7 +57,7 @@ def read_conf(source, conf, verbose):
     # retrieve parameters
     source_directory = conf.get("source", source)
     target_directory = conf.get("target", ".")
-    destinations = conf.get("destination", {})
+    versions = conf.get("versions", {})
 
     only = conf.get("only", {})
     only_to = only.get("to", {}) or {}      # the yaml loader yields None
@@ -71,8 +71,8 @@ def read_conf(source, conf, verbose):
               + f"\n- source directory: {source_directory}"
               + f"\n- target directory: {target_directory}")
 
-        print("- destinations:")
-        [print(f"  - version {version}: {destination}") for version, destination in destinations.items()]
+        print("- versions:")
+        [print(f"  - version {version}: {destination}") for version, destination in versions.items()]
 
         print("- only to:")
         [print(f"  - version {version}: {file}") for version, files in only_to.items() for file in files]
@@ -83,7 +83,7 @@ def read_conf(source, conf, verbose):
         print("- only from:")
         [print(f"  - version {version}: {file}") for version, files in only_from.items() for file in files]
 
-    return source_directory, target_directory, destinations, only_to, only_for, only_from
+    return source_directory, target_directory, versions, only_to, only_for, only_from
 
 
 def process_ignored_files(source, version, position, version_iterator, only_to, only_for, only_from, verbose):
@@ -161,11 +161,11 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose, ignor
         return
 
     # read conf
-    source_directory, target_directory, destinations, \
+    source_directory, target_directory, versions, \
         only_to, only_for, only_from = read_conf(source, conf, verbose)
 
     # create iterator
-    version_iterator = ChallengeVersionIterator(destinations)
+    version_iterator = ChallengeVersionIterator(versions)
     version_iterator.filter(min_version, max_version)
 
     if verbose:

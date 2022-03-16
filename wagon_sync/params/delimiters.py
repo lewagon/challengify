@@ -24,6 +24,14 @@ LEWAGON_SOLUTION_NB_METADATA_OPT = "challengify"
 LEWAGON_SOLUTION_NB_METADATA_OPT_KEEP_OUTPUT = "keep_output"
 LEWAGON_SOLUTION_NB_METADATA_OPT_KEEP_OUTPUT_DEFAULT = False
 
+# notebook replacements
+LEWAGON_SOLUTION_NB_MARKDOWN_REPLACEMENT = "> YOUR ANSWER HERE"
+
+# single line replacements do not require to deal with code indentation
+LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON = "pass  # YOUR CODE HERE"
+LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON_COMMENT = "# YOUR CODE HERE"
+LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY = "# YOUR CODE HERE"  # also used for shell script
+
 # raw delimiters 👇
 
 CHALLENGIFY_DELIMITERS = dict(
@@ -37,7 +45,7 @@ CHALLENGIFY_DELIMITERS = dict(
         dict(begin="# $WIPE_BEGIN",         end="# $WIPE_END\n\n"),             # erase + consume the line below the delimited block
         dict(begin="\n# $IMPLODE_BEGIN",    end="# $IMPLODE_END\n\n")])         # wipe + consumes the line above the delimited block
 
-# replacements 👇
+# raw replacements 👇
 
 CHALLENGIFY_REPLACEMENTS = dict(
     challengify=dict(
@@ -45,14 +53,6 @@ CHALLENGIFY_REPLACEMENTS = dict(
         default="# YOUR CODE HERE"),  # "rb", "sh", "txt"
     delete=dict(
         default=""))
-
-# notebook replacements
-LEWAGON_SOLUTION_NB_MARKDOWN_REPLACEMENT = "> YOUR ANSWER HERE"
-
-# single line replacements do not require to deal with code indentation
-LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON = "pass  # YOUR CODE HERE"
-LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON_COMMENT = "# YOUR CODE HERE"
-LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY = "# YOUR CODE HERE"  # also used for shell script
 
 # - - - - - delimiters for challengify iterate
 

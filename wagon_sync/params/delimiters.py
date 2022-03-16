@@ -24,6 +24,19 @@ LEWAGON_SOLUTION_NB_METADATA_OPT = "challengify"
 LEWAGON_SOLUTION_NB_METADATA_OPT_KEEP_OUTPUT = "keep_output"
 LEWAGON_SOLUTION_NB_METADATA_OPT_KEEP_OUTPUT_DEFAULT = False
 
+# new raw delimiters 👇
+
+CHALLENGIFY_DELIMITERS = dict(
+    challengify=[
+        dict(begin="# $CHALLENGIFY_BEGIN",  end="# $CHALLENGIFY_END"),
+        dict(begin="# $CHA_BEGIN",          end="# $CHA_END")],
+    delete=[
+        dict(begin="# $DELETE_BEGIN",       end="# $DELETE_END"),
+        dict(begin="# $DEL_BEGIN",          end="# $DEL_END"),
+        dict(begin="# $ERASE_BEGIN",        end="# $ERASE_END\n"),              # consume the line of the delimited block
+        dict(begin="# $WIPE_BEGIN",         end="# $WIPE_END\n\n"),             # erase + consume the line below the delimited block
+        dict(begin="\n# $IMPLODE_BEGIN",    end="# $IMPLODE_END\n\n")])         # wipe + consumes the line above the delimited block
+
 # raw delimiters 👇
 
 # code delete

@@ -79,13 +79,13 @@ before
 
 $BEGIN
 content
-$END_LINES
+$END_LINE
 
 after
         """
         replacement = ""
         begin = "$BEGIN"
-        end = "$END_LINES"
+        end = "$END_LINE"
 
         expected_result = """
 before
@@ -115,13 +115,13 @@ before
 
 $BEGIN
 content
-$END_LINES
+$END_LINE
 
 after
         """
         replacement = ""
         begin = "$BEGIN"
-        end = "$END_LINES\n\n"
+        end = "$END_LINE\n\n"
 
         expected_result = """
 before
@@ -149,13 +149,13 @@ before
 
 $BEGIN
 content
-$END_LINES
+$END_LINE
 
 after
         """
         replacement = ""
         begin = "\n$BEGIN"
-        end = "$END_LINES\n\n"
+        end = "$END_LINE\n\n"
 
         expected_result = """
 before

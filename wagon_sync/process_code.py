@@ -6,10 +6,6 @@ from wagon_sync.params.delimiters import (
     RAW_CODE_DELETE_END,
     RAW_CODE_CHALLENGIFY_BEGIN,
     RAW_CODE_CHALLENGIFY_END,
-    LEWAGON_SOLUTION_CODE_DELETE_BEGIN,
-    LEWAGON_SOLUTION_CODE_DELETE_END,
-    LEWAGON_SOLUTION_CODE_CHALLENGIFY_BEGIN,
-    LEWAGON_SOLUTION_CODE_CHALLENGIFY_END,
     LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON,
     LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY,
     # meta delimiters
@@ -114,6 +110,14 @@ def process_code(source, destination, file_extension, ignore_run_delimiters=Fals
         solution_code_replacement = LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON
     else:  # "rb", "sh" or "txt"
         solution_code_replacement = LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY
+
+    # code delete
+    LEWAGON_SOLUTION_CODE_DELETE_BEGIN = re.escape(RAW_CODE_DELETE_BEGIN)
+    LEWAGON_SOLUTION_CODE_DELETE_END = re.escape(RAW_CODE_DELETE_END)
+
+    # code challengify
+    LEWAGON_SOLUTION_CODE_CHALLENGIFY_BEGIN = re.escape(RAW_CODE_CHALLENGIFY_BEGIN)
+    LEWAGON_SOLUTION_CODE_CHALLENGIFY_END = re.escape(RAW_CODE_CHALLENGIFY_END)
 
     # replace all content within le wagon solution pass delimiters
     # (.|\n)*?                                    non greedily ? capture any characters and new lines (.|\n)*

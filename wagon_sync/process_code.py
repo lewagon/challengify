@@ -1,6 +1,8 @@
 
 from wagon_common.helpers.file import ensure_path_directory_exists
 
+from wagon_sync.code_edition import replace_content
+
 from wagon_sync.params.delimiters import (
     RAW_CODE_DELETE_BEGIN,
     RAW_CODE_DELETE_END,
@@ -21,8 +23,6 @@ from wagon_sync.params.delimiters import (
     ITERATE_IGNORE_CODE_CHALLENGIFY_BEGIN,
     ITERATE_IGNORE_CODE_CHALLENGIFY_END,
 )
-
-import re
 
 
 def process_code(source, destination, file_extension, ignore_run_delimiters=False, version_iterator=None):
@@ -111,23 +111,11 @@ def process_code(source, destination, file_extension, ignore_run_delimiters=Fals
     else:  # "rb", "sh" or "txt"
         solution_code_replacement = LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY
 
-    # code delete
-    LEWAGON_SOLUTION_CODE_DELETE_BEGIN = re.escape(RAW_CODE_DELETE_BEGIN)
-    LEWAGON_SOLUTION_CODE_DELETE_END = re.escape(RAW_CODE_DELETE_END)
-
-    # code challengify
-    LEWAGON_SOLUTION_CODE_CHALLENGIFY_BEGIN = re.escape(RAW_CODE_CHALLENGIFY_BEGIN)
-    LEWAGON_SOLUTION_CODE_CHALLENGIFY_END = re.escape(RAW_CODE_CHALLENGIFY_END)
-
     # replace all content within le wagon solution pass delimiters
-    # (.|\n)*?                                    non greedily ? capture any characters and new lines (.|\n)*
-    # (?<!{LEWAGON_SOLUTION_CODE_CHALLENGIFY_END})       negative lookbehind: assert that what immediately follows is not {LEWAGON_SOLUTION_CODE_CHALLENGIFY_END}
-    pattern = f"{LEWAGON_SOLUTION_CODE_CHALLENGIFY_BEGIN}(.|\n)*?(?<!{LEWAGON_SOLUTION_CODE_CHALLENGIFY_END}){LEWAGON_SOLUTION_CODE_CHALLENGIFY_END}"
-    replaced_content = re.sub(pattern, solution_code_replacement, source_content)
+    replaced_content = replace_content(source_content, solution_code_replacement, RAW_CODE_CHALLENGIFY_BEGIN, RAW_CODE_CHALLENGIFY_END)
 
     # remove all content within le wagon solution delete delimiters
-    pattern = f"{LEWAGON_SOLUTION_CODE_DELETE_BEGIN}(.|\n)*?(?<!{LEWAGON_SOLUTION_CODE_DELETE_END}){LEWAGON_SOLUTION_CODE_DELETE_END}"
-    replaced_content = re.sub(pattern, "", replaced_content)
+    replaced_content = replace_content(replaced_content, "", RAW_CODE_DELETE_BEGIN, RAW_CODE_DELETE_END)
 
     # replace back challengify run delimiters
     if ignore_run_delimiters:

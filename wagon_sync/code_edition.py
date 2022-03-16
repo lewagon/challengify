@@ -4,12 +4,16 @@ import re
 
 def replace_content(source, replacement, begin_delimiter, end_delimiter):
 
+    # escape delimiters
+    begin_escaped = re.escape(begin_delimiter)
+    end_escaped = re.escape(end_delimiter)
+
     # replace content within delimiters
     # (.|\n)*?                non greedily `?`
     #                         capture any characters and new lines `(.|\n)*`
-    # (?<!{end_delimiter})    negative lookbehind: assert that what immediately
-    #                         follows is not `{end_delimiter}`
-    pattern = f"{begin_delimiter}(.|\n)*?(?<!{end_delimiter}){end_delimiter}"
+    # (?<!{end_escaped})      negative lookbehind: assert that what immediately
+    #                         follows is not `{end_escaped}`
+    pattern = f"{begin_escaped}(.|\n)*?(?<!{end_escaped}){end_escaped}"
     replaced_content = re.sub(pattern, replacement, source)
 
     return replaced_content

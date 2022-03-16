@@ -31,7 +31,7 @@ CHALLENGIFY_DELIMITERS = dict(
         dict(begin="# $CHALLENGIFY_BEGIN",  end="# $CHALLENGIFY_END"),
         dict(begin="# $CHA_BEGIN",          end="# $CHA_END")],
     delete=[
-        dict(begin="# $DELETE_BEGIN",       end="# $DELETE_END"),
+        dict(begin="# $DELETE_BEGIN",       end="# $DELETE_END"),               # consume the delimited block without the trailing newline
         dict(begin="# $DEL_BEGIN",          end="# $DEL_END"),
         dict(begin="# $ERASE_BEGIN",        end="# $ERASE_END\n"),              # consume the line of the delimited block
         dict(begin="# $WIPE_BEGIN",         end="# $WIPE_END\n\n"),             # erase + consume the line below the delimited block

@@ -56,7 +56,7 @@ def read_conf(source, conf, verbose):
 
     # retrieve parameters
     source_directory = conf.get("source", source)
-    target_directory = conf.get("target", ".")
+    destination_directory = conf.get("destination", ".")
     versions = conf.get("versions", {})
 
     only = conf.get("only", {})
@@ -69,7 +69,7 @@ def read_conf(source, conf, verbose):
               + "\nLoaded conf:"
               + Style.RESET_ALL
               + f"\n- source directory: {source_directory}"
-              + f"\n- target directory: {target_directory}")
+              + f"\n- destination directory: {destination_directory}")
 
         print("- versions:")
         [print(f"  - version {version}: {destination}") for version, destination in versions.items()]
@@ -83,7 +83,7 @@ def read_conf(source, conf, verbose):
         print("- only from:")
         [print(f"  - version {version}: {file}") for version, files in only_from.items() for file in files]
 
-    return source_directory, target_directory, versions, only_to, only_for, only_from
+    return source_directory, destination_directory, versions, only_to, only_for, only_from
 
 
 def process_ignored_files(source, version, position, version_iterator, only_to, only_for, only_from, verbose):
@@ -161,7 +161,7 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose, ignor
         return
 
     # read conf
-    source_directory, target_directory, versions, \
+    source_directory, destination_directory, versions, \
         only_to, only_for, only_from = read_conf(source, conf, verbose)
 
     # create iterator
@@ -186,7 +186,7 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose, ignor
 
         # build version destination
         version_destination = os.path.join(
-            target_directory, challenge_version.destination)
+            destination_directory, challenge_version.destination)
 
         if verbose:
             print(Fore.BLUE

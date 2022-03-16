@@ -89,15 +89,15 @@ def process_code(source, destination, file_extension, version_iterator=None):
 
         # process only to
         content = process_versions(content, "only_to", versions_before_current, keep=False)
-        content = process_versions(content, "only_to", versions_after_current + version_current)
+        content = process_versions(content, "only_to", versions_after_current + [version_current])
 
         # process only for
         content = process_versions(content, "only_for", versions_before_current + versions_after_current, keep=False)
-        content = process_versions(content, "only_for", version_current)
+        content = process_versions(content, "only_for", [version_current])
 
         # process only from
         content = process_versions(content, "only_from", versions_after_current, keep=False)
-        content = process_versions(content, "only_from", versions_before_current + version_current)
+        content = process_versions(content, "only_from", versions_before_current + [version_current])
 
     # write content
     with open(destination, "w") as file:

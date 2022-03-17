@@ -7,7 +7,7 @@ class TestCodeEditionDelimiters():
     def test_delimiters_are_unique(self):
         """
         test that delimiters are unique
-        in order to prevent delimiter blocks to partially consume another
+        in order to prevent delimiter blocks to partially consume one another
         """
         # Arrange
 

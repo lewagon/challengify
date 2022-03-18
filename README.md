@@ -120,6 +120,7 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
 | start | end | content usage |
 | --- | --- | --- |
 | `# $CHALLENGIFY_BEGIN` | `# $CHALLENGIFY_END` | replaced by pass comment |
+| `# $CHA_BEGIN` | `# $CHA_END` | replaced by pass comment |
 | `# $DELETE_BEGIN` | `# $DELETE_END` | deleted |
 | `# $DEL_BEGIN` | `# $DEL_END` | deleted |
 | `# $ERASE_BEGIN` | `# $ERASE_END` | block newline is consumed |

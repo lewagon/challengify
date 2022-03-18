@@ -124,6 +124,13 @@ challengify iterate . -c 1..3           # generate challenge versions from 1 to 
 
 ### conf file
 
+``` bash
+`source`                                # list of files and directories to process (currently only supports one)
+`destination`                           # path to the destination directory from the root of the project
+`versions`                              # list of challenge versions to process along with target directory relative to the `destination`
+`only`                                  # list of rules defining on which versions of the challenge a file is present
+```
+
 ``` yaml
 iterate:
   source: taxifare
@@ -174,9 +181,9 @@ delimiters:
 
 example:
 ``` python
-    # $ONLY_12_BEGIN
-    # content only available for version 12 of the challenge
-    # $ONLY_12_END
+    # $ONLY_api_BEGIN
+    # content only available for version api of the challenge
+    # $ONLY_api_END
 ```
 
 troubleshoot: a delimiter having a version (here `12`) outside of the range of destinations defined in the conf file (`14` to `15`) will be ignored

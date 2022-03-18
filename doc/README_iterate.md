@@ -71,21 +71,21 @@ currently not supported
 
 | start | end | versions presence |
 | --- | --- | --- |
-| `# $CHA_ONLY_TO_version_BEGIN` | `# $CHA_ONLY_TO_version_END` | up to `version` (included) |
-| `# $CHA_ONLY_FOR_version_BEGIN` | `# $CHA_ONLY_FOR_version_END` | only for version `version` |
-| `# $CHA_ONLY_FROM_version_BEGIN` | `# $CHA_ONLY_FROM_version_END` | from `version` (included) |
-| `# $DEL_ONLY_TO_version_BEGIN` | `# $DEL_ONLY_TO_version_END` | up to `version` (included) |
-| `# $DEL_ONLY_FOR_version_BEGIN` | `# $DEL_ONLY_FOR_version_END` | only for version `version` |
-| `# $DEL_ONLY_FROM_version_BEGIN` | `# $DEL_ONLY_FROM_version_END` | from `version` (included) |
-| `# $ERASE_ONLY_TO_version_BEGIN` | `# $ERASE_ONLY_TO_version_END` | up to `version` (included) |
-| `# $ERASE_ONLY_FOR_version_BEGIN` | `# $ERASE_ONLY_FOR_version_END` | only for version `version` |
-| `# $ERASE_ONLY_FROM_version_BEGIN` | `# $ERASE_ONLY_FROM_version_END` | from `version` (included) |
-| `# $WIPE_ONLY_TO_version_BEGIN` | `# $WIPE_ONLY_TO_version_END` | up to `version` (included) |
-| `# $WIPE_ONLY_FOR_version_BEGIN` | `# $WIPE_ONLY_FOR_version_END` | only for version `version` |
-| `# $WIPE_ONLY_FROM_version_BEGIN` | `# $WIPE_ONLY_FROM_version_END` | from `version` (included) |
-| `# $IMPLODE_ONLY_TO_version_BEGIN` | `# $IMPLODE_ONLY_TO_version_END` | up to `version` (included) |
-| `# $IMPLODE_ONLY_FOR_version_BEGIN` | `# $IMPLODE_ONLY_FOR_version_END` | only for version `version` |
-| `# $IMPLODE_ONLY_FROM_version_BEGIN` | `# $IMPLODE_ONLY_FROM_version_END` | from `version` (included) |
+| `# $CHA_ONLY_TO_version_BEGIN` | `# $CHA_ONLY_TO_version_END` | `challengify` up to `version` (included) |
+| `# $CHA_ONLY_FOR_version_BEGIN` | `# $CHA_ONLY_FOR_version_END` | `challengify` only for version `version` |
+| `# $CHA_ONLY_FROM_version_BEGIN` | `# $CHA_ONLY_FROM_version_END` | `challengify` from `version` (included) |
+| `# $DEL_ONLY_TO_version_BEGIN` | `# $DEL_ONLY_TO_version_END` | `delete`  up to `version` (included) |
+| `# $DEL_ONLY_FOR_version_BEGIN` | `# $DEL_ONLY_FOR_version_END` | `delete`  only for version `version` |
+| `# $DEL_ONLY_FROM_version_BEGIN` | `# $DEL_ONLY_FROM_version_END` | `delete`  from `version` (included) |
+| `# $ERASE_ONLY_TO_version_BEGIN` | `# $ERASE_ONLY_TO_version_END` | `erase` up to `version` (included) |
+| `# $ERASE_ONLY_FOR_version_BEGIN` | `# $ERASE_ONLY_FOR_version_END` | `erase` only for version `version` |
+| `# $ERASE_ONLY_FROM_version_BEGIN` | `# $ERASE_ONLY_FROM_version_END` | `erase` from `version` (included) |
+| `# $WIPE_ONLY_TO_version_BEGIN` | `# $WIPE_ONLY_TO_version_END` | `wipe` up to `version` (included) |
+| `# $WIPE_ONLY_FOR_version_BEGIN` | `# $WIPE_ONLY_FOR_version_END` | `wipe` only for version `version` |
+| `# $WIPE_ONLY_FROM_version_BEGIN` | `# $WIPE_ONLY_FROM_version_END` | `wipe` from `version` (included) |
+| `# $IMPLODE_ONLY_TO_version_BEGIN` | `# $IMPLODE_ONLY_TO_version_END` | `implode` up to `version` (included) |
+| `# $IMPLODE_ONLY_FOR_version_BEGIN` | `# $IMPLODE_ONLY_FOR_version_END` | `implode` only for version `version` |
+| `# $IMPLODE_ONLY_FROM_version_BEGIN` | `# $IMPLODE_ONLY_FROM_version_END` | `implode` from `version` (included) |
 
 example:
 ``` python

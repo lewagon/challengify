@@ -1,6 +1,8 @@
 
 ## injection
 
+deprecated draft for the `iterate` sub command
+
 generate solutions from branches of a repo
 
 ``` bash

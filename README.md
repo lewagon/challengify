@@ -1,5 +1,5 @@
 
-generate challenges from solutions
+generate challenges from solutions using code block delimiters
 
 # install
 

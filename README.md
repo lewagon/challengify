@@ -253,13 +253,16 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
   },
 ```
 
-## code files
+## code file delimiters
 
-delimiters:
-- `# $DELETE_BEGIN`           # the content is deleted
-- `# $DELETE_END`
-- `# $CHALLENGIFY_BEGIN`      # the content is replaced
-- `# $CHALLENGIFY_END`
+| start | end | usage |
+| --- | --- | --- |
+| `# $CHALLENGIFY_BEGIN` | `# $CHALLENGIFY_END` | content is replaced |
+| `# $DELETE_BEGIN` | `# $DELETE_END` | content is deleted |
+| `# $DEL_BEGIN` | `# $DEL_END` | content is deleted |
+| `# $ERASE_BEGIN` | `# $ERASE_END` | content block newline is consumed |
+| `# $WIPE_BEGIN` | `# $WIPE_END` | content block newline + following newline are consumed |
+| `# $IMPLODE_BEGIN` | `# $IMPLODE_END` | content block newline + surrounding newlines are consumed |
 
 ## replacements
 

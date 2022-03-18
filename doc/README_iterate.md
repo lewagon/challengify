@@ -69,9 +69,9 @@ currently not supported
 
 example:
 ``` python
-# $ONLY_api_BEGIN
+# $ONLY_FOR_api_BEGIN
 # content only available for version api of the challenge
-# $ONLY_api_END
+# $ONLY_FOR_api_END
 ```
 
 troubleshoot: a delimiter having a version (`12`) outside of the range of versions defined in the conf file (`14` to `15`) will be ignored

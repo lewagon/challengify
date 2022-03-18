@@ -123,20 +123,14 @@ challengify iterate . -c 1-3            # generate challenge versions from 1 to 
 
 ``` yaml
 iterate:
-
   source: taxifare
-  target: ../data-solutions/07-ML-Ops
-
-  destination:
-
+  destination: ../data-solutions/07-ML-Ops
+  versions:
     base: 01-Train-at-scale/04-Investigating-bottlenecks
     api: 04-Predict-in-production/01-Build-your-API
     docker_image: 04-Predict-in-production/02-Docker-image
     docker_prod: 04-Predict-in-production/03-Deploy-to-Cloud-Run
     api_advanced: 04-Predict-in-production/04-API-advanced
-
-  project_name: .
-
   only:
     to:
       api:

@@ -13,7 +13,7 @@ challengify iterate . -c api            # generate challenge version api
 challengify iterate . -c 1..3           # generate challenge versions from 1 to 3 included
 ```
 
-### conf file
+## conf file
 
 ``` yaml
 iterate:
@@ -55,13 +55,11 @@ iterate:
 
 ![version rules](challengify-iterate.png)
 
-### delimiters
-
-#### notebooks
+## notebook delimiters
 
 currently not supported
 
-#### code file delimiters
+## code file delimiters
 
 | start | end | versions presence |
 | --- | --- | --- |

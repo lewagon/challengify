@@ -110,11 +110,11 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
 
 <img src="doc/erase.png" alt="erase" width="600"/>
 
-`wipe` consumes the block newline and the following one
+`wipe` consumes the block newline and the following one in order to keep outer blocks evenly spaced
 
 <img src="doc/wipe.png" alt="wipe" width="600"/>
 
-`implode` consumes the block newline and the surrounding newlines
+`implode` consumes the block newline and the surrounding newlines in order to remove outer blocks spacing
 
 <img src="doc/implode.png" alt="implode" width="600"/>
 

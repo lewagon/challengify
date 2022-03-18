@@ -172,12 +172,12 @@ currently not supported
 #### code files
 
 delimiters:
-- `# $ONLY_TO_*version*_BEGIN`          # content is only available for challenge versions up to `version` (included)
-- `# $ONLY_TO_*version*_END`
-- `# $ONLY_FOR_*version*_BEGIN`         # content is only available for challenge version `version`
-- `# $ONLY_FOR_*version*_END`
-- `# $ONLY_FROM_*version*_BEGIN`        # content is only available for challenge versions from `version` (included)
-- `# $ONLY_FROM_*version*_END`
+- `# $ONLY_TO_version_BEGIN`          # content is only available for challenge versions up to `version` (included)
+- `# $ONLY_TO_version_END`
+- `# $ONLY_FOR_version_BEGIN`         # content is only available for challenge version `version`
+- `# $ONLY_FOR_version_END`
+- `# $ONLY_FROM_version_BEGIN`        # content is only available for challenge versions from `version` (included)
+- `# $ONLY_FROM_version_END`
 
 example:
 ``` python

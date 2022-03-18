@@ -225,21 +225,21 @@ transformations can be configured through:
 
 the tags can be viewed using the menu `View > Cell Toolbar > Tags`
 
-cell tags:
-- `delete`                    # the cell is deleted
-- `delete_begin`              # delete all further cells, including this one
-- `delete_end`                # last cell to be deleted by `delete_begin`
-- `challengify`               # the content of the cell is replaced
-- `steps`                     # single line comments are kept, everything else after the first comment is replaced
-- `clear_output`              # the output and standard error of the cell are emptied (only valid if the `keep_output` notebook metadata option is set to True)
+| tag | usage |
+| --- | --- |
+| `delete` | the cell is deleted |
+| `delete_begin` | delete all further cells, including this one |
+| `delete_end` | last cell to be deleted by `delete_begin` |
+| `challengify` | the content of the cell is replaced |
+| `steps` | single line comments are kept, everything else after the first comment is replaced |
+| `clear_output` | the output and standard error of the cell are emptied (only valid if the `keep_output` notebook metadata option is set to True) |
 
-### cell content
+### cell content delimiters
 
-delimiters:
-- `$DELETE_BEGIN`             # the content is deleted
-- `$DELETE_END`
-- `$CHALLENGIFY_BEGIN`        # the content is replaced
-- `$CHALLENGIFY_END`
+| start | end | content usage |
+| --- | --- | --- |
+| `$CHALLENGIFY_BEGIN` | `$CHALLENGIFY_END` | replaced by pass comment |
+| `$DELETE_BEGIN` | `$DELETE_END` | deleted |
 
 ### notebook metadata
 

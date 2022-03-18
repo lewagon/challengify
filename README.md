@@ -24,6 +24,7 @@ alias cha="challengify $@"
 generate challenges from solutions
 
 | command | usage |
+| --- | --- |
 | [generate](doc/README_generate.md) | create `~/.challengify.yaml` conf file |
 | [test](doc/README_test.md) | generate temporary challengified files |
 | [iterate](doc/README_iterate.md) | generate several challenge versions |

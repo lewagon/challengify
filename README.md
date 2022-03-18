@@ -128,15 +128,12 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
 
 ## replacements
 
-replacements occur in notebooks depending on:
-- the cell type (markdown or code)
-- the language declared in the notebook metadata
+notebook replacements occur depending on cell type (markdown or code) and metadata declared language
 
-replacements occur in the code files depending on the language (file extension)
+text file replacements occur depending on the language (file extension)
 
-markdown replacement:
-- `> YOUR ANSWER HERE`
-
-code replacement:
-- `pass  # YOUR CODE HERE` (python)
-- `# YOUR CODE HERE` (ruby)
+| language | replacement |
+| --- | --- |
+| notebook markdown | `> YOUR ANSWER HERE` |
+| python | `pass  # YOUR CODE HERE` |
+| other | `# YOUR CODE HERE` |

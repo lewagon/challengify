@@ -100,6 +100,13 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
 
 `challengify` keeps indentation
 
+<img src="doc/cha.png" alt="cha" width="800"/>
+<img src="doc/cha.png" alt="cha" width="700"/>
+<img src="doc/cha.png" alt="cha" width="600"/>
+<img src="doc/cha.png" alt="cha" width="500"/>
+<img src="doc/cha.png" alt="cha" width="400"/>
+<img src="doc/cha.png" alt="cha" width="300"/>
+<img src="doc/cha.png" alt="cha" width="200"/>
 ![cha](doc/cha.png)
 
 `delete` does not consume the block newline

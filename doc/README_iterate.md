@@ -1,7 +1,7 @@
 
 ## iterate
 
-generate iterative solution exercices based on the `.challengify_iterate.yml`
+generate iterative solution exercices based on a `.challengify_iterate.yml` conf file
 
 ``` bash
 challengify iterate .                   # generate iterative solution exercices

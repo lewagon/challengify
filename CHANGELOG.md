@@ -19,8 +19,8 @@
 - Adds `# $CHA_BEGIN` / `# $CHA_END` delimiter aliases
 - Adds `# $DEL_BEGIN` / `# $DEL_END` delimiters aliases
 - Adds `# $ERASE_BEGIN` / `# $ERASE_END` delimiters consuming block newline
-- Adds `# $WIPE_BEGIN` / `# $WIPE_END` delimiters consuming block + following newline
-- Adds `# $IMPLODE_BEGIN` / `# $IMPLODE_END` delimiters consuming block + surrounding newlines
+- Adds `# $WIPE_BEGIN` / `# $WIPE_END` delimiters consuming block newline + following newline
+- Adds `# $IMPLODE_BEGIN` / `# $IMPLODE_END` delimiters consuming block newline + surrounding newlines
 - `--dry-run` now lists the destination path of the files that would be generated
 - Adds tests for code transformations
 

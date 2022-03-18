@@ -255,14 +255,14 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
 
 ## code file delimiters
 
-| start | end | usage |
+| start | end | content usage |
 | --- | --- | --- |
-| `# $CHALLENGIFY_BEGIN` | `# $CHALLENGIFY_END` | content is replaced |
-| `# $DELETE_BEGIN` | `# $DELETE_END` | content is deleted |
-| `# $DEL_BEGIN` | `# $DEL_END` | content is deleted |
-| `# $ERASE_BEGIN` | `# $ERASE_END` | content block newline is consumed |
-| `# $WIPE_BEGIN` | `# $WIPE_END` | content block newline + following newline are consumed |
-| `# $IMPLODE_BEGIN` | `# $IMPLODE_END` | content block newline + surrounding newlines are consumed |
+| `# $CHALLENGIFY_BEGIN` | `# $CHALLENGIFY_END` | replaced |
+| `# $DELETE_BEGIN` | `# $DELETE_END` | deleted |
+| `# $DEL_BEGIN` | `# $DEL_END` | deleted |
+| `# $ERASE_BEGIN` | `# $ERASE_END` | block newline is consumed |
+| `# $WIPE_BEGIN` | `# $WIPE_END` | block newline + following newline are consumed |
+| `# $IMPLODE_BEGIN` | `# $IMPLODE_END` | block newline + surrounding newlines are consumed |
 
 ## replacements
 

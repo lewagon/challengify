@@ -124,23 +124,24 @@ challengify iterate . -c 1..3           # generate challenge versions from 1 to 
 
 ### conf file
 
-``` bash
-`source`                                # list of files and directories to process (currently only supports one)
-`destination`                           # path to the destination directory from the root of the project
-`versions`                              # list of challenge versions to process along with target directory relative to the `destination`
-`only`                                  # list of rules defining on which versions of the challenge a file is present
-```
-
 ``` yaml
 iterate:
+
+  # list of files and directories to process (currently only supports one)
   source: taxifare
+
+  # path to the destination directory from the root of the project
   destination: ../data-solutions/07-ML-Ops
+
+  # list of challenge versions to process along with target directory relative to the `destination`
   versions:
     base: 01-Train-at-scale/04-Investigating-bottlenecks
     api: 04-Predict-in-production/01-Build-your-API
     docker_image: 04-Predict-in-production/02-Docker-image
     docker_prod: 04-Predict-in-production/03-Deploy-to-Cloud-Run
     api_advanced: 04-Predict-in-production/04-API-advanced
+
+  # list of rules defining on which versions of the challenge a file is present
   only:
     to:
       api:

@@ -1,33 +1,21 @@
 
+generate challenges from solutions
+
 # install
 
-from gemfury with `~/.pip/pip.conf`:
-
 ``` bash
-pip install challengify
+pip install challengify                 # from gemfury using `~/.pip/pip.conf`
+pip uninstall -y challengify            # uninstall
+alias cha="challengify $@"              # alias
 ```
 
-# uninstall
-
-``` bash
-pip uninstall -y challengify
-```
-
-# aliases
-
-``` bash
-alias cha="challengify $@"
-```
-
-# about
-
-generate challenges from solutions
+# sub commands
 
 | command | usage |
 | --- | --- |
-| [generate](doc/README_generate.md) | create `~/.challengify.yaml` conf file |
-| [test](doc/README_test.md) | generate temporary challengified files |
 | [iterate](doc/README_iterate.md) | generate several challenge versions |
+| [test](doc/README_test.md) | generate temporary challengified files |
+| [generate](doc/README_generate.md) | create `~/.challengify.yaml` conf file |
 | [inject](doc/README_inject.md) | deprecated |
 
 # usage

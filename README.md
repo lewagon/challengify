@@ -98,6 +98,26 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
 | `# $WIPE_BEGIN` | `# $WIPE_END` | block newline + following newline are consumed |
 | `# $IMPLODE_BEGIN` | `# $IMPLODE_END` | block newline + surrounding newlines are consumed |
 
+`challengify` keeps indentation
+
+![cha](doc/cha.png)
+
+`delete` does not consume the block newline
+
+![del](doc/del.png)
+
+`erase` consumes the block newline
+
+![erase](doc/erase.png)
+
+`wipe` consumes the block newline and the following one
+
+![wipe](doc/wipe.png)
+
+`implode` consumes the block newline and the surrounding newlines
+
+![implode](doc/implode.png)
+
 ## transformations rollback
 
 the destination directory is assumed to be git controlled

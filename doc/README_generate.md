@@ -1,14 +1,14 @@
 
-## generate
+`challengify gen` generates default parameters conf file in `~/.challengify.yaml`
 
-generate default parameters conf file in `~/.challengify.yaml`:
+## commands
 
 ``` bash
 challengify gen                         # generate conf file
 challengify gen --force                 # override existing conf file
 ```
 
-default conf file:
+## conf file
 
 ``` yaml
 run:

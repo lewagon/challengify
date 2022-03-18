@@ -66,6 +66,11 @@ currently not supported
 | `# $ONLY_TO_version_BEGIN` | `# $ONLY_TO_version_END` | up to `version` (included) |
 | `# $ONLY_FOR_version_BEGIN` | `# $ONLY_FOR_version_END` | only for version `version` |
 | `# $ONLY_FROM_version_BEGIN` | `# $ONLY_FROM_version_END` | from `version` (included) |
+
+### delimiter generator delimiters
+
+| start | end | versions presence |
+| --- | --- | --- |
 | `# $CHA_ONLY_TO_version_BEGIN` | `# $CHA_ONLY_TO_version_END` | up to `version` (included) |
 | `# $CHA_ONLY_FOR_version_BEGIN` | `# $CHA_ONLY_FOR_version_END` | only for version `version` |
 | `# $CHA_ONLY_FROM_version_BEGIN` | `# $CHA_ONLY_FROM_version_END` | from `version` (included) |

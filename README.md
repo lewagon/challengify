@@ -1,7 +1,7 @@
 
 generate challenges from solutions using code block delimiters
 
-# install
+## install
 
 ``` bash
 pip install challengify                 # from gemfury using `~/.pip/pip.conf`
@@ -9,7 +9,7 @@ pip uninstall -y challengify            # uninstall
 alias cha="challengify $@"              # alias
 ```
 
-# sub commands
+## sub commands
 
 | command | usage |
 | --- | --- |
@@ -18,19 +18,15 @@ alias cha="challengify $@"              # alias
 | [generate](doc/README_generate.md) | create `~/.challengify.yaml` conf file |
 | [inject](doc/README_inject.md) | deprecated |
 
-# usage
-
-## challengify
+## commands
 
 generate challenges in destination directory from solutions files and directory trees within the provided scope
 
 ``` bash
-challengify run --all                   # generate challenges from the current directory tree
-challengify run -a
+challengify run --help                  # list options
 
 challengify run sources                 # generate challenges from individual files and directory trees
-
-challengify run --help                  # list options
+challengify run --all                   # generate challenges from the current directory tree
 
 challengify run --all --force           # force sync even if destination does not have a clean git status
 challengify run -af
@@ -56,34 +52,9 @@ behavior:
 assumptions:
 - the user will verify the outcome and commit or revert the changes
 
-restoring destination directory:
+## transformations
 
-``` bash
-git restore .                           # remove uncommitted changes in existing files
-
-git clean -nfd                          # remove added files, dry run
-# git clean -fd                         # actually remove added files
-```
-
-# transformations
-
-transformations can be defined for notebooks or code files
-
-supported content:
-- jupyter notebooks cells (markdown, and code: python, ruby)
-- code files (python, ruby)
-
-common transformation verbs:
-- delete (remove a cell or the delimited content)
-- challengify (replace the content of a cell or the delimited content)
-
-## notebooks
-
-transformations can be configured through:
-- the tags attached to a cell
-- the delimiters defined in the content of a cell
-
-### cell tags
+### notebook cell tags
 
 the tags can be viewed using the menu `View > Cell Toolbar > Tags`
 
@@ -96,9 +67,9 @@ the tags can be viewed using the menu `View > Cell Toolbar > Tags`
 | `steps` | single line comments are kept, everything else after the first comment is replaced |
 | `clear_output` | the output and standard error of the cell are emptied (only valid if the `keep_output` notebook metadata option is set to True) |
 
-### cell content delimiters
+### notebook cell content delimiters
 
-| start | end | content usage |
+| start | end | content |
 | --- | --- | --- |
 | `$CHALLENGIFY_BEGIN` | `$CHALLENGIFY_END` | replaced by pass comment |
 | `$DELETE_BEGIN` | `$DELETE_END` | deleted |
@@ -115,7 +86,7 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
   },
 ```
 
-## code file delimiters
+### text file delimiters
 
 | start | end | content usage |
 | --- | --- | --- |
@@ -126,6 +97,17 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
 | `# $ERASE_BEGIN` | `# $ERASE_END` | block newline is consumed |
 | `# $WIPE_BEGIN` | `# $WIPE_END` | block newline + following newline are consumed |
 | `# $IMPLODE_BEGIN` | `# $IMPLODE_END` | block newline + surrounding newlines are consumed |
+
+## transformations rollback
+
+the destination directory is assumed to be git controlled
+
+``` bash
+git restore .                           # remove uncommitted changes in existing files
+
+git clean -nfd                          # remove added files, dry run
+# git clean -fd                         # actually remove added files
+```
 
 ## replacements
 

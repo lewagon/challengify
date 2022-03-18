@@ -100,30 +100,23 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
 
 `challengify` keeps indentation
 
-<img src="doc/cha.png" alt="cha" width="800"/>
-<img src="doc/cha.png" alt="cha" width="700"/>
 <img src="doc/cha.png" alt="cha" width="600"/>
-<img src="doc/cha.png" alt="cha" width="500"/>
-<img src="doc/cha.png" alt="cha" width="400"/>
-<img src="doc/cha.png" alt="cha" width="300"/>
-<img src="doc/cha.png" alt="cha" width="200"/>
-![cha](doc/cha.png)
 
 `delete` does not consume the block newline
 
-![del](doc/del.png)
+<img src="doc/del.png" alt="del" width="600"/>
 
 `erase` consumes the block newline
 
-![erase](doc/erase.png)
+<img src="doc/erase.png" alt="erase" width="600"/>
 
 `wipe` consumes the block newline and the following one
 
-![wipe](doc/wipe.png)
+<img src="doc/wipe.png" alt="wipe" width="600"/>
 
 `implode` consumes the block newline and the surrounding newlines
 
-![implode](doc/implode.png)
+<img src="doc/implode.png" alt="implode" width="600"/>
 
 ## transformations rollback
 

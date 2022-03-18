@@ -67,6 +67,13 @@ currently not supported
 | `# $ONLY_FOR_version_BEGIN` | `# $ONLY_FOR_version_END` | only for version `version` |
 | `# $ONLY_FROM_version_BEGIN` | `# $ONLY_FROM_version_END` | from `version` (included) |
 
+example:
+``` python
+# $ONLY_FOR_api_BEGIN
+# content only available for version api of the challenge
+# $ONLY_FOR_api_END
+```
+
 ### delimiter generator delimiters
 
 generates a `verb` delimiter for the corresponding version (`challengify`, `cha`, `delete`, `del`, `erase`, `wipe`, `implode`)
@@ -79,9 +86,9 @@ generates a `verb` delimiter for the corresponding version (`challengify`, `cha`
 
 example:
 ``` python
-# $ONLY_FOR_api_BEGIN
-# content only available for version api of the challenge
-# $ONLY_FOR_api_END
+# $CHALLENGIFY_ONLY_FOR_api_BEGIN
+# content challengified for version api of the challenge and available as is for other versions
+# $CHALLENGIFY_ONLY_FOR_api_END
 ```
 
 troubleshoot: a delimiter having a version (`12`) outside of the range of versions defined in the conf file (`14` to `15`) will be ignored

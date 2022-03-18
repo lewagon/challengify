@@ -53,7 +53,7 @@ iterate:
         - taxifare/requirements_silicon.txt
 ```
 
-![version rules](doc/challengify-iterate.png)
+![version rules](challengify-iterate.png)
 
 ### delimiters
 

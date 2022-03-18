@@ -10,13 +10,14 @@
 - Allows to generate a specific or a range of challenge versions through the `-c` option (i.e. `-c api`, `-c api..api_advanced`, `-c api..`, `-c ..api`, `-c 3`, -c 3..4`, `-c 3..`, `-c ..3`, `-c 0..api`)
 - Adds a `target` directory in the conf file for the root of the generated challenge versions
 - Adds the `iterate` command conf file param `only.for`
-- Adds `# $ONLY_number_BEGIN` and `# $ONLY_number_END` code delimiters for `challengify iterate`
+- Adds `# $ONLY_xxx_version_BEGIN` and `# $ONLY_xxx_version_END` code delimiters for `challengify iterate`
 - Generates a per challenge version `.lewagon/.challengify_generated.txt` containing the list of generated files
 - Adds `--ignore-metadata` option to ignore metadata file generation
 
 #### Challengify run
 
-- Adds `# $DEL_BEGIN` / `# $DEL_END` delimiters
+- Adds `# $CHA_BEGIN` / `# $CHA_END` delimiter aliases
+- Adds `# $DEL_BEGIN` / `# $DEL_END` delimiters aliases
 - Adds `# $ERASE_BEGIN` / `# $ERASE_END` delimiters consuming block newline
 - Adds `# $WIPE_BEGIN` / `# $WIPE_END` delimiters consuming block + following newline
 - Adds `# $IMPLODE_BEGIN` / `# $IMPLODE_END` delimiters consuming block + surrounding newlines

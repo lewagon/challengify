@@ -172,11 +172,11 @@ currently not supported
 
 #### code file delimiters
 
-| start | end | content presence |
+| start | end | versions presence |
 | --- | --- | --- |
-| `# $ONLY_TO_version_BEGIN` | `# $ONLY_TO_version_END` | for challenge versions up to `version` (included) |
-| `# $ONLY_FOR_version_BEGIN` | `# $ONLY_FOR_version_END` | for challenge version `version` |
-| `# $ONLY_FROM_version_BEGIN` | `# $ONLY_FROM_version_END` | for challenge versions from `version` (included) |
+| `# $ONLY_TO_version_BEGIN` | `# $ONLY_TO_version_END` | up to `version` (included) |
+| `# $ONLY_FOR_version_BEGIN` | `# $ONLY_FOR_version_END` | only for version `version` |
+| `# $ONLY_FROM_version_BEGIN` | `# $ONLY_FROM_version_END` | from `version` (included) |
 
 example:
 ``` python

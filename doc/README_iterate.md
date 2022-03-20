@@ -86,9 +86,9 @@ generates a `verb` delimiter for the corresponding version (`challengify`, `cha`
 
 example:
 ``` python
-# $CHALLENGIFY_ONLY_FOR_api_BEGIN
+# $CHA_ONLY_FOR_api_BEGIN
 # content challengified for version api of the challenge and available as is for other versions
-# $CHALLENGIFY_ONLY_FOR_api_END
+# $CHA_ONLY_FOR_api_END
 ```
 
 troubleshoot: a delimiter having a version (`12`) outside of the range of versions defined in the conf file (`14` to `15`) will be ignored

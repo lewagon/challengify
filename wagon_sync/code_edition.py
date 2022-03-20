@@ -5,7 +5,7 @@ import re
 def replace_content(source, replacement, begin_delimiter, end_delimiter, eat_leading_tabs=False):
 
     # build leading pattern
-    leading_pattern = "\n[ \t]*" if eat_leading_tabs else ""
+    leading_pattern = "\n?[ \t]*" if eat_leading_tabs else ""
 
     # escape delimiters
     begin_escaped = re.escape(begin_delimiter)
@@ -25,7 +25,7 @@ def replace_content(source, replacement, begin_delimiter, end_delimiter, eat_lea
 def replace_tag(source, replacement, tag, eat_leading_tabs=False):
 
     # build leading pattern
-    leading_pattern = "\n[ \t]*" if eat_leading_tabs else ""
+    leading_pattern = "\n?[ \t]*" if eat_leading_tabs else ""
 
     # escape tag
     tag_escaped = re.escape(tag)

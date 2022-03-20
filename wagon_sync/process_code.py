@@ -41,28 +41,34 @@ def process_delimiters(content, file_extension, verb_delimiters):
 
 def process_versions(content, rule, versions, keep=True):
 
-    # retrieve delimiter patterns
-    version_delimiter_begin = ITERATE_DELIMITERS[rule]["begin"]
-    version_delimiter_end = ITERATE_DELIMITERS[rule]["end"]
+    # get configurations
+    for configuration in ITERATE_DELIMITERS[rule]:
 
-    # iterate through versions
-    for version in versions:
+        # retrieve delimiter patterns
+        version_delimiter_begin = configuration["begin"]
+        version_delimiter_end = configuration["end"]
 
-        # replace versions in delimiters
-        delimiter_begin = version_delimiter_begin.replace("version", version)
-        delimiter_end = version_delimiter_end.replace("version", version)
+        # iterate through versions
+        for version in versions:
 
-        # handle content
-        if keep:
+            # replace versions in delimiters
+            delimiter_begin = version_delimiter_begin.replace("version", version)
+            delimiter_end = version_delimiter_end.replace("version", version)
 
-            # remove delimiters
-            content = replace_tag(content, "", delimiter_begin, eat_leading_tabs=True)
-            content = replace_tag(content, "", delimiter_end, eat_leading_tabs=True)
+            # handle content
+            if keep:
 
-        else:
+                # clean_tag_from_trailing_newlines
+                cleaned_delimiter_end = delimiter_end.replace("\n", "")
 
-            # remove block
-            content = replace_content(content, "", delimiter_begin, delimiter_end, eat_leading_tabs=True)
+                # remove delimiters
+                content = replace_tag(content, "", delimiter_begin, eat_leading_tabs=True)
+                content = replace_tag(content, "", cleaned_delimiter_end, eat_leading_tabs=True)
+
+            else:
+
+                # remove block
+                content = replace_content(content, "", delimiter_begin, delimiter_end, eat_leading_tabs=True)
 
     return content
 

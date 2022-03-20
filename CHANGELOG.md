@@ -11,7 +11,7 @@
 - Allows to generate a specific or a range of challenge versions through the `-c` option (i.e. `-c api`, `-c api..api_advanced`, `-c api..`, `-c ..api`, `-c 3`, -c `3..4`, `-c 3..`, `-c ..3`, `-c 0..api`)
 - Adds a `destination` directory in the conf file for the root of the generated challenge versions
 - Adds the `iterate` command conf file param `only.for`
-- Adds `# $ONLY_xxx_version_BEGIN` and `# $ONLY_xxx_version_END` code delimiters for `challengify iterate`
+- Adds `# $ONLY_xxx_version_BEGIN` and `# $ONLY_xxx_version_END` code delimiters for `challengify iterate` with option to `ERASE`, `WIPE` (default) or `IMPLODE`
 - Generates a per challenge version `.lewagon/.challengify_generated.txt` containing the list of generated files
 - Adds `--ignore-metadata` option to ignore metadata file generation
 

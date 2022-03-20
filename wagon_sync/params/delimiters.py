@@ -59,9 +59,18 @@ CHALLENGIFY_REPLACEMENTS = dict(
 # raw delimiters 👇
 
 ITERATE_DELIMITERS = dict(
-    only_to=dict(begin="# $ONLY_TO_version_BEGIN",  end="# $ONLY_TO_version_END"),
-    only_for=dict(begin="# $ONLY_FOR_version_BEGIN",  end="# $ONLY_FOR_version_END"),
-    only_from=dict(begin="# $ONLY_FROM_version_BEGIN",  end="# $ONLY_FROM_version_END"))
+    only_to=[
+        dict(begin="# $ONLY_TO_version_ERASE_BEGIN",        end="# $ONLY_TO_version_ERASE_END"),
+        dict(begin="# $ONLY_TO_version_BEGIN",              end="# $ONLY_TO_version_END\n"),
+        dict(begin="# $ONLY_TO_version_IMPLODE_BEGIN",      end="# $ONLY_TO_version_IMPLODE_END\n\n")],
+    only_for=[
+        dict(begin="# $ONLY_FOR_version_ERASE_BEGIN",       end="# $ONLY_FOR_version_ERASE_END"),
+        dict(begin="# $ONLY_FOR_version_BEGIN",             end="# $ONLY_FOR_version_END\n"),
+        dict(begin="# $ONLY_FOR_version_IMPLODE_BEGIN",     end="# $ONLY_FOR_version_IMPLODE_END\n\n")],
+    only_from=[
+        dict(begin="# $ONLY_FROM_version_ERASE_BEGIN",      end="# $ONLY_FROM_version_ERASE_END"),
+        dict(begin="# $ONLY_FROM_version_BEGIN",            end="# $ONLY_FROM_version_END\n"),
+        dict(begin="# $ONLY_FROM_version_IMPLODE_BEGIN",    end="# $ONLY_FROM_version_IMPLODE_END\n\n")])
 
 GENERATOR_VERBS = ["CHALLENGIFY",  "CHA",  "DELETE",  "DEL",  "ERASE",  "WIPE",  "IMPLODE"]
 

@@ -61,15 +61,20 @@ def wasync():
     default=None,
     is_flag=True,
     help="Generate test challengification files for the scope (default: False).")
-def run(sources, destination, ignore_cwd, force, dry_run, verbose, all, test):
+@click.option(
+    "-o", "--format/--no-format",
+    default=None,
+    is_flag=True,
+    help="Format generated code (default: False).")
+def run(sources, destination, ignore_cwd, force, dry_run, verbose, all, test, format):
     """
     Generate challenges from provided source files and directories of solutions.
     """
 
-    return run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all, test)
+    return run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all, test, format)
 
 
-def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all, test):
+def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all, test, format):
     """
     Decorationless command handler callable from multiple decorated commands
     """
@@ -85,7 +90,8 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
               + f"\ndry_run {dry_run}"
               + f"\nverbose {verbose}"
               + f"\nall {all}"
-              + f"\ntest {test}")
+              + f"\ntest {test}"
+              + f"\nformat {format}")
 
     # load default parameters
     run_destination_default, \
@@ -94,7 +100,8 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
         run_dry_run_default, \
         run_verbose_default, \
         run_all_default, \
-        run_test_default = load_home_defaults(verbose)
+        run_test_default, \
+        run_format_default = load_home_defaults(verbose)
 
     # click flag options do not allow to know whether the user entered a flag
     # or whether the default value was used unless the default is None
@@ -114,6 +121,8 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
         all = run_all_default
     if test is None:
         test = run_test_default
+    if format is None:
+        format = run_format_default
 
     if verbose:
         print(Fore.BLUE
@@ -126,7 +135,8 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
               + f"\ndry_run {dry_run}"
               + f"\nverbose {verbose}"
               + f"\nall {all}"
-              + f"\ntest {test}")
+              + f"\ntest {test}"
+              + f"\nformat {format}")
 
     # verify that at least one directory was provided
     if not all and len(sources) < 1:
@@ -146,6 +156,7 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
         dry_run,
         verbose,
         test=test,
+        user_autoformater=format,
         ignore_tld=ignore_cwd)
 
 
@@ -167,7 +178,7 @@ def test(sources, verbose):
     # call the challengify run command
     run_function(
         sources=sources, destination=None, ignore_cwd=None, force=None,
-        dry_run=None, verbose=verbose, all=None, test=True)
+        dry_run=None, verbose=verbose, all=None, test=True, format=None)
 
 
 @wasync.command()
@@ -235,7 +246,12 @@ def inject(yaml_path):
     default=False,
     is_flag=True,
     help="Do not write metadata file in generated challenge versions.")
-def iterate(source, challenge, force, dry_run, verbose, ignore_metadata):
+@click.option(
+    "-o", "--format/--no-format",
+    default=False,
+    is_flag=True,
+    help="Format generated code (default: False).")
+def iterate(source, challenge, force, dry_run, verbose, ignore_metadata, format):
     """
     Iterate on ssot to generate solutions.
     """
@@ -253,7 +269,7 @@ def iterate(source, challenge, force, dry_run, verbose, ignore_metadata):
         min_version = max_version = challenge
 
     # run iteration
-    run_iterate(source, min_version, max_version, force, dry_run, verbose, ignore_metadata)
+    run_iterate(source, min_version, max_version, force, dry_run, verbose, ignore_metadata, format)
 
 
 if __name__ == '__main__':

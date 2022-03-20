@@ -150,7 +150,7 @@ def write_challenge_metadata(version_destination, original_files):
         file.write("\n".join([metadata_filename] + original_files) + "\n")
 
 
-def run_iterate(source, min_version, max_version, force, dry_run, verbose, ignore_metadata):
+def run_iterate(source, min_version, max_version, force, dry_run, verbose, ignore_metadata, format):
 
     # load conf
     conf = load_conf_file(source, verbose)
@@ -204,7 +204,7 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose, ignor
             dry_run,
             verbose,
             test=False,
-            user_autoformater=True,               # autoformat generated code
+            user_autoformater=format,             # autoformat generated code
             ignore_tld=True,                      # do not append path in git directory
             iterate_yaml_path=source,             # path to iterate yaml
             additional_ignores=ignored,           # handle ignored files

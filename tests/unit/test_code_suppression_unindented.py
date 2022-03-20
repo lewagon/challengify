@@ -6,15 +6,16 @@ class TestCodeSuppressionIndented():
 
     def test_indented_delete(self):
         """
-        test that indented suppression
-        leaves in place a blank line with undesired indentation
+        test that a newline appears between the content
+        when an indented block of content is removed
+        without the use of any dedicated separators
         """
         # Arrange
         source = """
             before
-                $BEGIN
-                content
-                $END# block end
+            $BEGIN
+            content
+            $END# block end
             after
         """
         replacement = ""
@@ -23,12 +24,146 @@ class TestCodeSuppressionIndented():
 
         expected_result = """
             before
-                # block end
+            # block end
             after
         """
 
         # Act
         replaced_content = replace_content(source, replacement, begin, end)
+
+        # Assert
+        assert replaced_content == expected_result
+
+        # Cleanup
+
+    def test_indented_spaced_delete(self):
+        """
+        test that all newlines are preserved between the content
+        when an indented block of content is removed
+        without the use of any dedicated separators
+        """
+        # Arrange
+        source = """
+            before
+
+            $BEGIN
+            content
+            $END# block end
+
+            after
+        """
+        replacement = ""
+        begin = "$BEGIN"
+        end = "$END"
+
+        expected_result = """
+            before
+
+            # block end
+
+            after
+        """
+
+        # Act
+        replaced_content = replace_content(source, replacement, begin, end)
+
+        # Assert
+        assert replaced_content == expected_result
+
+        # Cleanup
+
+    def test_indented_erase(self):
+        """
+        test that no newlines appear between the content
+        when an indented block of content is removed
+        using a single newline consuming dedicated end separator
+        """
+        # Arrange
+        source = """
+            before
+            $BEGIN
+            content
+            $END
+            after
+        """
+        replacement = ""
+        begin = "$BEGIN"
+        end = "$END"
+
+        expected_result = """
+            before
+            after
+        """
+
+        # Act
+        replaced_content = replace_content(source, replacement, begin, end, eat_leading_tabs=True)
+
+        # Assert
+        assert replaced_content == expected_result
+
+        # Cleanup
+
+    def test_indented_wipe(self):
+        """
+        test that a single newline is preserved between the content
+        when an indented block of content is removed
+        using a double newline consuming dedicated end separator
+        """
+        # Arrange
+        source = """
+            before
+
+            $BEGIN
+            content
+            $END
+
+            after
+        """
+        replacement = ""
+        begin = "$BEGIN"
+        end = "$END\n"
+
+        expected_result = """
+            before
+
+            after
+        """
+
+        # Act
+        replaced_content = replace_content(source, replacement, begin, end, eat_leading_tabs=True)
+
+        # Assert
+        assert replaced_content == expected_result
+
+        # Cleanup
+
+    def test_indented_implode(self):
+        """
+        test that no newlines appear between the content
+        when an indented block of content is removed
+        using newline consuming dedicated begin and end separators
+        """
+        # Arrange
+        source = """
+            before
+
+            $BEGIN
+            content
+            $END
+
+            after
+        """
+        replacement = ""
+        begin = "$BEGIN"
+        end = "$END\n\n"
+
+        expected_result = """
+            before
+            after
+        """
+
+        # Act
+        replaced_content = replace_content(source, replacement, begin, end, eat_leading_tabs=True)
 
         # Assert
         assert replaced_content == expected_result

@@ -31,9 +31,10 @@ def process_delimiters(content, file_extension, verb_delimiters):
             # retrieve configuration delimiters
             delimiter_begin = configuration["begin"]
             delimiter_end = configuration["end"]
+            eat_leading_tabs = configuration.get("eat", False)
 
             # replace delimiter blocks
-            content = replace_content(content, replacement, delimiter_begin, delimiter_end)
+            content = replace_content(content, replacement, delimiter_begin, delimiter_end, eat_leading_tabs=eat_leading_tabs)
 
     return content
 

@@ -68,6 +68,40 @@ trululu = True
 
 # after the block
 
+    # the delete delimiters do not consume the line of the block
+    # before the block
+    # $DEL_BEGIN
+    tralala = True
+    # $DEL_END# <-- indentation still there
+    # after the block
+
+    # the erase delimiters consume the line of the block
+    # before the block
+    # $ERASE_BEGIN
+    trololo = True
+    # $ERASE_END
+    # after the block
+
+    # the wipe delimiters consume the line of the block and the line after
+    # in order to keep outer blocks evenly spaced
+    # before the block
+
+    # $WIPE_BEGIN
+    trilili = True
+    # $WIPE_END
+
+    # after the block
+
+    # the implode delimiters consume the line of the block and the lines around the block
+    # in order to remove outer blocks spacing
+    # before the block
+
+    # $IMPLODE_BEGIN
+    trululu = True
+    # $IMPLODE_END
+
+    # after the block
+
 # inline replacement# $DELETE_BEGIN for code or text # $DELETE_END sample
 if __name__ == '__main__':
     # $CHALLENGIFY_BEGIN

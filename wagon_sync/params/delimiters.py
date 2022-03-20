@@ -39,11 +39,11 @@ CHALLENGIFY_DELIMITERS = dict(
         dict(begin="# $CHALLENGIFY_BEGIN",  end="# $CHALLENGIFY_END"),
         dict(begin="# $CHA_BEGIN",          end="# $CHA_END")],
     delete=[
-        dict(begin="# $DELETE_BEGIN",       end="# $DELETE_END"),               # consume the delimited block without the trailing newline
+        dict(begin="# $DELETE_BEGIN",       end="# $DELETE_END"),                       # consume the delimited block without the trailing newline or tabs
         dict(begin="# $DEL_BEGIN",          end="# $DEL_END"),
-        dict(begin="# $ERASE_BEGIN",        end="# $ERASE_END\n"),              # consume the line of the delimited block
-        dict(begin="# $WIPE_BEGIN",         end="# $WIPE_END\n\n"),             # erase + consume the line below the delimited block
-        dict(begin="\n# $IMPLODE_BEGIN",    end="# $IMPLODE_END\n\n")])         # wipe + consumes the line above the delimited block
+        dict(begin="# $ERASE_BEGIN",        end="# $ERASE_END",         eat=True),      # consume the line of the delimited block
+        dict(begin="# $WIPE_BEGIN",         end="# $WIPE_END\n",        eat=True),      # erase + consume the line below the delimited block
+        dict(begin="# $IMPLODE_BEGIN",      end="# $IMPLODE_END\n\n",   eat=True)])     # wipe + consumes the line above the delimited block
 
 # raw replacements 👇
 

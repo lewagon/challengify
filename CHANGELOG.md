@@ -35,6 +35,7 @@
 
 #### Challengify iterate
 
+- Add a `--format` option to use an autoformatter (default False), previously the autoformatter always ran
 - Refactor the code handling version generation
 - Renames the `iterate` command conf file params `ignore.before` and `ignore.after` into `only.from` and `only.to`
 - Renames the conf file for the `iterate` command from `.challengify_iterate.yaml` to `.challengify_iterate.yml`

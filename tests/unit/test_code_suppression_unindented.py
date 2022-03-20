@@ -14,7 +14,7 @@ class TestCodeSuppressionIndented():
             before
                 $BEGIN
                 content
-                $END
+                $END# block end
             after
         """
         replacement = ""
@@ -23,7 +23,7 @@ class TestCodeSuppressionIndented():
 
         expected_result = """
             before
-""" + "                " + """
+                # block end
             after
         """
 

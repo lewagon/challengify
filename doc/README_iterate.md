@@ -76,7 +76,7 @@ example:
 
 ## delimiter generators
 
-generates a `verb` delimiter for the corresponding version (`CHALLENGIFY`, `CHA`, `DELETE`, `DEL`, `ERASE`, `WIPE`, `IMPLODE`)
+generates a `verb` delimiter (`CHALLENGIFY`, `CHA`, `DELETE`, `DEL`, `ERASE`, `WIPE`, `IMPLODE`) for the version
 
 | start | end | versions presence |
 | --- | --- | --- |

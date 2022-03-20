@@ -4,7 +4,7 @@ from wagon_sync.code_edition import replace_content
 
 class TestCodeEditionSuppression():
 
-    def test_unindented_suppression(self):
+    def test_unindented_delete(self):
         """
         test that a newline appears between the content
         when an unindented block of content is removed
@@ -36,7 +36,7 @@ after
 
         # Cleanup
 
-    def test_unindented_extra_line_suppression(self):
+    def test_unindented_erase(self):
         """
         test that no newlines appear between the content
         when an unindented block of content is removed
@@ -67,7 +67,7 @@ after
 
         # Cleanup
 
-    def test_unindented_no_line_suppression(self):
+    def test_unindented_spaced_delete(self):
         """
         test that all newlines are preserved between the content
         when an unindented block of content is removed
@@ -103,7 +103,7 @@ after
 
         # Cleanup
 
-    def test_unindented_extra_lines_suppression(self):
+    def test_unindented_wipe(self):
         """
         test that a single newline is preserved between the content
         when an unindented block of content is removed
@@ -137,7 +137,7 @@ after
 
         # Cleanup
 
-    def test_unindented_all_lines_suppression(self):
+    def test_unindented_implode(self):
         """
         test that no newlines appear between the content
         when an unindented block of content is removed
@@ -170,7 +170,7 @@ after
 
         # Cleanup
 
-    def test_indented_suppression(self):
+    def test_indented_delete(self):
         """
         test that indented suppression
         leaves in place a blank line with undesired indentation

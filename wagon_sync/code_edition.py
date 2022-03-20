@@ -20,3 +20,18 @@ def replace_content(source, replacement, begin_delimiter, end_delimiter, eat_lea
     replaced_content = re.sub(pattern, replacement, source)
 
     return replaced_content
+
+
+def replace_tag(source, replacement, tag, eat_leading_tabs=False):
+
+    # build leading pattern
+    leading_pattern = "\n[ \t]*" if eat_leading_tabs else ""
+
+    # escape tag
+    tag_escaped = re.escape(tag)
+
+    # replace tag
+    pattern = f"{leading_pattern}{tag_escaped}"
+    replaced_content = re.sub(pattern, replacement, source)
+
+    return replaced_content

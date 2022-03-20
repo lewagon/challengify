@@ -1,7 +1,7 @@
 
 from wagon_common.helpers.file import ensure_path_directory_exists
 
-from wagon_sync.code_edition import replace_content
+from wagon_sync.code_edition import replace_content, replace_tag
 
 from wagon_sync.params.delimiters import (
     CHALLENGIFY_DELIMITERS,
@@ -56,13 +56,13 @@ def process_versions(content, rule, versions, keep=True):
         if keep:
 
             # remove delimiters
-            content = content.replace(delimiter_begin, "")
-            content = content.replace(delimiter_end, "")
+            content = replace_tag(content, "", delimiter_begin, eat_leading_tabs=True)
+            content = replace_tag(content, "", delimiter_end, eat_leading_tabs=True)
 
         else:
 
             # remove block
-            content = replace_content(content, "", delimiter_begin, delimiter_end)
+            content = replace_content(content, "", delimiter_begin, delimiter_end, eat_leading_tabs=True)
 
     return content
 
@@ -96,7 +96,7 @@ def process_generators(content, current, other_versions):
                 generator = verb_generator.replace("version", version)
 
                 # generate delimiters
-                content = content.replace(generator, "")
+                content = replace_tag(content, "", generator, eat_leading_tabs=True)
 
     return content
 

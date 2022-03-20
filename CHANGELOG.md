@@ -22,6 +22,7 @@
 - Adds `# $ERASE_BEGIN` / `# $ERASE_END` delimiters consuming block newline
 - Adds `# $WIPE_BEGIN` / `# $WIPE_END` delimiters consuming block newline + following newline
 - Adds `# $IMPLODE_BEGIN` / `# $IMPLODE_END` delimiters consuming block newline + surrounding newlines
+- Adds support for indented delimiters (consumes leading whitespaces for `ERASE`, `WIPE` and `IMPLODE`)
 - `--dry-run` now lists the destination path of the files that would be generated
 - Adds tests for code transformations
 

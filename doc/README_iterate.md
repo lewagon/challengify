@@ -74,7 +74,7 @@ example:
 # $ONLY_FOR_api_END
 ```
 
-### delimiter generator delimiters
+## delimiter generators
 
 generates a `verb` delimiter for the corresponding version (`CHALLENGIFY`, `CHA`, `DELETE`, `DEL`, `ERASE`, `WIPE`, `IMPLODE`)
 

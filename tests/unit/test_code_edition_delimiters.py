@@ -13,7 +13,7 @@ class TestCodeEditionDelimiters():
 
         # Act
         delimiters = CHALLENGIFY_DELIMITERS.values()
-        elements = [v for l in delimiters for d in l for v in d.values()]
+        elements = [v for l in delimiters for d in l for v in [d["begin"], d["end"]]]
 
         # Assert
         assert len(elements) == len(set(elements))

@@ -5,6 +5,7 @@
 
 #### Challengify iterate
 
+- Adds version only delimiter generators `# $verb_ONLY_FOR_version_BEGIN` and `# $verb_ONLY_FOR_version_END` for verbs `CHALLENGIFY`, `CHA`, `DELETE`, `DEL`, `ERASE`, `WIPE`, `IMPLODE`
 - Replaces numeric versions with ordered text versions in `.challengify_iterate.yml`
 - Allows the use of prefixes for the `iterate` command through wagon_common AliasedGroup (i.e. `challengify ite` instead of `challengify iterate`)
 - Allows to generate a specific or a range of challenge versions through the `-c` option (i.e. `-c api`, `-c api..api_advanced`, `-c api..`, `-c ..api`, `-c 3`, -c `3..4`, `-c 3..`, `-c ..3`, `-c 0..api`)

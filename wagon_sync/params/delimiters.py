@@ -63,6 +63,11 @@ ITERATE_DELIMITERS = dict(
     only_for=dict(begin="# $ONLY_FOR_version_BEGIN",  end="# $ONLY_FOR_version_END"),
     only_from=dict(begin="# $ONLY_FROM_version_BEGIN",  end="# $ONLY_FROM_version_END"))
 
+GENERATOR_VERBS = ["CHALLENGIFY",  "CHA",  "DELETE",  "DEL",  "ERASE",  "WIPE",  "IMPLODE"]
+
+CHALLENGE_ONLY_FOR_DELIMITERS = \
+    dict(begin="# $verb_ONLY_FOR_version_BEGIN",  end="# $verb_ONLY_FOR_version_END")
+
 # - - - - - file patterns for challengify test and clean
 
 TEST_CHALLENGIFICATION_SUFFIX = "_challengify"

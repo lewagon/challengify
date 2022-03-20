@@ -76,13 +76,11 @@ example:
 
 ### delimiter generator delimiters
 
-generates a `verb` delimiter for the corresponding version (`challengify`, `cha`, `delete`, `del`, `erase`, `wipe`, `implode`)
+generates a `verb` delimiter for the corresponding version (`CHALLENGIFY`, `CHA`, `DELETE`, `DEL`, `ERASE`, `WIPE`, `IMPLODE`)
 
 | start | end | versions presence |
 | --- | --- | --- |
-| `# $verb_ONLY_TO_version_BEGIN` | `# $verb_ONLY_TO_version_END` | `verb` up to `version` (included) |
 | `# $verb_ONLY_FOR_version_BEGIN` | `# $verb_ONLY_FOR_version_END` | `verb` only for version `version` |
-| `# $verb_ONLY_FROM_version_BEGIN` | `# $verb_ONLY_FROM_version_END` | `verb` from `version` (included) |
 
 example:
 ``` python

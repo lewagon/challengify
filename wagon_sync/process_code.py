@@ -6,7 +6,9 @@ from wagon_sync.code_edition import replace_content
 from wagon_sync.params.delimiters import (
     CHALLENGIFY_DELIMITERS,
     CHALLENGIFY_REPLACEMENTS,
-    ITERATE_DELIMITERS)
+    ITERATE_DELIMITERS,
+    GENERATOR_VERBS,
+    CHALLENGE_ONLY_FOR_DELIMITERS)
 
 
 def process_delimiters(content, file_extension, verb_delimiters):
@@ -64,6 +66,40 @@ def process_versions(content, rule, versions, keep=True):
     return content
 
 
+def process_generators(content, current, other_versions):
+    """
+    process version only for challengify delimiter generators
+    """
+
+    # iterate through patterns to process version generators
+    for generator_pattern in CHALLENGE_ONLY_FOR_DELIMITERS.values():
+
+        # replace delimiter generators
+        for verb in GENERATOR_VERBS:
+
+            # build verb generator and delimiter
+            verb_generator = generator_pattern.replace("verb", verb)
+            step = "BEGIN" if generator_pattern[-1] == "N" else "END"
+            verb_delimiter = f"# ${verb.upper()}_{step}"
+
+            # build generator
+            generator = verb_generator.replace("version", current)
+
+            # generate delimiters
+            content = content.replace(generator, verb_delimiter)
+
+            # remove generator delimiters for other versions
+            for version in other_versions:
+
+                # build generator
+                generator = verb_generator.replace("version", version)
+
+                # generate delimiters
+                content = content.replace(generator, "")
+
+    return content
+
+
 def process_code(source, destination, file_extension, version_iterator=None):
 
     # create destination directory
@@ -83,21 +119,24 @@ def process_code(source, destination, file_extension, version_iterator=None):
     else:
 
         # retrieve versions
-        versions_before_current = version_iterator.get_versions_before()
-        versions_after_current = version_iterator.get_versions_after()
-        version_current = version_iterator.get_version_current()
+        befores = version_iterator.get_versions_before()
+        afters = version_iterator.get_versions_after()
+        current = version_iterator.get_version_current()
 
         # process only to
-        content = process_versions(content, "only_to", versions_before_current, keep=False)
-        content = process_versions(content, "only_to", versions_after_current + [version_current])
+        content = process_versions(content, "only_to", befores, keep=False)
+        content = process_versions(content, "only_to", afters + [current])
 
         # process only for
-        content = process_versions(content, "only_for", versions_before_current + versions_after_current, keep=False)
-        content = process_versions(content, "only_for", [version_current])
+        content = process_versions(content, "only_for", befores + afters, keep=False)
+        content = process_versions(content, "only_for", [current])
 
         # process only from
-        content = process_versions(content, "only_from", versions_after_current, keep=False)
-        content = process_versions(content, "only_from", versions_before_current + [version_current])
+        content = process_versions(content, "only_from", afters, keep=False)
+        content = process_versions(content, "only_from", befores + [current])
+
+        # process delimiter generators
+        content = process_generators(content, current, befores + afters)
 
     # write content
     with open(destination, "w") as file:

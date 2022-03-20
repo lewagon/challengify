@@ -74,6 +74,8 @@ example:
 # $ONLY_FOR_api_END
 ```
 
+troubleshoot: a delimiter having a version (`12`) outside of the range of versions defined in the conf file (`14` to `15`) will be ignored
+
 ## delimiter generators
 
 generates a `verb` delimiter (`CHALLENGIFY`, `CHA`, `DELETE`, `DEL`, `ERASE`, `WIPE`, `IMPLODE`) for the version
@@ -88,5 +90,3 @@ example:
 # content challengified for version api of the challenge and available as is for other versions
 # $CHA_ONLY_FOR_api_END
 ```
-
-troubleshoot: a delimiter having a version (`12`) outside of the range of versions defined in the conf file (`14` to `15`) will be ignored

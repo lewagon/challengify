@@ -6,6 +6,7 @@ from wagon_sync.code_edition import replace_content, replace_tag
 from wagon_sync.params.delimiters import (
     CHALLENGIFY_DELIMITERS,
     CHALLENGIFY_REPLACEMENTS,
+    ITERATE_ACTIONS,
     ITERATE_DELIMITERS,
     GENERATOR_VERBS,
     CHALLENGE_ONLY_FOR_DELIMITERS)
@@ -42,11 +43,17 @@ def process_delimiters(content, file_extension, verb_delimiters):
 def process_versions(content, rule, versions, keep=True):
 
     # get configurations
-    for configuration in ITERATE_DELIMITERS[rule]:
+    for iterate_action in ITERATE_ACTIONS:
+
+        # retrieve iterate action params
+        action = iterate_action["action"]
+        trailing_newlines = iterate_action["trailing_newlines"] * "\n"
 
         # retrieve delimiter patterns
-        version_delimiter_begin = configuration["begin"]
-        version_delimiter_end = configuration["end"]
+        configuration = ITERATE_DELIMITERS[rule]
+
+        version_delimiter_begin = configuration["begin"].replace("action", action).replace("__", "_")
+        version_delimiter_end = configuration["end"].replace("action", action).replace("__", "_") + trailing_newlines
 
         # iterate through versions
         for version in versions:
@@ -58,7 +65,7 @@ def process_versions(content, rule, versions, keep=True):
             # handle content
             if keep:
 
-                # clean_tag_from_trailing_newlines
+                # clean tag from trailing newlines
                 cleaned_delimiter_end = delimiter_end.replace("\n", "")
 
                 # remove delimiters

@@ -32,7 +32,7 @@ LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON = "pass  # YOUR CODE HERE"
 LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON_COMMENT = "# YOUR CODE HERE"
 LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY = "# YOUR CODE HERE"  # also used for shell script
 
-# raw delimiters 👇
+# raw block delimiters 👇
 
 CHALLENGIFY_DELIMITERS = dict(
     challengify=[
@@ -45,7 +45,7 @@ CHALLENGIFY_DELIMITERS = dict(
         dict(begin="# $WIPE_BEGIN",         end="# $WIPE_END\n",        eat=True),      # erase + consume the line below the delimited block
         dict(begin="# $IMPLODE_BEGIN",      end="# $IMPLODE_END\n\n",   eat=True)])     # wipe + consumes the line above the delimited block
 
-# raw replacements 👇
+# raw block replacements 👇
 
 CHALLENGIFY_REPLACEMENTS = dict(
     challengify=dict(
@@ -56,21 +56,20 @@ CHALLENGIFY_REPLACEMENTS = dict(
 
 # - - - - - delimiters for challengify iterate
 
-# raw delimiters 👇
+# raw block delimiters 👇
+
+ITERATE_ACTIONS = [
+    dict(action="",         trailing_newlines=1),  # default "" is WIPE
+    dict(action="ERASE",    trailing_newlines=0),
+    dict(action="WIPE",     trailing_newlines=1),
+    dict(action="IMPLODE",  trailing_newlines=2)]
 
 ITERATE_DELIMITERS = dict(
-    only_to=[
-        dict(begin="# $ONLY_TO_version_ERASE_BEGIN",        end="# $ONLY_TO_version_ERASE_END"),
-        dict(begin="# $ONLY_TO_version_BEGIN",              end="# $ONLY_TO_version_END\n"),
-        dict(begin="# $ONLY_TO_version_IMPLODE_BEGIN",      end="# $ONLY_TO_version_IMPLODE_END\n\n")],
-    only_for=[
-        dict(begin="# $ONLY_FOR_version_ERASE_BEGIN",       end="# $ONLY_FOR_version_ERASE_END"),
-        dict(begin="# $ONLY_FOR_version_BEGIN",             end="# $ONLY_FOR_version_END\n"),
-        dict(begin="# $ONLY_FOR_version_IMPLODE_BEGIN",     end="# $ONLY_FOR_version_IMPLODE_END\n\n")],
-    only_from=[
-        dict(begin="# $ONLY_FROM_version_ERASE_BEGIN",      end="# $ONLY_FROM_version_ERASE_END"),
-        dict(begin="# $ONLY_FROM_version_BEGIN",            end="# $ONLY_FROM_version_END\n"),
-        dict(begin="# $ONLY_FROM_version_IMPLODE_BEGIN",    end="# $ONLY_FROM_version_IMPLODE_END\n\n")])
+    only_to=dict(begin="# $ONLY_TO_version_action_BEGIN",   end="# $ONLY_TO_version_action_END"),
+    only_for=dict(begin="# $ONLY_FOR_version_action_BEGIN",  end="# $ONLY_FOR_version_action_END"),
+    only_from=dict(begin="# $ONLY_FROM_version_action_BEGIN", end="# $ONLY_FROM_version_action_END"))
+
+# raw tag delimiters 👇
 
 GENERATOR_VERBS = ["CHALLENGIFY",  "CHA",  "DELETE",  "DEL",  "ERASE",  "WIPE",  "IMPLODE"]
 

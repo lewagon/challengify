@@ -33,6 +33,17 @@ LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON_COMMENT = "# YOUR CODE HERE"
 LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY = "# YOUR CODE HERE"  # also used for shell script
 
 # raw block delimiters 👇
+# language specific delimiters 👇
+
+DELIMITER_TYPES = dict(
+    default=dict(       prefix="# ",    suffix="# "),                           # "py", rb", "sh", "txt"
+    js=dict(            prefix="// ",   suffix="// "),
+    html=dict(          prefix="<!-- ", suffix=" -->",  composed=True),
+    css=dict(           prefix="/* ",   suffix=" */",   composed=True),
+    html_erb=dict(      prefix="<#= ",  suffix=" %>",   composed=True),
+    js_erb=dict(        prefix="<#= ",  suffix=" %>",   composed=True))
+
+# raw delimiters 👇
 
 CHALLENGIFY_DELIMITERS = dict(
     challengify=[

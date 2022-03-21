@@ -8,16 +8,16 @@ class Delimiters:
 
     def __init__(self):
 
-        self.delimiters = {}
+        self.all = {}
 
         # store delimiters
         for language, params in LANGUAGE_INLINE_COMMENT_DELIMITERS.items():
 
             delimiter = Delimiter(language=language, **params)
 
-            self.delimiters[language] = delimiter
+            self.all[language] = delimiter
 
     def print(self):
 
         # print delimiters
-        [d.print() for d in self.delimiters.values()]
+        [d.print() for d in self.all.values()]

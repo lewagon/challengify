@@ -1,5 +1,5 @@
 
-from wagon_sync.params.delimiters import CHALLENGIFY_DELIMITERS
+from wagon_sync.delimiters import Delimiters
 
 
 class TestCodeEditionDelimiters():
@@ -12,10 +12,17 @@ class TestCodeEditionDelimiters():
         # Arrange
 
         # Act
-        delimiters = CHALLENGIFY_DELIMITERS.values()
-        elements = [v for l in delimiters for d in l for v in [d["begin"], d["end"]]]
+        delimiters = Delimiters().all
 
-        # Assert
-        assert len(elements) == len(set(elements))
+        # iterate through languages
+        for language, delimiter in delimiters.items():
+
+            # iterate through verbs
+            elements = [v for t in delimiter.tags() for v in [t.begin, t.end]]
+
+            delimiter.print_tags()
+
+            # Assert
+            assert len(elements) == len(set(elements))
 
         # Cleanup

@@ -45,15 +45,15 @@ def process_versions(content, rule, versions, keep=True):
     # get configurations
     for iterate_action in ITERATE_ACTIONS:
 
-        # retrieve iterate action params
-        action = iterate_action["action"]
-        trailing_newlines = iterate_action["trailing_newlines"] * "\n"
+        # retrieve iterate verb params
+        verb = iterate_verb["verb"]
+        trailing_newlines = iterate_verb["trailing_newlines"] * "\n"
 
         # retrieve delimiter patterns
         configuration = ITERATE_DELIMITERS[rule]
 
-        version_delimiter_begin = configuration["begin"].replace("action", action).replace("__", "_")
-        version_delimiter_end = configuration["end"].replace("action", action).replace("__", "_") + trailing_newlines
+        version_delimiter_begin = configuration["begin"].replace("verb", verb).replace("__", "_")
+        version_delimiter_end = configuration["end"].replace("verb", verb).replace("__", "_") + trailing_newlines
 
         # iterate through versions
         for version in versions:

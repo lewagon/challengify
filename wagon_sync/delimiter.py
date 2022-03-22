@@ -13,7 +13,7 @@ from colorama import Fore, Style
 
 class Delimiter:
 
-    def __init__(self, language, prefix, suffix=None, composed=False):
+    def __init__(self, language, prefix, suffix=None):
 
         self.language = language
         self.prefix = prefix

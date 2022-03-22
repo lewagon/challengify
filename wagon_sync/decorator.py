@@ -30,9 +30,9 @@ class Decorator:
         decorated = content
 
         # iterate through tags
-        for tag in self.tags():
+        for tag in self.tags:
 
-            decorated = tag.apply(content)
+            decorated = tag.apply(decorated)
 
         return decorated
 

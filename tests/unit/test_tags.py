@@ -7,7 +7,7 @@ class TestTags():
     def test_tag_apply(self):
         """
         verify that the content is correctly transformed
-        when a tag is applied on it
+        when a tag is applied to it
         """
 
         # Arrange

@@ -23,7 +23,7 @@ class LanguageDecorators:
 
     def get(self, language):
 
-        return self.all[language]
+        return self.all.get(language, self.all["default"])
 
     def print(self):
 

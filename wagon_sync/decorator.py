@@ -61,9 +61,9 @@ class Decorator:
 
     def end_delimiter(self, verb: Verb):
 
-        return self.build_delimiter(verb, DELIMITER_SUFFIX_END)
+        return self.build_delimiter(verb, DELIMITER_SUFFIX_END, end=True)
 
-    def build_delimiter(self, verb: Verb, suffix):
+    def build_delimiter(self, verb: Verb, suffix, end=False):
 
         decorated_verb = (
             self.prefix
@@ -74,7 +74,7 @@ class Decorator:
         if self.suffix is not None:
             decorated_verb += self.suffix
 
-        decorated_verb += verb.trailing_newlines * "\n"
+        decorated_verb += verb.trailing_newlines * "\n" if end else ""
 
         return decorated_verb
 

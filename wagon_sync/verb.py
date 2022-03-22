@@ -7,9 +7,9 @@ class Verb:
     def __init__(self, verb, fill=False, eat_indentation=False, trailing_newlines=0):
 
         self.name = verb                                    # verb name
-        self.fill = fill                                    # whether replacement introduces content `pass  # HERE`
+        self.fill = fill                                    # whether replacement introduces content such as `pass  # YOUR CODE HERE`
         self.eat_indentation = eat_indentation              # whether replacement eats leading indentation
-        self.trailing_newlines = trailing_newlines          # how many trailing newlines block replacement eats
+        self.trailing_newlines = trailing_newlines          # how many trailing newlines the block replacement eats
 
     def print(self):
 

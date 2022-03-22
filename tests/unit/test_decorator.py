@@ -24,6 +24,11 @@ class TestDecorator():
                 # $ERASE_BEGIN
                 some content inside
                 # $ERASE_END
+
+                # $IMPLODE_BEGIN
+                some content inside
+                # $IMPLODE_END
+
             block after
             """)
 

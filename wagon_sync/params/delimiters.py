@@ -32,57 +32,53 @@ LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON = "pass  # YOUR CODE HERE"
 LEWAGON_SOLUTION_CODE_REPLACEMENT_PYTHON_COMMENT = "# YOUR CODE HERE"
 LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY = "# YOUR CODE HERE"  # also used for shell script
 
-# raw block delimiters 👇
-# language specific delimiters 👇
+# raw comment delimiters 👇
 
-DELIMITER_TYPES = dict(
-    default=dict(       prefix="# ",    suffix="# "),                           # "py", rb", "sh", "txt"
-    js=dict(            prefix="// ",   suffix="// "),
-    html=dict(          prefix="<!-- ", suffix=" -->",  composed=True),
-    css=dict(           prefix="/* ",   suffix=" */",   composed=True),
-    html_erb=dict(      prefix="<#= ",  suffix=" %>",   composed=True),
-    js_erb=dict(        prefix="<#= ",  suffix=" %>",   composed=True))
-
-# raw delimiters 👇
-
-CHALLENGIFY_DELIMITERS = dict(
-    challengify=[
-        dict(begin="# $CHALLENGIFY_BEGIN",  end="# $CHALLENGIFY_END"),
-        dict(begin="# $CHA_BEGIN",          end="# $CHA_END")],
-    delete=[
-        dict(begin="# $DELETE_BEGIN",       end="# $DELETE_END"),                       # consume the delimited block without the trailing newline or tabs
-        dict(begin="# $DEL_BEGIN",          end="# $DEL_END"),
-        dict(begin="# $ERASE_BEGIN",        end="# $ERASE_END",         eat=True),      # consume the line of the delimited block
-        dict(begin="# $WIPE_BEGIN",         end="# $WIPE_END\n",        eat=True),      # erase + consume the line below the delimited block
-        dict(begin="# $IMPLODE_BEGIN",      end="# $IMPLODE_END\n\n",   eat=True)])     # wipe + consumes the line above the delimited block
+LANGUAGE_INLINE_COMMENT_DELIMITERS = dict(
+    default=dict(   prefix="# "),           # "rb", "sh", "txt"
+    py=dict(        prefix="# "),
+    js=dict(        prefix="// "),
+    html=dict(      prefix="<!-- ",         suffix=" -->"),
+    css=dict(       prefix="/* ",           suffix=" */"),
+    html_erb=dict(  prefix="<%#= ",         suffix=" %>"),
+    js_erb=dict(    prefix="<%#= ",         suffix=" %>"),
+    md=dict(        prefix="[//]: # ( ",    suffix=" )"))
 
 # raw block replacements 👇
 
 CHALLENGIFY_REPLACEMENTS = dict(
-    challengify=dict(
-        py="pass  # YOUR CODE HERE",
-        default="# YOUR CODE HERE"),  # "rb", "sh", "txt"
-    delete=dict(
-        default=""))
+    default="# YOUR CODE HERE",     # "rb", "sh", "txt"
+    py="pass  # YOUR CODE HERE",
+    js="// YOUR CODE HERE")
+
+# raw verbs 👇
+
+CHALLENGIFY_VERBS = [
+    dict(verb="CHALLENGIFY",    fill=True),
+    dict(verb="CHA",            fill=True),
+    dict(verb="DELETE",                                 trailing_newlines=0),   # consume the delimited block without the indentation or trailing newline
+    dict(verb="DEL",                                    trailing_newlines=0),
+    dict(verb="ERASE",          eat_indentation=True,   trailing_newlines=0),   # consume the line of the delimited block
+    dict(verb="",               eat_indentation=True,   trailing_newlines=1),   # default verb is wipe
+    dict(verb="WIPE",           eat_indentation=True,   trailing_newlines=1),   # erase + consume the line below the delimited block
+    dict(verb="IMPLODE",        eat_indentation=True,   trailing_newlines=2)]   # wipe + consumes the line above the delimited block
+
+# raw delimiter tag suffixes 👇
+
+DELIMITER_PREFIX = "$"
+DELIMITER_SUFFIX_BEGIN = "_BEGIN"
+DELIMITER_SUFFIX_END = "_END"
 
 # - - - - - delimiters for challengify iterate
 
 # raw block delimiters 👇
 
-ITERATE_ACTIONS = [
-    dict(action="",         trailing_newlines=1),  # default "" is WIPE
-    dict(action="ERASE",    trailing_newlines=0),
-    dict(action="WIPE",     trailing_newlines=1),
-    dict(action="IMPLODE",  trailing_newlines=2)]
-
 ITERATE_DELIMITERS = dict(
-    only_to=dict(begin="# $ONLY_TO_version_action_BEGIN",   end="# $ONLY_TO_version_action_END"),
-    only_for=dict(begin="# $ONLY_FOR_version_action_BEGIN",  end="# $ONLY_FOR_version_action_END"),
-    only_from=dict(begin="# $ONLY_FROM_version_action_BEGIN", end="# $ONLY_FROM_version_action_END"))
+    only_to=dict(begin="# $ONLY_TO_version_verb_BEGIN",   end="# $ONLY_TO_version_verb_END"),
+    only_for=dict(begin="# $ONLY_FOR_version_verb_BEGIN",  end="# $ONLY_FOR_version_verb_END"),
+    only_from=dict(begin="# $ONLY_FROM_version_verb_BEGIN", end="# $ONLY_FROM_version_verb_END"))
 
 # raw tag delimiters 👇
-
-GENERATOR_VERBS = ["CHALLENGIFY",  "CHA",  "DELETE",  "DEL",  "ERASE",  "WIPE",  "IMPLODE"]
 
 CHALLENGE_ONLY_FOR_DELIMITERS = \
     dict(begin="# $verb_ONLY_FOR_version_BEGIN",  end="# $verb_ONLY_FOR_version_END")

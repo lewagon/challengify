@@ -4,11 +4,9 @@ from wagon_common.helpers.file import ensure_path_directory_exists
 from wagon_sync.code_edition import replace_content, replace_tag
 
 from wagon_sync.params.delimiters import (
-    CHALLENGIFY_DELIMITERS,
+    CHALLENGIFY_VERBS,
     CHALLENGIFY_REPLACEMENTS,
-    ITERATE_ACTIONS,
     ITERATE_DELIMITERS,
-    GENERATOR_VERBS,
     CHALLENGE_ONLY_FOR_DELIMITERS)
 
 
@@ -43,7 +41,11 @@ def process_delimiters(content, file_extension, verb_delimiters):
 def process_versions(content, rule, versions, keep=True):
 
     # get configurations
-    for iterate_action in ITERATE_ACTIONS:
+    for iterate_verb in CHALLENGIFY_VERBS:
+
+        # skip non delete verbs
+        if "fill" in iterate_verb:
+            continue
 
         # retrieve iterate verb params
         verb = iterate_verb["verb"]
@@ -89,7 +91,7 @@ def process_generators(content, current, other_versions):
     for generator_pattern in CHALLENGE_ONLY_FOR_DELIMITERS.values():
 
         # replace delimiter generators
-        for verb in GENERATOR_VERBS:
+        for verb in [d["verb"] for d in CHALLENGIFY_VERBS]:
 
             # build verb generator and delimiter
             verb_generator = generator_pattern.replace("verb", verb)

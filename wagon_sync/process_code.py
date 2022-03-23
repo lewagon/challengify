@@ -1,5 +1,6 @@
 
 from wagon_sync.challengify import Challengify
+from wagon_sync.file import File
 
 from wagon_common.helpers.file import ensure_path_directory_exists
 
@@ -7,9 +8,9 @@ from wagon_sync.code_edition import replace_content, replace_tag
 
 from wagon_sync.params.delimiters import (
     CHALLENGIFY_VERBS,
-    CHALLENGIFY_REPLACEMENTS,
     ITERATE_DELIMITERS,
     CHALLENGE_ONLY_FOR_DELIMITERS)
+
 
 def process_versions(content, rule, versions, keep=True):
 
@@ -96,18 +97,21 @@ def process_code(
     # create destination directory
     ensure_path_directory_exists(destination)
 
-    # read content
-    with open(source, "r") as file:
-        content = file.read()
+    # create file scope
+    file_scope = [File(source, destination, file_extension)]
 
     # run challengify
     if version_iterator is None:
 
-        # process content through challengify delimiters
-        content = process_delimiters(content, file_extension, CHALLENGIFY_DELIMITERS)
+        # process file scope
+        challengify.process(file_scope)
 
     # run challengify iterate
     else:
+
+        # read content
+        with open(source, "r") as file:
+            content = file.read()
 
         # retrieve versions
         befores = version_iterator.get_versions_before()
@@ -129,6 +133,6 @@ def process_code(
         # process delimiter generators
         content = process_generators(content, current, befores + afters)
 
-    # write content
-    with open(destination, "w") as file:
-        file.write(content)
+        # write content
+        with open(destination, "w") as file:
+            file.write(content)

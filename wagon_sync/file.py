@@ -4,13 +4,14 @@ from wagon_sync.decorator import Decorator
 
 class File:
 
-    def __init__(self, path, language):
+    def __init__(self, source, destination, language):
 
-        self.path = path
+        self.source = source
+        self.destination = destination
         self.language = language
 
-        # read file content
-        with open(self.path, 'r') as file:
+        # read source
+        with open(self.source, 'r') as file:
             self.content = file.read()
 
     def decorate(self, decorator: Decorator):
@@ -20,5 +21,6 @@ class File:
         # decorate content
         self.decorated = decorator.decorate(self.content)
 
-        # write destination file
-        self.decorated  # TODO - only for tests / rewrite test_challengify accordingly
+        # write destination
+        with open(self.destination, "w") as file:
+            file.write(self.decorated)

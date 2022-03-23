@@ -43,6 +43,7 @@ pytest -s tests/functional/run/test_code_html.py
 pytest -s tests/functional/run/test_code_css.py
 pytest -s tests/functional/run/test_code_js.py
 pytest -s tests/functional/run/test_code_rails.py
+pytest -s tests/functional/run/test_notebooks.py
 ```
 
 ### challengify iterate

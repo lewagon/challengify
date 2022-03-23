@@ -11,7 +11,6 @@ from wagon_sync.params.delimiters import (
     ITERATE_DELIMITERS,
     CHALLENGE_ONLY_FOR_DELIMITERS)
 
-
 def process_versions(content, rule, versions, keep=True):
 
     # get configurations

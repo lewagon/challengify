@@ -68,17 +68,17 @@ def process(
     print(f"{file_path} {os.path.relpath(destination_path)}")
 
     # extension handlers
-    handlers = dict(
-        ipynb=process_notebook,
-        py=process_code,
-        rb=process_code,
-        sh=process_code,
-        txt=process_code,
-        )
+    handlers = {
+        process_notebook: ["ipynb"],
+        process_code: [
+            "py", "rb", "sh", "txt", "md",
+            "html", "css", "js", "txt"]}
 
     # retrieve handler function
     file_extension = get_file_extension(file_path)
-    handler_function = handlers.get(file_extension, process_file)  # default handler
+    possible_handlers = [function for function, extensions in handlers.items() if file_extension in extensions]
+    handler_function = possible_handlers[0] if len(possible_handlers) > 0 else process_file  # default handler
+    # handler_function = handlers.get(file_extension, process_file)  # default handler
 
     # call handler
     if not dry_run:

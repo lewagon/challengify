@@ -49,7 +49,9 @@ LANGUAGE_INLINE_COMMENT_DELIMITERS = dict(
 CHALLENGIFY_REPLACEMENTS = dict(
     default="# YOUR CODE HERE",     # "rb", "sh", "txt"
     py="pass  # YOUR CODE HERE",
-    js="// YOUR CODE HERE")
+    js="// YOUR CODE HERE",
+    html="<!-- YOUR CODE HERE -->",
+    css="/* YOUR CODE HERE */")
 
 # raw verbs 👇
 

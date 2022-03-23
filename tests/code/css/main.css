@@ -13,16 +13,20 @@
 */
 .trix-content .attachment-gallery > action-text-attachment,
 .trix-content .attachment-gallery > .attachment {
+  /* $CHA_BEGIN */
   flex: 1 0 33%;
   padding: 0 0.5em;
   max-width: 33%;
+  /* $CHA_END */
 }
 
 .trix-content .attachment-gallery.attachment-gallery--2 > action-text-attachment,
 .trix-content .attachment-gallery.attachment-gallery--2 > .attachment, .trix-content .attachment-gallery.attachment-gallery--4 > action-text-attachment,
 .trix-content .attachment-gallery.attachment-gallery--4 > .attachment {
+  /* $ERASE_BEGIN */
   flex-basis: 50%;
   max-width: 50%;
+  /* $ERASE_END */
 }
 
 .trix-content action-text-attachment .attachment {

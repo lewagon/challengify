@@ -16,13 +16,21 @@ import os
 def get_file_extension(file_path):
 
     # get file extension
-    _, ext = os.path.splitext(file_path)
+    file_root, ext = os.path.splitext(file_path)
 
     # checking filenames without an extension
     if ext == "":
 
         # default profile for extensionless or dot files is shell
         ext = ".sh"
+
+    # checking erb extensions
+    if ext == ".erb":
+
+        # get sub extension
+        _, subext = os.path.splitext(file_root)
+
+        ext = f"{subext}{ext.replace('.', '_')}"
 
     return ext[1:]
 

@@ -1,0 +1,22 @@
+
+iterate:
+  source: project
+  destination: ../generated/01-Module
+  versions:
+    base: 01-Base/01-Introduction
+    code: 03-API/01-Build-your-API
+    end: 03-API/02-API-advanced
+  only:
+    to:
+      base:
+        - project/intro.md
+    for:
+      code:
+        - project/notebooks/api_boilerplate.ipynb
+    from:
+      code:
+        - project/api/__init__.py
+        - project/api/fast.py
+      end:
+        - project/Dockerfile
+        - project/requirements.txt

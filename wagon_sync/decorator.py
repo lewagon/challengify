@@ -7,7 +7,8 @@ from wagon_sync.params.delimiters import (
     DELIMITER_PREFIX,
     DELIMITER_SUFFIX_BEGIN,
     DELIMITER_SUFFIX_END,
-    CHALLENGIFY_REPLACEMENTS)
+    REPLACEMENT_CONTENT,
+    CUSTOM_REPLACEMENTS)
 
 from colorama import Fore, Style
 
@@ -20,7 +21,11 @@ class Decorator:
         self.prefix = prefix
         self.suffix = suffix
 
-        self.replacement = CHALLENGIFY_REPLACEMENTS.get(language, CHALLENGIFY_REPLACEMENTS["default"])
+        # build replacement
+        if language in CUSTOM_REPLACEMENTS:
+            self.replacement = CUSTOM_REPLACEMENTS[language]
+        else:
+            self.replacement = f"{self.prefix}{REPLACEMENT_CONTENT}{self.suffix if self.suffix is not None else ''}"
 
         self.verbs = verbs
         self.tags = self.build_tags()

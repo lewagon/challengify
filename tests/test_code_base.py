@@ -1,4 +1,6 @@
 
+from wagon_sync.challengify import Challengify
+
 from wagon_sync.process import get_file_extension
 from wagon_sync.process_code import process_code
 
@@ -7,13 +9,19 @@ import unittest
 import os
 
 
-class TestCodeActions(unittest.TestCase):
+class TestCodeBase(unittest.TestCase):
     """
     basic tests to verify that the outcome of the transformation
     on code files does not change
     """
 
-    def __code_transformation_test(self, source_file):
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self.challengify = Challengify()
+
+    def code_transformation_test(self, source_file):
 
         # get data path
         in_file = os.path.join(os.path.dirname(__file__), "code", source_file)
@@ -25,7 +33,9 @@ class TestCodeActions(unittest.TestCase):
         file_extension = get_file_extension(in_file)
 
         # transform code
-        process_code(in_file, processed_file, file_extension)
+        process_code(
+            self.challengify,
+            in_file, processed_file, file_extension)
 
         # read files
         with open(out_file, "r") as file:
@@ -39,32 +49,3 @@ class TestCodeActions(unittest.TestCase):
 
         # compare results
         self.assertEqual(out_content, processed_content)
-
-    def test_python(self):
-        """
-        test python code file transformations
-        """
-        self.__code_transformation_test("python/code.py")
-
-    def test_ruby(self):
-        """
-        test ruby code file transformations
-        """
-        self.__code_transformation_test("ruby/code.rb")
-
-    def test_shell(self):
-        """
-        test shell code file transformations
-        """
-        for file in [".zshrc",  "Dockerfile",  "Makefile",  "script.sh"]:
-            self.__code_transformation_test(f"shell/{file}")
-
-    def test_text(self):
-        """
-        test text code file transformations
-        """
-        self.__code_transformation_test("txt/requirements.txt")
-
-
-if __name__ == '__main__':
-    unittest.main()

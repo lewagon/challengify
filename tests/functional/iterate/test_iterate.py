@@ -28,7 +28,7 @@ class TestIterate(unittest.TestCase):
             max_version=None,
             force=True,
             dry_run=False,
-            verbose=False,
+            verbose=True,
             ignore_metadata=False,
             format=False)
 

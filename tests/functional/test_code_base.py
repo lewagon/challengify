@@ -24,7 +24,7 @@ class TestCodeBase(unittest.TestCase):
     def code_transformation_test(self, source_file):
 
         # get data path
-        in_file = os.path.join(os.path.dirname(__file__), "code", source_file)
+        in_file = os.path.join(os.path.dirname(__file__), "..", "code", source_file)
         in_file_root, in_file_extension = os.path.splitext(in_file)
         out_file = f"{in_file_root}_generated{in_file_extension}"
         processed_file = f"{in_file_root}_processed{in_file_extension}"

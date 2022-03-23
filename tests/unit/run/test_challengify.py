@@ -13,6 +13,7 @@ class TestChallengify():
         source_file_path = os.path.join(
             os.path.dirname(__file__),
             "..",
+            "..",
             "code",
             "python",
             "code.py")
@@ -20,6 +21,7 @@ class TestChallengify():
 
         destination_file_path = os.path.join(
             os.path.dirname(__file__),
+            "..",
             "..",
             "code",
             "python",

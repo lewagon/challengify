@@ -1,5 +1,5 @@
 
-from tests.test_code_base import TestCodeBase
+from tests.functional.test_code_base import TestCodeBase
 
 import unittest
 

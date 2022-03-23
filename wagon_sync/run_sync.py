@@ -3,6 +3,8 @@ called by the challengify command
 runs sync on specified sources
 """
 
+from wagon_sync.challengify import Challengify
+
 from wagon_sync.helpers.filter import (
     list_files_matching_dirs,
     list_files_matching_pattern)
@@ -113,6 +115,7 @@ def load_ignored_files():
 
 
 def run_sync(
+        challengify: Challengify,
         sources,
         destination,
         force,
@@ -211,6 +214,7 @@ def run_sync(
 
         # synchronize file
         destination_file_path, destination_path = process(
+            challengify,
             candidate_file, destination, dry_run,
             ignore_tld=ignore_tld, iterate_yaml_path=iterate_yaml_path,
             test=test,

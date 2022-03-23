@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from wagon_sync.challengify import Challengify
+
 from wagon_sync.run_sync import run_sync
 from wagon_sync.run_inject import run_inject
 from wagon_sync.run_iterate import run_iterate
@@ -148,8 +150,12 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
         # no sync
         return
 
+    # create challengify object
+    challengify = Challengify()
+
     # run synchronization
     run_sync(
+        challengify,
         sources,
         destination,
         force,
@@ -268,8 +274,11 @@ def iterate(source, challenge, force, dry_run, verbose, ignore_metadata, format)
     else:
         min_version = max_version = challenge
 
+    # create challengify object
+    challengify = Challengify()
+
     # run iteration
-    run_iterate(source, min_version, max_version, force, dry_run, verbose, ignore_metadata, format)
+    run_iterate(challengify, source, min_version, max_version, force, dry_run, verbose, ignore_metadata, format)
 
 
 if __name__ == '__main__':

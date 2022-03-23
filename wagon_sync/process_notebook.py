@@ -1,4 +1,6 @@
 
+from wagon_sync.challengify import Challengify
+
 from wagon_sync.params.delimiters import (
     LEWAGON_SOLUTION_NB_TAG_DELETE,
     LEWAGON_SOLUTION_NB_TAG_DELETE_BEGIN,
@@ -181,7 +183,9 @@ def clean_notebook(source, destination, file_extension, nb_options):
     ntbk.save(destination)
 
 
-def process_notebook(source, destination, file_extension, version_iterator=None):
+def process_notebook(
+        challengify: Challengify,
+        source, destination, file_extension, version_iterator=None):
     """
     control notebook processes
     """

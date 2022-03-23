@@ -1,4 +1,6 @@
 
+from wagon_sync.challengify import Challengify
+
 from wagon_common.helpers.file import ensure_path_directory_exists
 
 from wagon_sync.code_edition import replace_content, replace_tag
@@ -8,35 +10,6 @@ from wagon_sync.params.delimiters import (
     CHALLENGIFY_REPLACEMENTS,
     ITERATE_DELIMITERS,
     CHALLENGE_ONLY_FOR_DELIMITERS)
-
-
-def process_delimiters(content, file_extension, verb_delimiters):
-
-    # iterate through delimiter verbs
-    for verb, configurations in verb_delimiters.items():
-
-        # retrieve verb replacements
-        replacements = CHALLENGIFY_REPLACEMENTS[verb]
-
-        # select replacement string
-        if file_extension in replacements:
-            replacement = replacements[file_extension]
-        else:
-            replacement = replacements["default"]
-
-        # iterate through delimiter configurations
-        for configuration in configurations:
-
-            # retrieve configuration delimiters
-            delimiter_begin = configuration["begin"]
-            delimiter_end = configuration["end"]
-            eat_leading_tabs = configuration.get("eat", False)
-
-            # replace delimiter blocks
-            content = replace_content(content, replacement, delimiter_begin, delimiter_end, eat_leading_tabs=eat_leading_tabs)
-
-    return content
-
 
 def process_versions(content, rule, versions, keep=True):
 
@@ -116,7 +89,9 @@ def process_generators(content, current, other_versions):
     return content
 
 
-def process_code(source, destination, file_extension, version_iterator=None):
+def process_code(
+        challengify: Challengify,
+        source, destination, file_extension, version_iterator=None):
 
     # create destination directory
     ensure_path_directory_exists(destination)

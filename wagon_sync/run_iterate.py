@@ -150,7 +150,7 @@ def write_challenge_metadata(version_destination, original_files):
         file.write("\n".join([metadata_filename] + original_files) + "\n")
 
 
-def run_iterate(source, min_version, max_version, force, dry_run, verbose, ignore_metadata, format):
+def run_iterate(challengify, source, min_version, max_version, force, dry_run, verbose, ignore_metadata, format):
 
     # load conf
     conf = load_conf_file(source, verbose)
@@ -198,6 +198,7 @@ def run_iterate(source, min_version, max_version, force, dry_run, verbose, ignor
 
         # challengify the challenge version
         original_files, processed_files = run_sync(
+            challengify,
             [source_directory],
             version_destination,
             force,

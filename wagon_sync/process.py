@@ -2,6 +2,8 @@
 runs sync on a specified file
 """
 
+from wagon_sync.challengify import Challengify
+
 from wagon_sync.process_notebook import process_notebook
 from wagon_sync.process_code import process_code
 from wagon_sync.process_file import process_file
@@ -26,6 +28,7 @@ def get_file_extension(file_path):
 
 
 def process(
+        challengify: Challengify,
         file_path, destination, dry_run,
         ignore_tld, iterate_yaml_path,
         test, version_iterator=None):
@@ -81,6 +84,7 @@ def process(
     if not dry_run:
 
         handler_function(
+            challengify,
             file_path,
             destination_path,
             file_extension,

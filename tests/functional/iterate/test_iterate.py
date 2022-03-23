@@ -18,7 +18,7 @@ class TestIterate(unittest.TestCase):
         challengify = Challengify()
 
         source_path = os.path.join(
-            os.path.dirname(__file__), "..", "data", "iterate", "source")
+            os.path.dirname(__file__), "..", "..", "data", "iterate", "source")
 
         # Act
         run_iterate(
@@ -33,7 +33,7 @@ class TestIterate(unittest.TestCase):
             format=False)
 
         # Assert
-        assert True
+        assert False
 
         # Cleanup
 

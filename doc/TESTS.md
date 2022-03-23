@@ -38,6 +38,7 @@ pytest -s tests/functional/run/test_code_python.py
 pytest -s tests/functional/run/test_code_ruby.py
 pytest -s tests/functional/run/test_code_shell.py
 pytest -s tests/functional/run/test_code_text.py
+pytest -s tests/functional/run/test_code_markdown.py
 pytest -s tests/functional/run/test_code_html.py
 pytest -s tests/functional/run/test_code_css.py
 pytest -s tests/functional/run/test_code_js.py

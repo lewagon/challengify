@@ -28,8 +28,8 @@ class TestNotebookActions(unittest.TestCase):
         # caller_name = inspect.currentframe().f_back.f_code.co_name
 
         # get notebook path
-        in_nb = os.path.join(os.path.dirname(__file__), "..", "notebooks", caller_name, "notebook_in.ipynb")
-        processed_nb = os.path.join(os.path.dirname(__file__), "..", "notebooks", caller_name, "notebook_challengify.ipynb")
+        in_nb = os.path.join(os.path.dirname(__file__), "..", "..", "notebooks", caller_name, "notebook_in.ipynb")
+        processed_nb = os.path.join(os.path.dirname(__file__), "..", "..", "notebooks", caller_name, "notebook_challengify.ipynb")
 
         # format python code
         process_notebook(
@@ -37,7 +37,7 @@ class TestNotebookActions(unittest.TestCase):
             in_nb, processed_nb, ".ipynb")
 
         # load notebooks
-        out_nb = os.path.join(os.path.dirname(__file__), "..", "notebooks", caller_name, "notebook_out.ipynb")
+        out_nb = os.path.join(os.path.dirname(__file__), "..", "..", "notebooks", caller_name, "notebook_out.ipynb")
 
         with open(out_nb, "r") as file:
             out_data = file.read()

@@ -1,7 +1,7 @@
 
 iterate:
   source: project
-  destination: ../generated/01-Module
+  destination: ../processed/01-Module
   versions:
     base: 01-Base/01-Introduction
     code: 03-API/01-Build-your-API

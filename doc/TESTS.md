@@ -50,6 +50,7 @@ pytest -s tests/functional/run/test_notebooks.py
 
 ``` bash
 pytest -s tests/functional/iterate
+pytest -s tests/functional/iterate/test_iterate.py
 ```
 
 ## integration tests

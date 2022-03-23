@@ -1,4 +1,6 @@
 
+from wagon_sync.challengify import Challengify
+
 from wagon_sync.process_notebook import process_notebook
 
 import unittest
@@ -14,6 +16,12 @@ class TestNotebookActions(unittest.TestCase):
     on notebook files does not change appart from the generated `id` attributes
     """
 
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self.challengify = Challengify()
+
     def __transformation_test(self, caller_name):
 
         # retrieve caller name
@@ -24,7 +32,9 @@ class TestNotebookActions(unittest.TestCase):
         processed_nb = os.path.join(os.path.dirname(__file__), "notebooks", caller_name, "notebook_challengify.ipynb")
 
         # format python code
-        process_notebook(in_nb, processed_nb, ".ipynb")
+        process_notebook(
+            self.challengify,
+            in_nb, processed_nb, ".ipynb")
 
         # load notebooks
         out_nb = os.path.join(os.path.dirname(__file__), "notebooks", caller_name, "notebook_out.ipynb")

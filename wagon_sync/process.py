@@ -72,7 +72,7 @@ def process(
         process_notebook: ["ipynb"],
         process_code: [
             "py", "rb", "sh", "txt", "md",
-            "html", "css", "js", "txt"]}
+            "html", "css", "js", "html_erb", "js_erb"]}
 
     # retrieve handler function
     file_extension = get_file_extension(file_path)

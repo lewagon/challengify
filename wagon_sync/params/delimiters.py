@@ -47,11 +47,14 @@ LANGUAGE_INLINE_COMMENT_DELIMITERS = dict(
 # raw block replacements 👇
 
 CHALLENGIFY_REPLACEMENTS = dict(
-    default="# YOUR CODE HERE",     # "rb", "sh", "txt"
+    default="# YOUR CODE HERE",             # "rb", "sh", "txt"
     py="pass  # YOUR CODE HERE",
     js="// YOUR CODE HERE",
     html="<!-- YOUR CODE HERE -->",
-    css="/* YOUR CODE HERE */")
+    css="/* YOUR CODE HERE */",
+    html_erb="<%#= YOUR CODE HERE %>",
+    js_erb="<%#= YOUR CODE HERE %>",
+    md="[//]: # ( YOUR CODE HERE )")
 
 # raw verbs 👇
 

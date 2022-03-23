@@ -14,6 +14,7 @@ class TestChallengify():
             os.path.dirname(__file__),
             "..",
             "..",
+            "data",
             "code",
             "python",
             "code.py")
@@ -23,6 +24,7 @@ class TestChallengify():
             os.path.dirname(__file__),
             "..",
             "..",
+            "data",
             "code",
             "python",
             "code_generated.py")

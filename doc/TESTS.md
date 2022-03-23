@@ -52,7 +52,8 @@ pytest -s tests/functional/iterate
 
 ## integration tests
 
-### challengify run + iterate
+### challengify iterate + run
 
 ``` bash
+pytest -s tests/integration/iterate_run
 ```

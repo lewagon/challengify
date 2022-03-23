@@ -16,7 +16,7 @@ class TestChallengify():
             "code",
             "python",
             "code.py")
-        source_file = File(source_file_path, "py")
+        source_file = File(source_file_path, "/dev/null", "py")
 
         destination_file_path = os.path.join(
             os.path.dirname(__file__),
@@ -24,7 +24,7 @@ class TestChallengify():
             "code",
             "python",
             "code_generated.py")
-        destination_file = File(destination_file_path, "py")
+        destination_file = File(destination_file_path, "/dev/null", "py")
 
         challengify = Challengify()
 

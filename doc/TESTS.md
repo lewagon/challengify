@@ -15,8 +15,8 @@ pytest -s tests/test_code_text.py
 
 pytest -s tests/test_code_html.py
 pytest -s tests/test_code_css.py
-
 pytest -s tests/test_code_js.py
+
 pytest -s tests/test_code_rails.py
 
 pytest -s tests/unit/test_challenge_versions.py

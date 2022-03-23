@@ -16,8 +16,6 @@ class File:
 
     def decorate(self, decorator: Decorator):
 
-        # TODO - rewrite this whole method without the self.*
-
         # decorate content
         self.decorated = decorator.decorate(self.content)
 

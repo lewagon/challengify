@@ -11,6 +11,9 @@ class Challengify:
         self.decorators = LanguageDecorators()
 
     def process(self, file_scope: FileScope):
+        """
+        challengify run
+        """
 
         # iterate through files
         for file in file_scope:
@@ -20,3 +23,10 @@ class Challengify:
 
             # apply decorator
             file.decorate(decorator)
+
+    def iterate(self, file_scope: FileScope):
+        """
+        challengify iterate
+        """
+
+        pass

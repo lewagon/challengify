@@ -6,12 +6,16 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%#= $CHA_BEGIN %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <%= javascript_importmap_tags %>
+    <%#= $CHA_END %>
   </head>
 
   <body>
+    <%#= $ERASE_BEGIN %>
     <%= yield %>
+    <%#= $ERASE_END %>
   </body>
 </html>

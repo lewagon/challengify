@@ -38,14 +38,12 @@ class TestIterate(unittest.TestCase):
         # Arrange
         challengify = Challengify()
 
-        in_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", "iterate", "source")
+        data_path = os.path.join(
+            os.path.dirname(__file__), "..", "..", "data", "iterate")
 
-        out_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", "iterate", "processed")
-
-        control_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", "iterate", "control")
+        in_path = os.path.join(data_path, "source")
+        out_path = os.path.join(data_path, "processed")
+        control_path = os.path.join(data_path, "control")
 
         # Act
         run_iterate(

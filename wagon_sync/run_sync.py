@@ -157,8 +157,18 @@ def run_sync(
         # cancel sync
         return
 
+    version_info = f" ({version_info})" if version_info is not None else ""
+
     # retrieve git controlled files in scope
     controlled_files = resolve_scope(sources, ["*"], verbose=verbose)[0]
+
+    if not controlled_files:
+
+        print(Fore.RED
+              + f"\nNo files controlled by git in the scope{version_info} 😶‍🌫️"
+              + Style.RESET_ALL
+              + "\nPlease make sure to `git add` any files that you want to challengify")
+        return [], []
 
     # retrieve sync ignored files
     ignored_files = load_ignored_files()
@@ -194,8 +204,6 @@ def run_sync(
         print_files("red", "Files excluded by challengify iterate", additional_ignores)
 
     print_files("green", "Files candidate", candidate_files)
-
-    version_info = f" ({version_info})" if version_info is not None else ""
 
     if dry_run:
         print(Fore.BLUE

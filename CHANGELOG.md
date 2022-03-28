@@ -18,6 +18,7 @@
 
 #### Challengify run
 
+- Adds support for `.html`, `.css`, `.js`, `.html.erb` and `.js.erb` file types
 - Adds `# $CHA_BEGIN` / `# $CHA_END` delimiter aliases
 - Adds `# $DEL_BEGIN` / `# $DEL_END` delimiters aliases
 - Adds `# $ERASE_BEGIN` / `# $ERASE_END` delimiters consuming block newline

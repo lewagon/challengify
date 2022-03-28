@@ -58,14 +58,14 @@ def get_destination_cwd(destination):
     return abs_target
 
 
-def get_iterate_destination_cwd(destination):
+def get_iterate_destination_cwd(destination, iterate_yaml_path):
     """ corrects destination relatively to tld """
 
     # retrieve project root
     tld = get_git_top_level_directory()
 
     # build target path
-    target = os.path.join(tld, destination)
+    target = os.path.join(tld, iterate_yaml_path, destination)
 
     # get absolute path
     abs_target = os.path.abspath(target)
@@ -139,7 +139,7 @@ def run_sync(
     if ignore_tld:
 
         # challengify iterate
-        destination = get_iterate_destination_cwd(destination)
+        destination = get_iterate_destination_cwd(destination, iterate_yaml_path)
 
     else:
 
@@ -158,6 +158,12 @@ def run_sync(
         return
 
     version_info = f" ({version_info})" if version_info is not None else ""
+
+    # correct scope
+    if ignore_tld:
+
+        # correct scope path relative to iterate yaml path
+        sources = [os.path.join(iterate_yaml_path, source) for source in sources]
 
     # retrieve git controlled files in scope
     controlled_files = resolve_scope(sources, ["*"], verbose=verbose)[0]

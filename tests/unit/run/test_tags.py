@@ -1,5 +1,6 @@
 
 from wagon_sync.tag import Tag
+from wagon_sync.verb import Verb
 
 
 class TestTags():
@@ -11,11 +12,13 @@ class TestTags():
         """
 
         # Arrange
+        cha = Verb(
+            verb="CHA",
+            fill=True)
         tag = Tag(
-            begin="# $CHA_BEGIN",
-            end="# $CHA_END",
-            replacement="# pass",
-            eat_indentation=False)
+            verb=cha,
+            replacement="pass",
+            prefix="# ")
 
         # Act
         decorated = tag.apply("""
@@ -28,7 +31,7 @@ class TestTags():
 
         expected = """
             block before
-                # pass# block end
+                pass# block end
             block after
             """
 

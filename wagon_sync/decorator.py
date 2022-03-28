@@ -1,12 +1,8 @@
 
 from wagon_sync.verbs import Verbs
-from wagon_sync.verb import Verb
 from wagon_sync.tag import Tag
 
 from wagon_sync.params.delimiters import (
-    DELIMITER_PREFIX,
-    DELIMITER_SUFFIX_BEGIN,
-    DELIMITER_SUFFIX_END,
     REPLACEMENT_CONTENT,
     CUSTOM_REPLACEMENTS)
 
@@ -50,50 +46,23 @@ class Decorator:
 
             replacement = self.replacement if verb.fill else ""
 
-            tag = Tag(
-                begin=self.begin_delimiter(verb),
-                end=self.end_delimiter(verb),
-                replacement=replacement,
-                eat_indentation=verb.eat_indentation)
+            tag = Tag(verb, replacement, self.prefix, self.suffix)
 
             tags.append(tag)
 
         return tags
 
-    def begin_delimiter(self, verb: Verb):
-
-        return self.build_delimiter(verb, DELIMITER_SUFFIX_BEGIN)
-
-    def end_delimiter(self, verb: Verb):
-
-        return self.build_delimiter(verb, DELIMITER_SUFFIX_END, end=True)
-
-    def build_delimiter(self, verb: Verb, suffix, end=False):
-
-        decorated_verb = (
-            self.prefix
-            + DELIMITER_PREFIX
-            + verb.name
-            + suffix)
-
-        if self.suffix is not None:
-            decorated_verb += self.suffix
-
-        decorated_verb += verb.trailing_newlines * "\n" if end else ""
-
-        return decorated_verb
-
     def print(self):
 
-        cha = self.verbs.all[0]
+        cha = self.tags[0]
 
         print(Fore.BLUE
               + f"\nDecorator {self.language}:"
               + Style.RESET_ALL
               + f"\n- prefix: `{self.prefix}`"
               + (f"\n- suffix: `{self.suffix}`" if self.suffix else "")
-              + f"\n- {cha.name} begin: {self.begin_delimiter(cha)}"
-              + f"\n- {cha.name} end: {self.end_delimiter(cha)}")
+              + f"\n- {cha.verb.name} begin: {cha.begin}"
+              + f"\n- {cha.verb.name} end: {cha.end}")
 
     def print_tags(self):
 

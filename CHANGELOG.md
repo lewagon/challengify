@@ -14,6 +14,7 @@
 - Adds `# $ONLY_xxx_version_BEGIN` and `# $ONLY_xxx_version_END` code delimiters for `challengify iterate` with option to `ERASE`, `WIPE` (default) or `IMPLODE`
 - Generates a per challenge version `.lewagon/.challengify_generated.txt` containing the list of generated files
 - Adds `--ignore-metadata` option to ignore metadata file generation
+- Adds functional test
 
 #### Challengify run
 

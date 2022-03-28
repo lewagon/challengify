@@ -43,6 +43,25 @@ class TestChallengeVersions:
         assert stored_versions == self.loaded_versions
         assert iterable_versions == self.loaded_versions
 
+    def test_multiple_iterations(self, challenge_versions):
+        """
+        ensure multiple iterations run correctly
+        """
+
+        # Act
+        # none
+
+        # Assert
+        stored_versions = [c.version for c in challenge_versions.versions]
+        stored_versions_2 = [c.version for c in challenge_versions.versions]
+        iterable_versions = [c.version for c in challenge_versions]
+        iterable_versions_2 = [c.version for c in challenge_versions]
+
+        assert stored_versions == self.loaded_versions
+        assert stored_versions_2 == self.loaded_versions
+        assert iterable_versions == self.loaded_versions
+        assert iterable_versions_2 == self.loaded_versions
+
     def test_filter(self, challenge_versions):
 
         # Act

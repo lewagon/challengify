@@ -139,10 +139,10 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
     return ignored
 
 
-def write_challenge_metadata(source, version, version_destination, original_files):
+def write_challenge_metadata(source, version, version_destination, original_files, verbose):
 
     metadata_filename = ".lewagon/.challengify_generated.txt"
-    metadata_path = os.path.join(version_destination, metadata_filename)
+    metadata_path = os.path.join(source, version_destination, metadata_filename)
 
     # create metadata directory
     os.makedirs(os.path.dirname(metadata_path), exist_ok=True)
@@ -160,6 +160,12 @@ def write_challenge_metadata(source, version, version_destination, original_file
     with open(metadata_path, "w") as file:
         file.write(challengify_generated_header)
         file.write("\n".join([metadata_filename] + original_files) + "\n")
+
+    if verbose:
+        print(Fore.BLUE
+              + "\nWrite metadatafile"
+              + Style.RESET_ALL
+              + f"\n- path: {metadata_path}")
 
 
 def run_iterate(challengify, source, min_version, max_version, force, dry_run, verbose, ignore_metadata, format):
@@ -226,7 +232,7 @@ def run_iterate(challengify, source, min_version, max_version, force, dry_run, v
 
         # generate metadata
         if not dry_run and not ignore_metadata:
-            write_challenge_metadata(source, challenge_version.version, version_destination, original_files)
+            write_challenge_metadata(source, challenge_version.version, version_destination, original_files, verbose)
 
         # list processed files
         if verbose:

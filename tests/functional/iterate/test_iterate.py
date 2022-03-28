@@ -5,6 +5,7 @@ from wagon_sync.run_iterate import run_iterate
 import unittest
 
 import os
+import shutil
 
 from wagon_common.helpers.subprocess import run_command
 
@@ -38,8 +39,7 @@ class TestIterate(unittest.TestCase):
         # Arrange
         challengify = Challengify()
 
-        data_path = os.path.join(
-            os.path.dirname(__file__), "..", "..", "data", "iterate")
+        data_path = os.path.join("tests", "data", "iterate")
 
         in_path = os.path.join(data_path, "source")
         out_path = os.path.join(data_path, "processed")
@@ -53,7 +53,7 @@ class TestIterate(unittest.TestCase):
             max_version=None,
             force=True,
             dry_run=False,
-            verbose=False,
+            verbose=True,
             ignore_metadata=False,
             format=False)
 
@@ -63,7 +63,7 @@ class TestIterate(unittest.TestCase):
         if rc != 0:
 
             print(Fore.RED
-                  + "\nDirectories content does not match 🤕"
+                  + "\nDirectory content does not match 🤕"
                   + Style.RESET_ALL
                   + f"\n- rc: {rc}"
                   + f"\n- output: {output}"
@@ -73,6 +73,7 @@ class TestIterate(unittest.TestCase):
         assert rc == 0
 
         # Cleanup
+        shutil.rmtree(out_path, ignore_errors=True)
 
 
 if __name__ == '__main__':

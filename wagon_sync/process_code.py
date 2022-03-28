@@ -9,7 +9,7 @@ from wagon_sync.code_edition import replace_content, replace_tag
 from wagon_sync.params.delimiters import (
     CHALLENGIFY_VERBS,
     ITERATE_VERSION_DELIMITERS,
-    CHALLENGE_ONLY_FOR_DELIMITERS)
+    ITERATE_VERSION_META_DELIMITERS)
 
 
 def process_versions(content, rule, versions, keep=True):
@@ -62,7 +62,7 @@ def process_generators(content, current, other_versions):
     """
 
     # iterate through patterns to process version generators
-    for generator_pattern in CHALLENGE_ONLY_FOR_DELIMITERS.values():
+    for generator_pattern in ITERATE_VERSION_META_DELIMITERS.values():
 
         # replace delimiter generators
         for verb in [d["verb"] for d in CHALLENGIFY_VERBS]:

@@ -80,7 +80,7 @@ ITERATE_VERSION_DELIMITERS = dict(
 
 # raw tag delimiters 👇
 
-CHALLENGE_ONLY_FOR_DELIMITERS = \
+ITERATE_VERSION_META_DELIMITERS = \
     dict(begin="# $verb_ONLY_FOR_version_BEGIN",  end="# $verb_ONLY_FOR_version_END")
 
 # - - - - - file patterns for challengify test and clean

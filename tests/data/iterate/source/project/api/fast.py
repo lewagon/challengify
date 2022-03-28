@@ -1,11 +1,11 @@
 
-# $WIPE_ONLY_FOR_api_BEGIN
+# $WIPE_ONLY_FOR_code_BEGIN
 from datetime import datetime
 import pytz
 
 import pandas as pd
 import joblib
-# $WIPE_ONLY_FOR_api_END
+# $WIPE_ONLY_FOR_code_END
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,7 +23,7 @@ app.add_middleware(
 # http://127.0.0.1:8000/predict?pickup_datetime=2012-10-06 12:10:20&pickup_longitude=40.7614327&pickup_latitude=-73.9798156&dropoff_longitude=40.6513111&dropoff_latitude=-73.8803331&passenger_count=2
 
 
-# $IMPLODE_ONLY_FOR_api_BEGIN
+# $IMPLODE_ONLY_FOR_code_BEGIN
 @app.get("/predict_untyped")
 def predict_untyped(pickup_datetime,        # 2013-07-06 17:18:00
                     pickup_longitude,       # -73.950655
@@ -39,11 +39,11 @@ def predict_untyped(pickup_datetime,        # 2013-07-06 17:18:00
         dropoff_longitude=float(dropoff_longitude),
         dropoff_latitude=float(dropoff_latitude),
         passenger_count=int(passenger_count))
-# $IMPLODE_ONLY_FOR_api_END
+# $IMPLODE_ONLY_FOR_code_END
 
 
 @app.get("/")
 def root():
-    # $CHA_ONLY_FOR_api_BEGIN
+    # $CHA_ONLY_FOR_code_BEGIN
     return dict(greeting="hello")
-    # $CHA_ONLY_FOR_api_END
+    # $CHA_ONLY_FOR_code_END

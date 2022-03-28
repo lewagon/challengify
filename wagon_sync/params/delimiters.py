@@ -73,7 +73,7 @@ DELIMITER_SUFFIX_END = "_END"
 
 # raw block delimiters 👇
 
-ITERATE_DELIMITERS = dict(
+ITERATE_VERSION_DELIMITERS = dict(
     only_to=dict(begin="# $ONLY_TO_version_verb_BEGIN",   end="# $ONLY_TO_version_verb_END"),
     only_for=dict(begin="# $ONLY_FOR_version_verb_BEGIN",  end="# $ONLY_FOR_version_verb_END"),
     only_from=dict(begin="# $ONLY_FROM_version_verb_BEGIN", end="# $ONLY_FROM_version_verb_END"))

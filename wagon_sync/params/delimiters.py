@@ -38,6 +38,7 @@ LANGUAGE_INLINE_COMMENT_DELIMITERS = dict(
     default=dict(   prefix="# "),           # "rb", "sh", "txt"
     py=dict(        prefix="# "),
     js=dict(        prefix="// "),
+    sql=dict(       prefix="-- "),
     html=dict(      prefix="<!-- ",         suffix=" -->"),
     css=dict(       prefix="/* ",           suffix=" */"),
     html_erb=dict(  prefix="<%#= ",         suffix=" %>"),

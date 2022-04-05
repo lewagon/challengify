@@ -32,7 +32,7 @@ iterate:
     docker_prod: 04-Predict-in-production/03-Deploy-to-Cloud-Run
     api_advanced: 04-Predict-in-production/04-API-advanced
 
-  # list of directories containing versioned files along with the version files target directory relative to the challenge version `target directory`
+  # list of directories containing versioned files along with the versioned files target directory relative to the challenge version `target directory`
   versioned:
     versioned/01:         .             # root of challenge version `target directory`
     versioned/02:         taxifare      # path inside of challenge version `target directory`

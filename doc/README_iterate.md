@@ -32,6 +32,14 @@ iterate:
     docker_prod: 04-Predict-in-production/03-Deploy-to-Cloud-Run
     api_advanced: 04-Predict-in-production/04-API-advanced
 
+  # list of directories containing versioned files along with the version files target directory relative to the challenge version `target directory`
+  versioned:
+    versioned/01:         .             # root of challenge version `target directory`
+    versioned/02:         .
+    versioned/03:         taxifare      # path inside of challenge version `target directory`
+    versioned/04:         .
+    versioned/05:         .
+
   # list of rules defining on which versions of the challenge a file is present
   only:
     to:
@@ -90,3 +98,34 @@ example:
 # content challengified for version api of the challenge and available as is for other versions
 # $CHA_ONLY_FOR_api_END
 ```
+
+## versioned files
+
+versioned files allow to reference files in a single challenge version. they are useful in the eventuality that a file massively changes from a challenge version to another, as is typically the case with `README.md` files
+
+the `versioned` conf key references a list of directories containing versioned files along with the location in the generated challenge version in which to generate them
+
+the number and depth of directories containing versioned files does not matter at all and is there only for organisational purposes
+
+the versioned file should follow the pattern `number_baseroot_versionextension`, which generates the `target_directory/baserootbaseextension` file:
+- `number` can  be any list of integers such as `0123`
+- `baseroot` can  be any file root such as `README`
+- `version` can  be any challenge version
+- `extension` can be a file extension such as `.md` or can be empty
+- `target_directory` can be any nested path or `.` for the root of the generated challenge version
+
+by essence versioned files are distributed to a single challenge version:
+- annotating the content with version tags or meta tags works but does not make sense
+- annotating the content with challengify tags works and makes sense
+
+with the following configuration:
+
+``` yaml
+  versioned:
+    versioned/01:         .
+    versioned/02:         taxifare
+```
+
+the following files will only be processed for the `api` challenge version:
+- `versioned/01/01_README_api.md` will generate a `README.md` at the root of the challenge version
+- `versioned/02/123_Dockerfile_api` will generate a `taxifare/Dockerfile` in the challenge version

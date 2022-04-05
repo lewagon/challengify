@@ -293,7 +293,7 @@ def run_iterate(challengify, source, min_version, max_version, force, dry_run, v
         # challengify the challenge version
         original_files, processed_files = run_sync(
             challengify,
-            [source_directory],
+            [source_directory] + list(custom_files.keys()),
             version_destination,
             force,
             dry_run,

@@ -35,10 +35,7 @@ iterate:
   # list of directories containing versioned files along with the version files target directory relative to the challenge version `target directory`
   versioned:
     versioned/01:         .             # root of challenge version `target directory`
-    versioned/02:         .
-    versioned/03:         taxifare      # path inside of challenge version `target directory`
-    versioned/04:         .
-    versioned/05:         .
+    versioned/02:         taxifare      # path inside of challenge version `target directory`
 
   # list of rules defining on which versions of the challenge a file is present
   only:

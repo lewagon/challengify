@@ -98,13 +98,17 @@ example:
 
 ## versioned files
 
-versioned files allow to reference files in a single challenge version. they are useful in the eventuality that a file massively changes from a challenge version to another, as is typically the case with `README.md` files
+versioned files allow to reference multiple files with colliding generation path (such as `README.md`) in several challenge versions
+
+they are useful in the eventuality that a file massively changes from a challenge version to another, as is typically the case with `README.md` files
+
+versioned files are identified by their location in one of the directories listed in the `versioned` conf key and their matching of the versioned file naming convention
 
 the `versioned` conf key references a list of directories containing versioned files along with the location in the generated challenge version in which to generate them
 
 the number and depth of directories containing versioned files does not matter at all and is there only for organisational purposes
 
-the versioned file should follow the pattern `number_baseroot_versionextension`, which generates the `target_directory/baserootbaseextension` file:
+the versioned file should follow the pattern `number_baseroot_versionextension` (such as `01_README_api.md`), which generates the `target_directory/baserootextension` file (such as `./README.md`):
 - `number` can  be any list of integers such as `0123`
 - `baseroot` can  be any file root such as `README`
 - `version` can  be any challenge version
@@ -113,7 +117,7 @@ the versioned file should follow the pattern `number_baseroot_versionextension`,
 
 by essence versioned files are distributed to a single challenge version:
 - annotating the content with version tags or meta tags works but does not make sense
-- annotating the content with challengify tags works and makes sense
+- annotating the content with challengify tags works and makes sense if necessary
 
 with the following configuration:
 
@@ -123,6 +127,6 @@ with the following configuration:
     versioned/02:         taxifare
 ```
 
-the following files will only be processed for the `api` challenge version:
+the following files will be processed only for the `api` challenge version:
 - `versioned/01/01_README_api.md` will generate a `README.md` at the root of the challenge version
 - `versioned/02/123_Dockerfile_api` will generate a `taxifare/Dockerfile` in the challenge version

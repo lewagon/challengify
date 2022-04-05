@@ -102,7 +102,7 @@ versioned files allow to reference files with colliding generation path such as 
 
 the `versioned` conf key references the list of directories containing versioned files along with their generation path
 
-the versioned file must follow the pattern `01_README_api.md` naming convention (`number_baseroot_versionextension`), which generates a `./README.md` file (`target_directory/baserootextension`):
+the versioned file must follow the `01_README_api.md` naming convention (`number_baseroot_versionextension`), which generates a `./README.md` file (`target_directory/baserootextension`):
 - `number` can be any zero padded integer such as `0123`
 - `baseroot` can be any file root such as `README` or `Dockerfile`
 - `version` can be any challenge version declared in the conf file

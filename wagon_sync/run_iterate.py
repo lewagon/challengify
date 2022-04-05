@@ -5,6 +5,8 @@ from wagon_sync.run_sync import run_sync
 from wagon_common.helpers.git.remote import git_remote_get_probable_url
 
 import os
+import re
+import glob
 import yaml
 
 from colorama import Fore, Style
@@ -172,6 +174,73 @@ def write_challenge_metadata(source, version, version_destination, original_file
               + f"\n- path: {metadata_path}")
 
 
+def build_versioned_path(current_version, file_path, destination_path):
+    """
+    build versioned file path from destination path
+    and cleaned versioned file name
+    """
+
+    # retrieve filename
+    file_basename = os.path.basename(file_path)
+    versioned_file_pattern = f"[0-9]*_(.*)_{current_version}(.*)"
+    matches = re.findall(versioned_file_pattern, file_basename)
+
+    if len(matches) != 1:
+
+        print(Fore.RED
+              + "\nError parsing versioned file name 😵"
+              + Style.RESET_ALL
+              + f"\n- version: {current_version}"
+              + f"\n- path: {file_path}"
+              + f"\n- destination: {destination_path}"
+              + f"\n- matches: {matches}")
+
+        exit()
+
+    # concatenate capture groups
+    filename = "".join(matches[0])
+
+    versioned_path = os.path.relpath(os.path.join(
+        destination_path,
+        filename))
+
+    return versioned_path
+
+
+def process_versioned_files(versioned, current_version, verbose):
+    """
+    return a list of versioned files
+    from files matching challenge version pattern in the conf versioned directories
+    """
+
+    custom_files = {}
+
+    # iterate through versioned directories
+    for versioned_path, destination_path in versioned.items():
+
+        # look for versioned file for challenge version
+        dot_versioned_pattern = f"[0-9]*_*_{current_version}.*"
+        versioned_pattern = f"[0-9]*_*_{current_version}"  # no file extension
+        dot_path_pattern = os.path.join(versioned_path, dot_versioned_pattern)
+        path_pattern = os.path.join(versioned_path, versioned_pattern)
+
+        # retrieve files matching pattern
+        glob_results = glob.glob(dot_path_pattern) + glob.glob(path_pattern)
+
+        # append destination directory
+        full_results = {f: build_versioned_path(current_version, f, destination_path) for f in glob_results}
+
+        custom_files = dict(**custom_files, **full_results)
+
+    if verbose:
+        print(Fore.BLUE
+              + f"\nVersioned files for {current_version}:"
+              + Style.RESET_ALL)
+        {print(f"- {f} to {d}") for f, d in custom_files.items()}
+
+    return custom_files
+
+
 def run_iterate(challengify, source, min_version, max_version, force, dry_run, verbose, ignore_metadata, format):
 
     # load conf
@@ -206,6 +275,9 @@ def run_iterate(challengify, source, min_version, max_version, force, dry_run, v
 
         ignored = process_ignored_files(source, challenge_version.version, challenge_version.position, version_iterator, only_to, only_for, only_from, verbose)
 
+        # process versioned files
+        custom_files = process_versioned_files(versioned, challenge_version.version, verbose)
+
         # build version destination
         version_destination = os.path.join(
             destination_directory, challenge_version.destination)
@@ -231,6 +303,7 @@ def run_iterate(challengify, source, min_version, max_version, force, dry_run, v
             ignore_tld=True,                      # do not append path in git directory
             iterate_yaml_path=source,             # path to iterate yaml
             additional_ignores=ignored,           # handle ignored files
+            custom_files=custom_files,            # list of custom target files
             version_iterator=version_iterator,    # handle version delimiters
             version_info=challenge_version.version)  # version info
 

@@ -126,6 +126,7 @@ def run_sync(
         ignore_tld=False,               # ignore current path in git directory
         iterate_yaml_path=None,         # path to iterate yaml
         additional_ignores=[],          # ignored files and preprocessing
+        custom_files=[],                # list of custom target files
         version_iterator=None,          # for the challengify iterate command
         version_info=None):             # version info for challengify iterate
     """

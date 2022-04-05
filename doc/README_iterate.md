@@ -125,3 +125,5 @@ the following files will be processed:
 - `versioned/01/01_README_base.md` will generate a `README.md` at the root of the `base` challenge version
 - `versioned/01/02_README_api.md` will generate a `README.md` at the root of the `api` challenge version
 - `versioned/02/123_Dockerfile_api` will generate a `taxifare/Dockerfile` in the `api` challenge version
+
+the versioned directories and versioned files number prefix are there only for organisational purposes

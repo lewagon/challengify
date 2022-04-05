@@ -227,10 +227,16 @@ def run_sync(
 
     for candidate_file in candidate_files:
 
+        # resolve custom files
+        if candidate_file in custom_files:
+            destination_filepath = custom_files[candidate_file]
+        else:
+            destination_filepath = candidate_file
+
         # synchronize file
         destination_file_path, destination_path = process(
             challengify,
-            candidate_file, destination, dry_run,
+            candidate_file, destination, destination_filepath, dry_run,
             ignore_tld=ignore_tld, iterate_yaml_path=iterate_yaml_path,
             test=test,
             version_iterator=version_iterator)

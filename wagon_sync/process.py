@@ -37,7 +37,7 @@ def get_file_extension(file_path):
 
 def process(
         challengify: Challengify,
-        file_path, destination, dry_run,
+        file_path, destination, target_file_path, dry_run,
         ignore_tld, iterate_yaml_path,
         test, version_iterator=None):
     """
@@ -52,7 +52,7 @@ def process(
         destination = "."
 
         # retrieve file root and extension
-        file_path_root, file_path_extension = os.path.splitext(file_path)
+        file_path_root, file_path_extension = os.path.splitext(target_file_path)
 
         # build test challengification filename
         destination_file_path = (
@@ -60,7 +60,7 @@ def process(
 
     else:
 
-        destination_file_path = file_path
+        destination_file_path = target_file_path
 
     # correct destination path
     if ignore_tld:

@@ -64,7 +64,7 @@ iterate:
 
 currently not supported
 
-## code file delimiters
+## code file delimiters (version tags)
 
 | start | end | versions presence |
 | --- | --- | --- |
@@ -81,7 +81,7 @@ example:
 
 troubleshoot: a delimiter having a version (`12`) outside of the range of versions defined in the conf file (`14` to `15`) will be ignored
 
-## delimiter generators
+## delimiter generators (version meta tags)
 
 generates a `verb` delimiter (`CHALLENGIFY`, `CHA`, `DELETE`, `DEL`, `ERASE`, `WIPE`, `IMPLODE`) for the version
 

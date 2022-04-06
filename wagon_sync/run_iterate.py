@@ -317,3 +317,22 @@ def run_iterate(challengify, source, min_version, max_version, force, dry_run, v
                   + "\nProcessed files:"
                   + Style.RESET_ALL)
             [print(f"- {os.path.relpath(f)}") for f in processed_files]
+
+
+def profile():
+
+    from wagon_sync.challengify import Challengify
+
+    # create challengify object
+    challengify = Challengify()
+
+    # run iteration
+    run_iterate(
+        challengify, source=".",
+        min_version=None, max_version=None, force=True, dry_run=False,
+        verbose=False, ignore_metadata=False, format=False)
+
+
+if __name__ == "__main__":
+
+    profile()

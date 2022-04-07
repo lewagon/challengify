@@ -136,13 +136,15 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
     ignored = ignored_to + ignored_for + ignored_from
 
     # convert path for globbing
-    ignored = [os.path.join(source, path) for path in ignored]
+    if source != ".":
+        ignored = [os.path.join(source, path) for path in ignored]
 
     # resolve globbing patterns
     ignored = [p for pattern in ignored for p in glob.glob(pattern, recursive=True)]
 
     # revert path after globbing
-    ignored = [os.path.relpath(path, source) for path in ignored]
+    if source != ".":
+        ignored = [os.path.relpath(path, source) for path in ignored]
 
     # correct additional ignores relative to source path
     if source != ".":
@@ -240,13 +242,15 @@ def process_versioned_files(source, versioned, current_version, verbose):
         glob_results = glob.glob(dot_path_pattern) + glob.glob(path_pattern)
 
         # append destination directory
-        full_results = {f: build_versioned_path(current_version, f, destination_path) for f in glob_results}
+        full_results = {os.path.relpath(f): build_versioned_path(current_version, f, destination_path) for f in glob_results}
 
         custom_files = dict(**custom_files, **full_results)
 
     # retrieve targets
     target_files = list(custom_files.keys())
-    target_files = [os.path.relpath(path, source) for path in target_files]
+
+    if source != ".":
+        target_files = [os.path.relpath(path, source) for path in target_files]
 
     # correct versioned files path relative to source path
     if source != ".":

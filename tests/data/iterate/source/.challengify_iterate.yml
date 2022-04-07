@@ -18,8 +18,8 @@ iterate:
         - project/notebooks/api_boilerplate.ipynb
     from:
       code:
-        - project/api/__init__.py
-        - project/api/fast.py
+        - project/api/**/*
+        - project/api/**/.*
       end:
         - project/Dockerfile
         - project/requirements.txt

@@ -5,6 +5,7 @@
 
 #### Challengify iterate
 
+- Adds support for globbing patterns in iterate only for/from/to rules
 - Adds support for several sources in conf file
 - Adds support for versioned files conf in `.challengify_iterate.yml`
 - Adds version only delimiter generators `# $verb_ONLY_FOR_version_BEGIN` and `# $verb_ONLY_FOR_version_END` for verbs `CHALLENGIFY`, `CHA`, `DELETE`, `DEL`, `ERASE`, `WIPE`, `IMPLODE`

@@ -136,7 +136,8 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
     ignored = ignored_to + ignored_for + ignored_from
 
     # resolve globbing patterns
-    ignored = [p for pattern in ignored for p in glob.glob(pattern, recursive=True)]
+    # TODO
+    # ignored = [p for pattern in ignored for p in glob.glob(pattern, recursive=True)]
 
     # correct additional ignores relative to source path
     if source != ".":
@@ -154,7 +155,7 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
 def write_challenge_metadata(source, version, version_destination, original_files, verbose):
 
     metadata_filename = ".lewagon/.challengify_generated.txt"
-    metadata_path = os.path.join(version_destination, metadata_filename)
+    metadata_path = os.path.join(source, version_destination, metadata_filename)
 
     # create metadata directory
     os.makedirs(os.path.dirname(metadata_path), exist_ok=True)
@@ -213,7 +214,7 @@ def build_versioned_path(current_version, file_path, destination_path):
     return versioned_path
 
 
-def process_versioned_files(versioned, current_version, verbose):
+def process_versioned_files(source, versioned, current_version, verbose):
     """
     return a list of versioned files
     from files matching challenge version pattern in the conf versioned directories
@@ -227,8 +228,8 @@ def process_versioned_files(versioned, current_version, verbose):
         # look for versioned file for challenge version
         dot_versioned_pattern = f"[0-9]*_*_{current_version}.*"
         versioned_pattern = f"[0-9]*_*_{current_version}"  # no file extension
-        dot_path_pattern = os.path.join(versioned_path, dot_versioned_pattern)
-        path_pattern = os.path.join(versioned_path, versioned_pattern)
+        dot_path_pattern = os.path.join(source, versioned_path, dot_versioned_pattern)
+        path_pattern = os.path.join(source, versioned_path, versioned_pattern)
 
         # retrieve files matching pattern
         glob_results = glob.glob(dot_path_pattern) + glob.glob(path_pattern)
@@ -238,13 +239,21 @@ def process_versioned_files(versioned, current_version, verbose):
 
         custom_files = dict(**custom_files, **full_results)
 
+    # retrieve targets
+    target_files = list(custom_files.keys())
+    target_files = [os.path.relpath(path, source) for path in target_files]
+
+    # correct versioned files path relative to source path
+    if source != ".":
+        custom_files = {path: os.path.join(source, file) for path, file in custom_files.items()}
+
     if verbose:
         print(Fore.BLUE
               + f"\nVersioned files for {current_version}:"
               + Style.RESET_ALL)
         {print(f"- {f} to {d}") for f, d in custom_files.items()}
 
-    return custom_files
+    return target_files, custom_files
 
 
 def run_iterate(challengify, source, min_version, max_version, force, dry_run, verbose, ignore_metadata, format):
@@ -279,10 +288,11 @@ def run_iterate(challengify, source, min_version, max_version, force, dry_run, v
     # iterate through challenge versions
     for challenge_version in version_iterator:
 
+        # process ignored files
         ignored = process_ignored_files(source, challenge_version.version, challenge_version.position, version_iterator, only_to, only_for, only_from, verbose)
 
         # process versioned files
-        custom_files = process_versioned_files(versioned, challenge_version.version, verbose)
+        target_files, custom_files = process_versioned_files(source, versioned, challenge_version.version, verbose)
 
         # build version destination
         version_destination = os.path.join(
@@ -299,7 +309,7 @@ def run_iterate(challengify, source, min_version, max_version, force, dry_run, v
         # challengify the challenge version
         original_files, processed_files = run_sync(
             challengify,
-            source_directories + list(custom_files.keys()),
+            source_directories + target_files,
             version_destination,
             force,
             dry_run,

@@ -56,10 +56,10 @@ def load_conf_file(source, verbose):
     return loaded_conf
 
 
-def read_conf(source, conf, verbose):
+def read_conf(conf, verbose):
 
     # retrieve parameters
-    source_directory = conf.get("source", source)
+    source_directories = conf.get("sources", [])
     destination_directory = conf.get("destination", ".")
     versions = conf.get("versions", {})
     versioned = conf.get("versioned", {})
@@ -72,9 +72,12 @@ def read_conf(source, conf, verbose):
     if verbose:
         print(Fore.BLUE
               + "\nLoaded conf:"
-              + Style.RESET_ALL
-              + f"\n- source directory: {source_directory}"
-              + f"\n- destination directory: {destination_directory}")
+              + Style.RESET_ALL)
+
+        print("- source directories:")
+        [print(f"  - directory {directory}") for directory in source_directories]
+
+        print(f"- destination directory: {destination_directory}")
 
         print("- versions:")
         [print(f"  - version {version}: {destination}") for version, destination in versions.items()]
@@ -91,7 +94,7 @@ def read_conf(source, conf, verbose):
         print("- only from:")
         [print(f"  - version {version}: {file}") for version, files in only_from.items() for file in files]
 
-    return source_directory, destination_directory, versions, versioned, only_to, only_for, only_from
+    return source_directories, destination_directory, versions, versioned, only_to, only_for, only_from
 
 
 def process_ignored_files(source, version, position, version_iterator, only_to, only_for, only_from, verbose):
@@ -252,8 +255,8 @@ def run_iterate(challengify, source, min_version, max_version, force, dry_run, v
         return
 
     # read conf
-    source_directory, destination_directory, versions, versioned, \
-        only_to, only_for, only_from = read_conf(source, conf, verbose)
+    source_directories, destination_directory, versions, versioned, \
+        only_to, only_for, only_from = read_conf(conf, verbose)
 
     # create iterator
     version_iterator = ChallengeVersionIterator(versions)
@@ -286,14 +289,14 @@ def run_iterate(challengify, source, min_version, max_version, force, dry_run, v
             print(Fore.BLUE
                   + f"\nProcess version {challenge_version.version}:"
                   + Style.RESET_ALL
-                  + f"\n- source: {source_directory}"
+                  + f"\n- sources: {source_directories}"
                   + f"\n- destination: {version_destination}"
                   + f"\n- ignored: {ignored}")
 
         # challengify the challenge version
         original_files, processed_files = run_sync(
             challengify,
-            [source_directory] + list(custom_files.keys()),
+            source_directories + list(custom_files.keys()),
             version_destination,
             force,
             dry_run,

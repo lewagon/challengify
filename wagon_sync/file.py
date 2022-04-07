@@ -135,6 +135,10 @@ class File:
         scan file for delimiters
         """
 
+        # TODO parse other languages
+        if self.language != "py":
+            return True
+
         delimiters = []
 
         # TODO

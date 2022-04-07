@@ -6,3 +6,4 @@ project/Dockerfile
 project/api/__init__.py
 project/api/fast.py
 project/requirements.txt
+README.md

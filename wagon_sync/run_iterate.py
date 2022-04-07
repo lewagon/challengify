@@ -135,9 +135,14 @@ def process_ignored_files(source, version, position, version_iterator, only_to, 
     # append the ignored files
     ignored = ignored_to + ignored_for + ignored_from
 
+    # convert path for globbing
+    ignored = [os.path.join(source, path) for path in ignored]
+
     # resolve globbing patterns
-    # TODO
-    # ignored = [p for pattern in ignored for p in glob.glob(pattern, recursive=True)]
+    ignored = [p for pattern in ignored for p in glob.glob(pattern, recursive=True)]
+
+    # revert path after globbing
+    ignored = [os.path.relpath(path, source) for path in ignored]
 
     # correct additional ignores relative to source path
     if source != ".":

@@ -136,7 +136,7 @@ class File:
         """
 
         # TODO parse other languages
-        if self.language not in ["py", "rb", "sh", "txt", "md"]:
+        if self.language not in ["py", "rb", "sh", "txt"]:
             return True
 
         delimiters = []

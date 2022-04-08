@@ -2,5 +2,6 @@
 # - source: git@github.com:lewagon/challengify.git
 # - version: base
 .lewagon/.challengify_generated.txt
+notes/README.md
 project/intro.md
 README.md

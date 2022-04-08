@@ -1,6 +1,7 @@
 
 iterate:
   sources:
+    - notes
     - project
   destination: ../processed/01-Module
   versions:
@@ -14,6 +15,8 @@ iterate:
       base:
         - project/intro.md
     for:
+      base:
+        - notes/*
       code:
         - project/notebooks/api_boilerplate.ipynb
     from:

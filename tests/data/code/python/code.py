@@ -15,11 +15,19 @@ def function():
     return 42
     # $CHALLENGIFY_END
 
+    # $CODE_BEGIN
+    return 42
+    # $CODE_END
+
 
 def new_cha_delimiter():
     # $CHA_BEGIN
     return 42
     # $CHA_END
+
+# $CODE_BEGIN
+return 42
+# $CODE_END
 
 
 this_is_not_removed = True

@@ -11,9 +11,13 @@ def function():
     """
     pass  # YOUR CODE HERE
 
+    # YOUR CODE HERE
+
 
 def new_cha_delimiter():
     pass  # YOUR CODE HERE
+
+# YOUR CODE HERE
 
 
 this_is_not_removed = True

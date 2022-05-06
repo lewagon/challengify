@@ -1,5 +1,5 @@
 
-from tests.functional.test_directories import are_directories_identical
+from wagon_common.helpers.directories import are_directories_identical
 
 from wagon_sync.challengify import Challengify
 from wagon_sync.run_sync import run_sync

@@ -72,6 +72,10 @@ DELIMITER_SUFFIX_END = "_END"
 
 # - - - - - delimiters for challengify iterate
 
+# raw version token 👇
+
+ITERATE_VERSION = "ITE_VERSION"
+
 # raw block delimiters 👇
 
 ITERATE_VERSION_DELIMITERS = dict(

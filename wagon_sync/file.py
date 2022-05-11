@@ -181,6 +181,9 @@ class File:
             afters = version_iterator.get_versions_after()
             current = version_iterator.get_version_current()
 
+            # process version token
+            content = content.replace(self.decorator.version_token, current)
+
             # process only to
             content = process_versions(content, "only_to", befores, keep=False)
             content = process_versions(content, "only_to", afters + [current])

@@ -6,6 +6,11 @@ from wagon_sync.params.delimiters import (
     REPLACEMENT_CONTENT,
     CUSTOM_REPLACEMENTS)
 
+from wagon_sync.params.delimiters import (
+    DELIMITER_PREFIX,
+    ITERATE_VERSION)
+
+
 from colorama import Fore, Style
 
 
@@ -25,6 +30,8 @@ class Decorator:
 
         self.verbs = verbs
         self.tags = self.build_tags()
+
+        self.version_token = f"{self.prefix}{DELIMITER_PREFIX}{ITERATE_VERSION}{self.suffix if self.suffix is not None else ''}"
 
     def decorate(self, content):
 

@@ -76,7 +76,7 @@ DELIMITER_SUFFIX_END = "_END"
 
 # - - - - - delimiters for challengify iterate
 
-# raw version token 👇
+# raw version macro 👇
 
 ITERATE_VERSION = "ITE_VERSION"
 

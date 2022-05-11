@@ -180,8 +180,8 @@ class File:
         afters = version_iterator.get_versions_after()
         current = version_iterator.get_version_current()
 
-        # process version token
-        content = content.replace(self.decorator.version_token, current)
+        # process version macro
+        content = content.replace(self.decorator.version_macro, current)
 
         if self.delimiters:
 

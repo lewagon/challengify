@@ -34,7 +34,7 @@ class Decorator:
         self.verbs = verbs
         self.tags = self.build_tags()
 
-        self.version_token = f"{self.prefix}{DELIMITER_PREFIX}{ITERATE_VERSION}{self.suffix if self.suffix is not None else ''}"
+        self.version_macro = f"{self.prefix}{DELIMITER_PREFIX}{ITERATE_VERSION}{self.suffix if self.suffix is not None else ''}"
 
     def __decorate(self, replacement):
 

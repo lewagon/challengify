@@ -136,7 +136,8 @@ class File:
         """
 
         # TODO parse other languages
-        if self.language not in ["py", "rb", "sh", "txt"]:
+        # if self.language not in ["py", "rb", "sh", "txt", "md", "ipynb"]:
+        if self.language not in ["py", "rb", "sh", "txt", "ipynb"]:
             return True
 
         delimiters = []
@@ -174,15 +175,15 @@ class File:
 
         content = self.content
 
+        # retrieve versions
+        befores = version_iterator.get_versions_before()
+        afters = version_iterator.get_versions_after()
+        current = version_iterator.get_version_current()
+
+        # process version token
+        content = content.replace(self.decorator.version_token, current)
+
         if self.delimiters:
-
-            # retrieve versions
-            befores = version_iterator.get_versions_before()
-            afters = version_iterator.get_versions_after()
-            current = version_iterator.get_version_current()
-
-            # process version token
-            content = content.replace(self.decorator.version_token, current)
 
             # process only to
             content = process_versions(content, "only_to", befores, keep=False)

@@ -64,6 +64,12 @@ iterate:
 
 currently not supported
 
+## macros
+
+| macro | replacement |
+| --- | --- |
+| `# $ITE_VERSION` | `.challengify_iterate.yml` challenge `version` |
+
 ## code file delimiters (version tags)
 
 | start | end | versions presence |

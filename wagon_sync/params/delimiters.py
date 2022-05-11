@@ -49,6 +49,9 @@ LANGUAGE_INLINE_COMMENT_DELIMITERS = dict(
 
 REPLACEMENT_CONTENT = "YOUR CODE HERE"
 
+VERB_REPLACEMENT = dict(
+    CODE="YOUR CODE HERE")
+
 CUSTOM_REPLACEMENTS = dict(
     py="pass  # YOUR CODE HERE")
 
@@ -57,6 +60,7 @@ CUSTOM_REPLACEMENTS = dict(
 CHALLENGIFY_VERBS = [
     dict(verb="CHALLENGIFY",    fill=True),
     dict(verb="CHA",            fill=True),
+    dict(verb="CODE",           fill=True),
     dict(verb="DELETE",                                 trailing_newlines=0),   # consume the delimited block without the indentation or trailing newline
     dict(verb="DEL",                                    trailing_newlines=0),
     dict(verb="ERASE",          eat_indentation=True,   trailing_newlines=0),   # consume the line of the delimited block

@@ -4,6 +4,7 @@ from wagon_sync.tag import Tag
 
 from wagon_sync.params.delimiters import (
     REPLACEMENT_CONTENT,
+    VERB_REPLACEMENT,
     CUSTOM_REPLACEMENTS)
 
 from wagon_sync.params.delimiters import (
@@ -26,12 +27,19 @@ class Decorator:
         if language in CUSTOM_REPLACEMENTS:
             self.replacement = CUSTOM_REPLACEMENTS[language]
         else:
-            self.replacement = f"{self.prefix}{REPLACEMENT_CONTENT}{self.suffix if self.suffix is not None else ''}"
+            self.replacement = self.__decorate(REPLACEMENT_CONTENT)
+
+        self.verb_replacement = {verb: self.__decorate(replacement) for verb, replacement in VERB_REPLACEMENT.items()}
 
         self.verbs = verbs
         self.tags = self.build_tags()
 
         self.version_token = f"{self.prefix}{DELIMITER_PREFIX}{ITERATE_VERSION}{self.suffix if self.suffix is not None else ''}"
+
+    def __decorate(self, replacement):
+
+        suffix = self.suffix if self.suffix is not None else ''
+        return f"{self.prefix}{replacement}{suffix}"
 
     def decorate(self, content):
 
@@ -52,6 +60,9 @@ class Decorator:
         for verb in self.verbs.all:
 
             replacement = self.replacement if verb.fill else ""
+
+            if verb.name in self.verb_replacement:
+                replacement = self.verb_replacement[verb.name]
 
             tag = Tag(verb, replacement, self.prefix, self.suffix)
 

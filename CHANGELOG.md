@@ -5,7 +5,7 @@
 
 #### Challengify iterate
 
-- Adds support for version macro
+- Adds support for version and position macros
 - Adds support for globbing patterns in iterate only for/from/to rules
 - Adds support for several sources in conf file
 - Adds support for versioned files conf in `.challengify_iterate.yml`

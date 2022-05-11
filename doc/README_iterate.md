@@ -68,7 +68,8 @@ currently not supported
 
 | macro | replacement |
 | --- | --- |
-| `# $ITE_VERSION` | `.challengify_iterate.yml` challenge `version` |
+| `# $ITE_VERSION` | `.challengify_iterate.yml` challenge `version` name |
+| `# $ITE_POSITION` | `.challengify_iterate.yml` challenge `version` position (int) |
 
 ## code file delimiters (version tags)
 

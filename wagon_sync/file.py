@@ -182,6 +182,7 @@ class File:
 
         # process version macro
         content = content.replace(self.decorator.version_macro, current)
+        content = content.replace(self.decorator.position_macro, str(version_iterator.position(current)))
 
         if self.delimiters:
 

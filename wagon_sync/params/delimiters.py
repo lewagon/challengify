@@ -79,6 +79,7 @@ DELIMITER_SUFFIX_END = "_END"
 # raw version macro 👇
 
 ITERATE_VERSION = "ITE_VERSION"
+ITERATE_POSITION = "ITE_POSITION"
 
 # raw block delimiters 👇
 

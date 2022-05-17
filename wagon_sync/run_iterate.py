@@ -1,7 +1,12 @@
 
+from wagon_sync.challenge_version_iterator import ChallengeVersionIterator
 from wagon_sync.run_sync import run_sync
 
+from wagon_common.helpers.git.remote import git_remote_get_probable_url
+
 import os
+import re
+import glob
 import yaml
 
 from colorama import Fore, Style
@@ -13,7 +18,7 @@ def load_conf_file(source, verbose):
     # build conf path
     conf_path = os.path.join(
         source,
-        ".challengify_iterate.yaml")
+        ".challengify_iterate.yml")
 
     # check if conf exists
     if not os.path.isfile(conf_path):
@@ -51,49 +56,99 @@ def load_conf_file(source, verbose):
     return loaded_conf
 
 
-def read_conf(source, conf, verbose):
+def read_conf(conf, verbose):
 
     # retrieve parameters
-    source_directory = conf.get("source", source)
-    project_name = conf.get("project_name", "")
-    destinations = conf.get("destination", {})
-    ignores = conf.get("ignore", {})
-    ignore_before = ignores.get("before", {})
-    ignore_after = ignores.get("after", {})
+    source_directories = conf.get("sources", [])
+    destination_directory = conf.get("destination", ".")
+    versions = conf.get("versions", {})
+    versioned = conf.get("versioned", {})
+
+    only = conf.get("only", {})
+    only_to = only.get("to", {}) or {}      # the yaml loader yields None
+    only_for = only.get("for", {}) or {}    # if the key has no value
+    only_from = only.get("from", {}) or {}
 
     if verbose:
         print(Fore.BLUE
               + "\nLoaded conf:"
-              + Style.RESET_ALL
-              + f"\n- source directory: {source_directory}"
-              + f"\n- project name: {project_name}")
+              + Style.RESET_ALL)
 
-        print("- destinations:")
-        [print(f"  - version {str(v).rjust(2)}: {d}") for v, d in destinations.items()]
+        print("- source directories:")
+        [print(f"  - directory {directory}") for directory in source_directories]
 
-        print("- ignore before:")
-        [print(f"  - version {str(v).rjust(2)}: {f}") for v, ff in ignore_before.items() for f in ff]
+        print(f"- destination directory: {destination_directory}")
 
-        print("- ignore after:")
-        [print(f"  - version {str(v).rjust(2)}: {f}") for v, ff in ignore_after.items() for f in ff]
+        print("- versions:")
+        [print(f"  - version {version}: {destination}") for version, destination in versions.items()]
 
-    return source_directory, project_name, destinations, ignore_before, ignore_after
+        print("- versioned:")
+        [print(f"  - versioned {versioned}: {destination}") for versioned, destination in versioned.items()]
+
+        print("- only to:")
+        [print(f"  - version {version}: {file}") for version, files in only_to.items() for file in files]
+
+        print("- only for:")
+        [print(f"  - version {version}: {file}") for version, files in only_for.items() for file in files]
+
+        print("- only from:")
+        [print(f"  - version {version}: {file}") for version, files in only_from.items() for file in files]
+
+    return source_directories, destination_directory, versions, versioned, only_to, only_for, only_from
 
 
-def process_ignored_files(version, ignore_before, ignore_after, verbose):
+def process_ignored_files(source, version, position, version_iterator, only_to, only_for, only_from, verbose):
     """
     process a list of ignored files from version number
     and list of before and after rules
     """
 
-    # append the files ignored for because
-    ignored = []
+    pos = version_iterator.position
 
-    # the current version is strictly before the version of the rule
-    ignored += [f for v, ff in ignore_before.items() for f in ff if version < v]
+    # files are ignored if the challenge version is after the version of the rule
+    ignored_to = [file for rule_version, files in only_to.items() for file in files if position > pos(rule_version)]
 
-    # the current version is strictly after the version of the rule
-    ignored += [f for v, ff in ignore_after.items() for f in ff if version > v]
+    if verbose:
+        print(Fore.BLUE
+              + f"\nFiles ignored by rule `only to` for version {version}:"
+              + Style.RESET_ALL)
+        [print(f"- {file}") for file in ignored_to]
+
+    # files are ignored if the challenge version is not equal to the version of the rule
+    ignored_for = [file for rule_version, files in only_for.items() for file in files if position != pos(rule_version)]
+
+    if verbose:
+        print(Fore.BLUE
+              + f"\nFiles ignored by rule `only for` for version {version}:"
+              + Style.RESET_ALL)
+        [print(f"- {file}") for file in ignored_for]
+
+    # files are ignored if the challenge version is before the version of the rule
+    ignored_from = [file for rule_version, files in only_from.items() for file in files if position < pos(rule_version)]
+
+    if verbose:
+        print(Fore.BLUE
+              + f"\nFiles ignored by rule `only from` for version {version}:"
+              + Style.RESET_ALL)
+        [print(f"- {file}") for file in ignored_from]
+
+    # append the ignored files
+    ignored = ignored_to + ignored_for + ignored_from
+
+    # convert path for globbing
+    if source != ".":
+        ignored = [os.path.join(source, path) for path in ignored]
+
+    # resolve globbing patterns
+    ignored = [p for pattern in ignored for p in glob.glob(pattern, recursive=True)]
+
+    # revert path after globbing
+    if source != ".":
+        ignored = [os.path.relpath(path, source) for path in ignored]
+
+    # correct additional ignores relative to source path
+    if source != ".":
+        ignored = [os.path.join(source, path) for path in ignored]
 
     if verbose:
         print(Fore.BLUE
@@ -104,7 +159,113 @@ def process_ignored_files(version, ignore_before, ignore_after, verbose):
     return ignored
 
 
-def run_iterate(source, force, dry_run, verbose):
+def write_challenge_metadata(source, version, version_destination, original_files, verbose):
+
+    metadata_filename = ".lewagon/.challengify_generated.txt"
+    metadata_path = os.path.join(source, version_destination, metadata_filename)
+
+    # create metadata directory
+    os.makedirs(os.path.dirname(metadata_path), exist_ok=True)
+
+    # get probable remote url
+    probable_url = git_remote_get_probable_url(source, "lewagon")
+
+    # file header
+    challengify_generated_header = f"""# generated by challengify iterate
+# - source: {probable_url}
+# - version: {version}
+"""
+
+    # write content
+    with open(metadata_path, "w") as file:
+        file.write(challengify_generated_header)
+        file.write("\n".join([metadata_filename] + original_files) + "\n")
+
+    if verbose:
+        print(Fore.BLUE
+              + "\nWrite metadatafile"
+              + Style.RESET_ALL
+              + f"\n- path: {metadata_path}")
+
+
+def build_versioned_path(current_version, file_path, destination_path):
+    """
+    build versioned file path from destination path
+    and cleaned versioned file name
+    """
+
+    # retrieve filename
+    file_basename = os.path.basename(file_path)
+    versioned_file_pattern = f"[0-9]*_(.*)_{current_version}(.*)"
+    matches = re.findall(versioned_file_pattern, file_basename)
+
+    if len(matches) != 1:
+
+        print(Fore.RED
+              + "\nError parsing versioned file name 😵"
+              + Style.RESET_ALL
+              + f"\n- version: {current_version}"
+              + f"\n- path: {file_path}"
+              + f"\n- destination: {destination_path}"
+              + f"\n- matches: {matches}")
+
+        exit()
+
+    # concatenate capture groups
+    filename = "".join(matches[0])
+
+    versioned_path = os.path.relpath(os.path.join(
+        destination_path,
+        filename))
+
+    return versioned_path
+
+
+def process_versioned_files(source, versioned, current_version, verbose):
+    """
+    return a list of versioned files
+    from files matching challenge version pattern in the conf versioned directories
+    """
+
+    custom_files = {}
+
+    # iterate through versioned directories
+    for versioned_path, destination_path in versioned.items():
+
+        # look for versioned file for challenge version
+        dot_versioned_pattern = f"[0-9]*_*_{current_version}.*"
+        versioned_pattern = f"[0-9]*_*_{current_version}"  # no file extension
+        dot_path_pattern = os.path.join(source, versioned_path, dot_versioned_pattern)
+        path_pattern = os.path.join(source, versioned_path, versioned_pattern)
+
+        # retrieve files matching pattern
+        glob_results = glob.glob(dot_path_pattern) + glob.glob(path_pattern)
+
+        # append destination directory
+        full_results = {os.path.relpath(f): build_versioned_path(current_version, f, destination_path) for f in glob_results}
+
+        custom_files = dict(**custom_files, **full_results)
+
+    # retrieve targets
+    target_files = list(custom_files.keys())
+
+    if source != ".":
+        target_files = [os.path.relpath(path, source) for path in target_files]
+
+    # correct versioned files path relative to source path
+    if source != ".":
+        custom_files = {path: os.path.join(source, file) for path, file in custom_files.items()}
+
+    if verbose:
+        print(Fore.BLUE
+              + f"\nVersioned files for {current_version}:"
+              + Style.RESET_ALL)
+        {print(f"- {f} to {d}") for f, d in custom_files.items()}
+
+    return target_files, custom_files
+
+
+def run_iterate(challengify, source, min_version, max_version, force, dry_run, verbose, ignore_metadata, format):
 
     # load conf
     conf = load_conf_file(source, verbose)
@@ -115,38 +276,88 @@ def run_iterate(source, force, dry_run, verbose):
         return
 
     # read conf
-    source_directory, project_name, destinations, ignore_before, ignore_after = \
-        read_conf(source, conf, verbose)
+    source_directories, destination_directory, versions, versioned, \
+        only_to, only_for, only_from = read_conf(conf, verbose)
+
+    # create iterator
+    version_iterator = ChallengeVersionIterator(versions)
+    version_iterator.filter(min_version, max_version)
+
+    if verbose:
+        print(Fore.BLUE
+              + "\nAll challenges:"
+              + Style.RESET_ALL)
+        [print(f"- {c.version}") for c in version_iterator.versions]
+
+        print(Fore.BLUE
+              + "\nFiltered challenges:"
+              + Style.RESET_ALL)
+        [print(f"- {c.version}") for c in version_iterator]
 
     # iterate through challenge versions
-    for version, destination in destinations.items():
+    for challenge_version in version_iterator:
 
-        ignored = process_ignored_files(version, ignore_before, ignore_after, verbose)
+        # process ignored files
+        ignored = process_ignored_files(source, challenge_version.version, challenge_version.position, version_iterator, only_to, only_for, only_from, verbose)
+
+        # process versioned files
+        target_files, custom_files = process_versioned_files(source, versioned, challenge_version.version, verbose)
 
         # build version destination
-        version_destination = os.path.join(destination, project_name)
-
-        # build versions
-        versions = min(destinations.keys()), max(destinations.keys()), version
+        version_destination = os.path.join(
+            destination_directory, challenge_version.destination)
 
         if verbose:
             print(Fore.BLUE
-                  + f"\nProcess version {version}:"
+                  + f"\nProcess version {challenge_version.version}:"
                   + Style.RESET_ALL
-                  + f"\n- source: {source_directory}"
+                  + f"\n- sources: {source_directories}"
                   + f"\n- destination: {version_destination}"
-                  + f"\n- ignored: {ignored}"
-                  + f"\n- versions: {versions}")
+                  + f"\n- ignored: {ignored}")
 
         # challengify the challenge version
-        run_sync(
-            [source_directory],
+        original_files, processed_files = run_sync(
+            challengify,
+            source_directories + target_files,
             version_destination,
             force,
             dry_run,
             verbose,
             test=False,
-            user_autoformater=True,               # autoformat generated code
+            user_autoformater=format,             # autoformat generated code
             ignore_tld=True,                      # do not append path in git directory
+            iterate_yaml_path=source,             # path to iterate yaml
             additional_ignores=ignored,           # handle ignored files
-            version_pre_clean=versions)           # handle version delimiters
+            custom_files=custom_files,            # list of custom target files
+            version_iterator=version_iterator,    # handle version delimiters
+            version_info=challenge_version.version)  # version info
+
+        # generate metadata
+        if not dry_run and not ignore_metadata:
+            write_challenge_metadata(source, challenge_version.version, version_destination, original_files, verbose)
+
+        # list processed files
+        if verbose:
+            print(Fore.BLUE
+                  + "\nProcessed files:"
+                  + Style.RESET_ALL)
+            [print(f"- {os.path.relpath(f)}") for f in processed_files]
+
+
+def profile():
+
+    from wagon_sync.challengify import Challengify
+
+    # create challengify object
+    challengify = Challengify()
+
+    # run iteration
+    run_iterate(
+        challengify, source=".",
+        min_version=None, max_version=None, force=True, dry_run=False,
+        verbose=False, ignore_metadata=False, format=False)
+
+
+if __name__ == "__main__":
+
+    profile()

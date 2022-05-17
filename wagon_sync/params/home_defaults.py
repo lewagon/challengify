@@ -20,6 +20,8 @@ CMD_RUN_ALL = "all"
 CMD_RUN_ALL_DEFAULT = False
 CMD_RUN_TEST = "test"
 CMD_RUN_TEST_DEFAULT = False
+CMD_RUN_FORMAT = "format"
+CMD_RUN_FORMAT_DEFAULT = False
 
 
 def build_conf_path():
@@ -59,6 +61,7 @@ def create_home_defaults(force):
     run[CMD_RUN_VERBOSE] = CMD_RUN_VERBOSE_DEFAULT
     run[CMD_RUN_ALL] = CMD_RUN_ALL_DEFAULT
     run[CMD_RUN_TEST] = CMD_RUN_TEST_DEFAULT
+    run[CMD_RUN_FORMAT] = CMD_RUN_FORMAT_DEFAULT
 
     data = {}
     data[CMD_RUN] = run
@@ -106,6 +109,7 @@ def load_home_defaults(verbose):
     run_verbose_default = run_defaults.get(CMD_RUN_VERBOSE, CMD_RUN_VERBOSE_DEFAULT)
     run_all_default = run_defaults.get(CMD_RUN_ALL, CMD_RUN_ALL_DEFAULT)
     run_test_default = run_defaults.get(CMD_RUN_TEST, CMD_RUN_TEST_DEFAULT)
+    run_format_default = run_defaults.get(CMD_RUN_FORMAT, CMD_RUN_FORMAT_DEFAULT)
 
     return (
         run_destination_default,
@@ -114,4 +118,5 @@ def load_home_defaults(verbose):
         run_dry_run_default,
         run_verbose_default,
         run_all_default,
-        run_test_default)
+        run_test_default,
+        run_format_default)

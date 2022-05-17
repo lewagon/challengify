@@ -1,0 +1,5 @@
+default: pylint pytest
+
+
+
+# YOUR CODE HERE

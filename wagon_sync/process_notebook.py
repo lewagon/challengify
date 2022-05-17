@@ -1,3 +1,6 @@
+
+from wagon_sync.challengify import Challengify
+
 from wagon_sync.params.delimiters import (
     LEWAGON_SOLUTION_NB_TAG_DELETE,
     LEWAGON_SOLUTION_NB_TAG_DELETE_BEGIN,
@@ -19,9 +22,9 @@ from wagon_sync.params.delimiters import (
 
 from wagon_common.helpers.notebook import read_notebook, save_notebook
 
-import re
 from wagon_sync.wotebook import Wotebook
 
+import re
 
 
 def cellify(content):
@@ -180,10 +183,14 @@ def clean_notebook(source, destination, file_extension, nb_options):
     ntbk.save(destination)
 
 
-def process_notebook(source, destination, file_extension, version_pre_clean=None):
+def process_notebook(
+        challengify: Challengify,
+        source, destination, file_extension, version_iterator=None):
     """
     control notebook processes
     """
+
+    # TODO: handle challengify iterate (version_iterator)
 
     # read notebook into a python dictionary
     notebook_content = read_notebook(source)

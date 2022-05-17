@@ -1,0 +1,28 @@
+
+iterate:
+  sources:
+    - notes
+    - project
+  destination: ../processed/01-Module
+  versions:
+    base: 01-Base/01-Introduction
+    code: 03-API/01-Build-your-API
+    end: 03-API/02-API-advanced
+  versioned:
+    versioned: .
+  only:
+    to:
+      base:
+        - project/intro.md
+    for:
+      base:
+        - notes/*
+      code:
+        - project/notebooks/api_boilerplate.ipynb
+    from:
+      code:
+        - project/api/**/*
+        - project/api/**/.*
+      end:
+        - project/Dockerfile
+        - project/requirements.txt

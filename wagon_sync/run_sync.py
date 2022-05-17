@@ -3,6 +3,8 @@ called by the challengify command
 runs sync on specified sources
 """
 
+from wagon_sync.challengify import Challengify
+
 from wagon_sync.helpers.filter import (
     list_files_matching_dirs,
     list_files_matching_pattern)
@@ -56,6 +58,21 @@ def get_destination_cwd(destination):
     return abs_target
 
 
+def get_iterate_destination_cwd(destination, iterate_yaml_path):
+    """ corrects destination relatively to tld """
+
+    # retrieve project root
+    tld = get_git_top_level_directory()
+
+    # build target path
+    target = os.path.join(tld, iterate_yaml_path, destination)
+
+    # get absolute path
+    abs_target = os.path.abspath(target)
+
+    return abs_target
+
+
 def load_ignored_files():
     """
     return the set of ignored files
@@ -98,6 +115,7 @@ def load_ignored_files():
 
 
 def run_sync(
+        challengify: Challengify,
         sources,
         destination,
         force,
@@ -106,8 +124,11 @@ def run_sync(
         test,
         user_autoformater=False,        # autoformat generated code
         ignore_tld=False,               # ignore current path in git directory
+        iterate_yaml_path=None,         # path to iterate yaml
         additional_ignores=[],          # ignored files and preprocessing
-        version_pre_clean=None):        # for the challengify iterate command
+        custom_files=[],                # list of custom target files
+        version_iterator=None,          # for the challengify iterate command
+        version_info=None):             # version info for challengify iterate
     """
     iterate through sources
     expand source path
@@ -115,8 +136,15 @@ def run_sync(
     synchronize source
     """
 
-    # correct destination
-    if not ignore_tld:
+    # correct destination tld
+    if ignore_tld:
+
+        # challengify iterate
+        destination = get_iterate_destination_cwd(destination, iterate_yaml_path)
+
+    else:
+
+        # challengify run
         destination = get_destination_cwd(destination)
 
     # verify that destination directory does not exist
@@ -130,8 +158,24 @@ def run_sync(
         # cancel sync
         return
 
+    version_info = f" ({version_info})" if version_info is not None else ""
+
+    # correct scope
+    if ignore_tld:
+
+        # correct scope path relative to iterate yaml path
+        sources = [os.path.join(iterate_yaml_path, source) for source in sources]
+
     # retrieve git controlled files in scope
     controlled_files = resolve_scope(sources, ["*"], verbose=verbose)[0]
+
+    if not controlled_files:
+
+        print(Fore.RED
+              + f"\nNo files controlled by git in the scope{version_info} 😶‍🌫️"
+              + Style.RESET_ALL
+              + "\nPlease make sure to `git add` any files that you want to challengify")
+        return [], []
 
     # retrieve sync ignored files
     ignored_files = load_ignored_files()
@@ -168,23 +212,44 @@ def run_sync(
 
     print_files("green", "Files candidate", candidate_files)
 
-    # check if actions should be performed
-    if not dry_run:
-
+    if dry_run:
+        print(Fore.BLUE
+              + f"\nDry run on files{version_info}:"
+              + Style.RESET_ALL)
+    else:
         print(Fore.GREEN
-              + "\nCopy files:"
+              + f"\nCopy files{version_info}:"
               + Style.RESET_ALL)
 
-        # synchronize files
-        for candidate_file in candidate_files:
+    # synchronize files
+    corrected_files = []
+    original_files = []
 
-            # synchronize file
-            process(
-                candidate_file, destination,
-                test=test, version_pre_clean=version_pre_clean)
+    for candidate_file in candidate_files:
 
-        # autoformat generated code
-        if user_autoformater:
+        # resolve custom files
+        if candidate_file in custom_files:
+            destination_filepath = custom_files[candidate_file]
+        else:
+            destination_filepath = candidate_file
 
-            # auformat code
-            autoformat_code(candidate_files, destination)
+        # synchronize file
+        destination_file_path, destination_path = process(
+            challengify,
+            candidate_file, destination, destination_filepath, dry_run,
+            ignore_tld=ignore_tld, iterate_yaml_path=iterate_yaml_path,
+            test=test,
+            version_iterator=version_iterator)
+
+        # append corrected files
+        corrected_files.append(destination_path)
+        original_files.append(destination_file_path)
+
+    # autoformat generated code
+    if not dry_run and user_autoformater:
+
+        # auformat code
+        autoformat_code(corrected_files)
+
+    # return changes
+    return original_files, corrected_files

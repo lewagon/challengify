@@ -79,7 +79,7 @@ def process(
     handlers = {
         process_notebook: ["ipynb"],
         process_code: [
-            "py", "rb", "sh", "txt", "md",
+            "py", "rb", "sh", "txt", "md", "sample",
             "html", "css", "js", "html_erb", "js_erb"]}
 
     # retrieve handler function

@@ -1,0 +1,63 @@
+
+iterate:
+  sources:
+    - .env.sample
+    - .envrc
+    - Makefile
+    - api
+    - app
+    - model
+  destination: ../data-solutions/07-ML-Ops
+  versions:
+
+    conf:                     .
+
+    # predict in production
+    api_pred:                 04-Predict-in-production/01-Build-your-API
+    # docker_image:             04-Predict-in-production/02-Docker-image
+    # docker_prod:              04-Predict-in-production/03-Deploy-to-Cloud-Run
+    # api_advanced:             04-Predict-in-production/04-API-advanced
+    # batch_prediction:         04-Predict-in-production/Recap
+
+    # user interface
+    static_front:             05-User-interface/01-Static-front-for-the-API
+    streamlit:                05-User-interface/02-Taxifare-website
+
+  versioned:
+    versioned/01:             .
+    versioned/02:             .
+    versioned/03:             .
+    versioned/04:             .
+    versioned/05:             .
+
+  only:
+    for:
+      conf:
+        - .env.sample
+        - .envrc
+      train_at_scale:
+        - model/data/**/.*
+        - model/notebooks/*
+        # YOUR CODE HERE
+        - model/training_outputs/**/.*
+      structure:
+        - model/tests/structure/*
+      environment:
+        - model/tests/environment/*
+      setup:
+        - model/tests/setup/*
+      cloud_data:
+        - model/tests/cloud_data/*
+      cloud_training:
+        - model/tests/cloud_training/*
+      cloud_prediction:
+        - model/tests/cloud_prediction/*
+      mlflow:
+        - model/tests/mlflow/*
+      # YOUR CODE HERE
+      shifts:
+        - model/tests/shifts/*
+      api_pred:
+        - model/tests/api/*
+    from:
+      # YOUR CODE HERE

@@ -1,0 +1,9 @@
+
+a:
+  - aa: 10
+    bb: 20
+  - cc: 30
+    dd: 40
+# $CHA_BEGIN
+b: hello
+# $CHA_END

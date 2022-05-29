@@ -5,6 +5,9 @@ import pandas as pd
 # $DELETE_BEGIN
 import numpy as np
 # $DELETE_END
+# $IMPORT_BEGIN
+import pandas as pd
+# $IMPORT_END
 
 
 def function():

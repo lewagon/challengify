@@ -1,0 +1,141 @@
+
+iterate:
+  sources:
+    - .env.sample
+    - .envrc
+    - Makefile
+    - api
+    - app
+    - model
+  destination: ../data-solutions/07-ML-Ops
+  versions:
+
+    conf:                     .
+
+    # $WIPE_BEGIN
+    # train at scale
+    train_at_scale:           01-Train-at-scale/01-Train-at-scale
+
+    # cloud training
+    # shell:                    02-Cloud-training/01-Shell-practice
+    structure:                02-Cloud-training/02-Project-structure
+    environment:              02-Cloud-training/03-Environment
+    setup:                    02-Cloud-training/04-Setup-check
+    cloud_data:               02-Cloud-training/05-Data-in-the-cloud
+    cloud_training:           02-Cloud-training/06-Train-in-the-cloud
+    cloud_prediction:         02-Cloud-training/07-Predict-in-the-cloud
+    # managed_products:         02-Cloud-training/Recap
+
+    # automate model lifecycle
+    # git:                      03-Automate-model-lifecycle/01-Git-practice
+    mlflow:                   03-Automate-model-lifecycle/02-Performance-monitoring
+    dag:                      03-Automate-model-lifecycle/03-Your-first-DAG
+    prefect:                  03-Automate-model-lifecycle/04-Monitor-perf-on-fresh-data
+    shifts:                   03-Automate-model-lifecycle/05-Simulate-data-distribution-shifts
+    # compute_engine:           03-Automate-model-lifecycle/06-Work-on-a-Compute-Engine
+    # auto_retrain:             03-Automate-model-lifecycle/07-Retrain-on-fresh-data
+    # data_versioning:          03-Automate-model-lifecycle/Recap
+    # $WIPE_END
+
+    # predict in production
+    api_pred:                 04-Predict-in-production/01-Build-your-API
+    # docker_image:             04-Predict-in-production/02-Docker-image
+    # docker_prod:              04-Predict-in-production/03-Deploy-to-Cloud-Run
+    # api_advanced:             04-Predict-in-production/04-API-advanced
+    # batch_prediction:         04-Predict-in-production/Recap
+
+    # user interface
+    static_front:             05-User-interface/01-Static-front-for-the-API
+    streamlit:                05-User-interface/02-Taxifare-website
+
+  versioned:
+    versioned/01:             .
+    versioned/02:             .
+    versioned/03:             .
+    versioned/04:             .
+    versioned/05:             .
+
+  only:
+    for:
+      conf:
+        - .env.sample
+        - .envrc
+      train_at_scale:
+        - model/data/**/.*
+        - model/notebooks/*
+        # $CHA_BEGIN
+        - model/taxifare_model/interface/main_local.py
+        - model/tests/fixtures/X_processed_1k.npy
+        - model/tests/fixtures/y_1k.pickle
+        - model/tests/train.pickle
+        - model/tests/train_at_scale/*
+        # $CHA_END
+        - model/training_outputs/**/.*
+      structure:
+        - model/tests/structure/*
+      environment:
+        - model/tests/environment/*
+      setup:
+        - model/tests/setup/*
+      cloud_data:
+        - model/tests/cloud_data/*
+      cloud_training:
+        - model/tests/cloud_training/*
+      cloud_prediction:
+        - model/tests/cloud_prediction/*
+      mlflow:
+        - model/tests/mlflow/*
+      # $CHA_BEGIN
+      prefect:
+        - model/tests/prefect/*
+      # $CHA_END
+      shifts:
+        - model/tests/shifts/*
+      api_pred:
+        - model/tests/api/*
+    from:
+      # $CHA_BEGIN
+      train_at_scale:
+        - Makefile
+        - model/taxifare_model/__init__.py
+        - model/taxifare_model/interface/__init__.py
+        - model/taxifare_model/ml_logic/__init__.py
+        - model/taxifare_model/ml_logic/data.py
+        - model/taxifare_model/ml_logic/encoders.py
+        - model/taxifare_model/ml_logic/model.py
+        - model/taxifare_model/ml_logic/params.py
+        - model/taxifare_model/ml_logic/preprocessor.py
+        - model/taxifare_model/ml_logic/registry.py
+        - model/taxifare_model/ml_logic/utils.py
+        - model/tests/__init__.py
+        - model/tests/conftest.py
+        - model/tests/test_base.py
+        - model/.challengifyignore
+        - model/.gitignore
+        - model/.python-version
+        - model/Makefile
+        - model/Makefile_teachers
+        - model/pytest.ini
+        - model/README.md
+        - model/requirements.txt
+        - model/setup.py
+      structure:
+        - model/taxifare_model/interface/main.py
+        - model/taxifare_model/data_sources/__init__.py
+        - model/taxifare_model/data_sources/local_disk.py
+        - model/tests/all/*
+      cloud_data:
+        - model/taxifare_model/data_sources/big_query.py
+      prefect:
+        - model/taxifare_flow/*
+      shifts:
+        - model/taxifare_model/ml_logic/registry_db.py
+      api_pred:
+        - model/taxifare_api/*
+        - model/MANIFEST.in
+        - model/Dockerfile
+      # docker_image:
+      streamlit:
+        - app/**/*
+        - app/**/.*
+      # $CHA_END

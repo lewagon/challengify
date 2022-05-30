@@ -1,5 +1,12 @@
 
-# 0.3.2 (TBD)
+# 0.3.4 2022-05-30
+
+### Added
+
+- Adds support for `.yml`, `.yaml`, `.toml` and extensionless file types
+- Adds support for `IMPORT` verb
+
+# 0.3.3 2022-05-17
 
 ### Added
 
@@ -10,6 +17,7 @@
 - Adds support for several sources in conf file
 - Adds support for versioned files conf in `.challengify_iterate.yml`
 - Adds version only delimiter generators `# $verb_ONLY_FOR_version_BEGIN` and `# $verb_ONLY_FOR_version_END` for verbs `CHALLENGIFY`, `CHA`, `DELETE`, `DEL`, `ERASE`, `WIPE`, `IMPLODE`
+- Adds support for `CODE` verb
 - Replaces numeric versions with ordered text versions in `.challengify_iterate.yml`
 - Allows the use of prefixes for the `iterate` command through wagon_common AliasedGroup (i.e. `challengify ite` instead of `challengify iterate`)
 - Allows to generate a specific or a range of challenge versions through the `-c` option (i.e. `-c api`, `-c api..api_advanced`, `-c api..`, `-c ..api`, `-c 3`, -c `3..4`, `-c 3..`, `-c ..3`, `-c 0..api`)

@@ -1,11 +1,16 @@
-SELECT
-  -- $ERASE_BEGIN
-  movies.minutes / 30 * 30 + 30 as bucket,
-  count(*)
-  -- $ERASE_END
-FROM movies
--- $ERASE_BEGIN
-WHERE movies.minutes IS NOT NULL
-GROUP BY bucket
-ORDER BY bucket
--- $ERASE_END
+// $DEL_BEGIN
+Table customer {
+  customer_id int [pk, increment] // auto-increment
+  first_name varchar
+  last_name varchar
+  email_address varchar
+}
+// $DEL_END
+
+Table order {
+  order_id int [pk] // primary key
+  customer_id int [not null]
+  total_price decimal
+  status order_statuses
+  created_at varchar [note: 'When order created'] // add column note
+}

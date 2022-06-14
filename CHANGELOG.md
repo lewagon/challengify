@@ -1,9 +1,10 @@
-
-# 0.3.5 2022-06-14
+# 0.3.6 2022-06-14
 
 ### Added
 
 - Adds support for `.dbml` file type
+
+# 0.3.5 2022-06-14
 
 ### Fixed
 

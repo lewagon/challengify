@@ -1,2 +1,9 @@
-SELECT
-FROM movies
+
+
+Table order {
+  order_id int [pk] // primary key
+  customer_id int [not null]
+  total_price decimal
+  status order_statuses
+  created_at varchar [note: 'When order created'] // add column note
+}

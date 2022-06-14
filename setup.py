@@ -7,7 +7,7 @@ with open("requirements.txt") as f:
     requirements = [c.strip() for c in f.readlines()]
 
 setup(name="challengify",
-      version="0.3.4",
+      version="0.3.5",
       description="Le Wagon challenge generator tool",
       url="https://github.com/lewagon/challengify/",
       author="Sébastien Saunier",

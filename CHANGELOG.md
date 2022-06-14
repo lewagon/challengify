@@ -1,4 +1,14 @@
 
+# 0.3.5 2022-06-14
+
+### Added
+
+- Adds support for `.dbml` file type
+
+### Fixed
+
+- Corrects use for `.sql` file type
+
 # 0.3.4 2022-05-30
 
 ### Added

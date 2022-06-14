@@ -15,6 +15,7 @@ class TestCodeSql(TestCodeBase):
         test sql code file transformations
         """
         self.code_transformation_test("sql/query.sql")
+        self.code_transformation_test("sql/query.dbml")
 
 
 if __name__ == '__main__':

@@ -3,11 +3,11 @@
 
 ### Added
 
-- Adds support for `.dbml` file types
+- Adds support for `.dbml` file type
 
 ### Fixed
 
-- Corrects use for `.sql` file types
+- Corrects use for `.sql` file type
 
 # 0.3.4 2022-05-30
 

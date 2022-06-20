@@ -35,9 +35,8 @@ LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY = "# YOUR CODE HERE"  # also used for she
 # raw comment delimiters 👇
 
 LANGUAGE_INLINE_COMMENT_DELIMITERS = dict(
-    default=dict(   prefix="# "),           # "rb", "sh", "txt"
+    default=dict(   prefix="# "),           # "rb", "sh", "txt", "conf"
     py=dict(        prefix="# "),
-    conf=dict(      prefix="# "),
     js=dict(        prefix="// "),
     sql=dict(       prefix="-- "),
     dbml=dict(      prefix="// "),

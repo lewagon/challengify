@@ -80,7 +80,7 @@ def process(
         process_notebook: ["ipynb"],
         process_code: [
             "",  # extensionless files
-            "py", "rb", "sh", "txt", "md", "sample",
+            "py", "rb", "sh", "txt", "md", "sample", "conf",
             "yml", "yaml", "toml",
             "sql", "dbml",
             "html", "css", "js", "html_erb", "js_erb"]}

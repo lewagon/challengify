@@ -1,3 +1,10 @@
+
+# 0.3.7 2022-06-20
+
+### Added
+
+- Adds support for `.conf` file type
+
 # 0.3.6 2022-06-14
 
 ### Added

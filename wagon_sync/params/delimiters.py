@@ -37,9 +37,10 @@ LEWAGON_SOLUTION_CODE_REPLACEMENT_RUBY = "# YOUR CODE HERE"  # also used for she
 LANGUAGE_INLINE_COMMENT_DELIMITERS = dict(
     default=dict(   prefix="# "),           # "rb", "sh", "txt"
     py=dict(        prefix="# "),
+    conf=dict(      prefix="# "),
     js=dict(        prefix="// "),
     sql=dict(       prefix="-- "),
-    dbml=dict(       prefix="// "),
+    dbml=dict(      prefix="// "),
     html=dict(      prefix="<!-- ",         suffix=" -->"),
     css=dict(       prefix="/* ",           suffix=" */"),
     html_erb=dict(  prefix="<%#= ",         suffix=" %>"),

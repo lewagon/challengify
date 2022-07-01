@@ -81,7 +81,7 @@ def process(
         process_code: [
             "",  # extensionless files
             "py", "rb", "sh", "txt", "md", "sample", "conf",
-            "yml", "yaml", "toml",
+            "yml", "yaml", "toml", "proto",
             "sql", "dbml",
             "html", "css", "js", "html_erb", "js_erb"]}
 

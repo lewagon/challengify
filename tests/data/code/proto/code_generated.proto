@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+// The Api service definition.
+service Api {
+  // Get time
+  // rpc ...
+  // YOUR CODE HERE
+
+  // Get rural population percentage
+  // rpc ...
+  // YOUR CODE HERE
+}
+
+// We use an empty `TimeRequest`, so if your API evolves later we can add to it
+message TimeRequest {
+}
+
+// The request message containing the user's name.
+message TimeResponse {
+  // YOUR CODE HERE
+}

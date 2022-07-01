@@ -1,3 +1,8 @@
+# 0.3.8 2022-07-01
+
+### Added
+
+- Adds support for `.proto` file type
 
 # 0.3.7 2022-06-20
 

@@ -44,7 +44,9 @@ LANGUAGE_INLINE_COMMENT_DELIMITERS = dict(
     html=dict(      prefix="<!-- ",         suffix=" -->"),
     html_erb=dict(  prefix="<%#= ",         suffix=" %>"),
     js_erb=dict(    prefix="<%#= ",         suffix=" %>"),
-    md=dict(        prefix="[//]: # ( ",    suffix=" )"))
+    md=dict(        prefix="[//]: # ( ",    suffix=" )"),
+    proto=dict(     prefix="// ")
+    )
 
 # raw block replacements 👇
 

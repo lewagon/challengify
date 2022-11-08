@@ -14,6 +14,7 @@ from wagon_sync.params.sync import UNSYNCED_PATTERN
 from wagon_sync.autoformat import autoformat_code
 
 from wagon_common.helpers.scope import resolve_scope
+from wagon_common.helpers.file import rm
 from wagon_common.helpers.output import print_files
 from wagon_common.helpers.git.repo import get_git_top_level_directory
 
@@ -167,7 +168,19 @@ def run_sync(
         sources = [os.path.join(iterate_yaml_path, source) for source in sources]
 
     # retrieve git controlled files in scope
-    controlled_files = resolve_scope(sources, ["*"], verbose=verbose)[0]
+    controlled_files, deleted_files = resolve_scope(sources, ["*"], verbose=verbose)
+
+    if deleted_files:
+        # delete files in destination if they exist
+        for deleted_file in deleted_files:
+            deleted_file_at_destination = os.path.join(destination, deleted_file)
+            if os.path.isfile(deleted_file_at_destination):
+                rm(deleted_file_at_destination)
+            elif os.path.isdir(deleted_file_at_destination):
+                rm(deleted_file_at_destination, is_directory=True)
+
+        if verbose:
+            print_files("red", f"Files deleted in destination {destination}", deleted_files)
 
     if not controlled_files:
 

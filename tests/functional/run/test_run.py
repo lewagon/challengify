@@ -9,6 +9,7 @@ from wagon_sync.challengify import Challengify
 from wagon_sync.run_sync import run_sync
 
 import unittest
+import pytest
 
 import os
 import shutil
@@ -67,43 +68,49 @@ class TestRun(unittest.TestCase):
         # Cleanup
         shutil.rmtree(out_path, ignore_errors=True)
 
-    def test_run_with_deletion(self):
-
+    @pytest.fixture
+    def deletion_scenario_fixtures(self):
         # Arrange
-        challengify = Challengify()
+        self.challengify = Challengify()
 
         data_path = os.path.join("tests", "data", "run")
         file_to_delete="03/02/to_delete.py"
 
         # Git init,add,commit in source path
-        in_path = os.path.join(data_path, "source", "08-Test-Run-With-Deletion")
-        git_init(in_path); git_add(in_path); git_commit(in_path, message="Initial commit (before deleting)")
+        self.in_path = os.path.join(data_path, "source", "08-Test-Run-With-Deletion")
+        git_init(self.in_path); git_add(self.in_path); git_commit(self.in_path, message="Initial commit (before deleting)")
         # Simulate file deletion and git tracking in source path
-        rm(os.path.join(in_path, file_to_delete))
-        git_add(in_path)
+        rm(os.path.join(self.in_path, file_to_delete))
+        git_add(self.in_path)
 
         # Git init, add, commit all in processed path
-        out_path = os.path.join(data_path, "processed", "08-Test-Run-With-Deletion")
-        git_init(out_path); git_add(out_path); git_commit(out_path, message="Initial commit")
+        self.out_path = os.path.join(data_path, "processed", "08-Test-Run-With-Deletion")
+        git_init(self.out_path); git_add(self.out_path); git_commit(self.out_path, message="Initial commit")
         # Set a control path with desired outcome
-        control_path = os.path.join(data_path, "control", "08-Test-Run-With-Deletion")
+        self.control_path = os.path.join(data_path, "control", "08-Test-Run-With-Deletion")
+
+        yield
+
+        # Cleanup
+        # Put back the "to-be-deleted" file in destination and source
+        cp(os.path.join(self.in_path, "template_to_delete.py"),os.path.join(self.out_path, "03", "02", "to_delete.py"))
+        cp(os.path.join(self.in_path, "template_to_delete.py"),os.path.join(self.in_path, "03", "02", "to_delete.py"))
+        # Remove the .git folders in source and destination
+        rm(os.path.join(self.out_path, ".git"), is_directory=True)
+        rm(os.path.join(self.in_path, ".git"), is_directory=True)
+
+    @pytest.mark.usefixtures('deletion_scenario_fixtures')
+    def test_run_with_deletion(self):
 
         # Act
-        # TODO: Fix the command to avoid crashing on pipes
-        git_diff_command = [
-          "git", "diff",
-          "--name-only",
-          "HEAD",
-          "|", "sed", "'s/^/\"/g'",
-          "|", "sed", "'s/$/\"/g'",
-          "|", "tr", "'\n'", "' '"
-        ]
-        breakpoint()
-        rc, output, error = run_command(git_diff_command, cwd=in_path)
+        git_diff_command = ["git", "diff", "--name-only", "HEAD"]
+        rc, output, error = run_command(git_diff_command, cwd=self.in_path)
+        diff_files = output.decode("utf-8").split()
+
         run_sync(
-            challengify=challengify,
-            sources=[in_path],
-            destination=out_path,
+            challengify=self.challengify,
+            sources=diff_files,
+            destination=self.out_path,
             force=True,
             dry_run=False,
             verbose=True,
@@ -112,7 +119,7 @@ class TestRun(unittest.TestCase):
             iterate_yaml_path=".")
 
         # Assert
-        rc, output, error = are_directories_identical(out_path, control_path)
+        rc, output, error = are_directories_identical(self.out_path, self.control_path, ignored_files=['.git'])
 
         if rc != 0:
             print(Fore.RED
@@ -122,14 +129,7 @@ class TestRun(unittest.TestCase):
                   + f"\n- output: {output}"
                   + f"\n- error: {error}")
             print(output.decode("utf-8"))
-
-        # Cleanup
-        # Put back the "to-be-deleted" file in destination
-        cp(os.path.join(in_path, "template_to_delete.py"),os.path.join(out_path, "03", "02", "to_delete.py"))
-        # Remove the .git folders in source and destination
-        rm(os.path.join(in_path, ".git"), is_directory=True)
-        rm(os.path.join(out_path, ".git"), is_directory=True)
-
+        assert rc == 0
 
 if __name__ == '__main__':
     unittest.main()

@@ -105,14 +105,11 @@ def load_home_defaults(verbose):
     run_defaults = defaults_conf.get(CMD_RUN, {})
 
     # process solutions repo default destination
+    cmd_run_destination_default = CMD_RUN_DESTINATION_DEFAULT
     if CMD_RUN_DESTINATION not in run_defaults:
         tld = get_git_top_level_directory()
         if tld[-len("-solutions"):] == "-solutions":
             cmd_run_destination_default = tld[:-len("-solutions")] + "-challenges"
-        else:
-            cmd_run_destination_default = CMD_RUN_DESTINATION_DEFAULT
-    else:
-        cmd_run_destination_default = CMD_RUN_DESTINATION_DEFAULT
 
     run_destination_default = run_defaults.get(CMD_RUN_DESTINATION, cmd_run_destination_default)
     run_ignore_cwd_default = run_defaults.get(CMD_RUN_IGNORE_CWD, CMD_RUN_IGNORE_CWD_DEFAULT)

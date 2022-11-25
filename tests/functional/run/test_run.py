@@ -116,6 +116,8 @@ class TestRun():
         challengify, file_to_delete, in_path, out_path, control_path = deletion_scenario
 
         # Act
+
+        # when no diff is found the whole repo gets synced and the control path content is not valid
         # git_diff_command = ["git", "diff", "--name-only", "HEAD"]
         # rc, output, error = run_command(git_diff_command, cwd=in_path)
         # diff_files = output.decode("utf-8").split()

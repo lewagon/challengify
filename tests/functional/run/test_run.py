@@ -100,9 +100,7 @@ class TestRun():
         git_add(out_path)
         git_commit(out_path, message="Initial commit")
 
-        deletion_scenario = challengify, in_path, out_path, control_path
-
-        yield deletion_scenario
+        yield challengify, in_path, out_path, control_path
 
         # Cleanup
 

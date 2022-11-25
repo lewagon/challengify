@@ -3,7 +3,7 @@
 
 ### Added
 
-- Adds support for file deletion: remove from the destination the input sources that do not exist
+- Adds support for file deletion: remove from the destination the input sources that shoud not exist
 - Adds repository related default destination parameter: a `*-solutions` respository will have a `*-challenges` default destination parameter
 
 # 0.3.8 2022-07-01

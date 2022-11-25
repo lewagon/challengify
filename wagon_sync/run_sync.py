@@ -184,6 +184,8 @@ def run_sync(
     if verbose:
         print_files("red", f"Files deleted in destination {destination}", processed_deleted_files)
 
+    # 🔥 TODO: return list of deleted files to caller in addition to original_files, corrected_files ([], [] if no git controlled files are found)
+
     if not controlled_files:
 
         print(Fore.RED

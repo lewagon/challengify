@@ -1,6 +1,6 @@
 
 from wagon_common.helpers.directories import are_directories_identical
-from wagon_common.helpers.file import cp, rm
+from wagon_common.helpers.file import cp
 from wagon_common.helpers.subprocess import run_command
 
 from wagon_common.helpers.git.create import git_init, git_add, git_commit
@@ -80,7 +80,7 @@ class TestRun(unittest.TestCase):
         self.in_path = os.path.join(data_path, "source", "08-Test-Run-With-Deletion")
         git_init(self.in_path); git_add(self.in_path); git_commit(self.in_path, message="Initial commit (before deleting)")
         # Simulate file deletion and git tracking in source path
-        rm(os.path.join(self.in_path, file_to_delete))
+        shutil.rmtree(os.path.join(self.in_path, file_to_delete), ignore_errors=True)
         git_add(self.in_path)
 
         # Git init, add, commit all in processed path
@@ -96,8 +96,8 @@ class TestRun(unittest.TestCase):
         cp(os.path.join(self.in_path, "template_to_delete.py"),os.path.join(self.out_path, "03", "02", "to_delete.py"))
         cp(os.path.join(self.in_path, "template_to_delete.py"),os.path.join(self.in_path, "03", "02", "to_delete.py"))
         # Remove the .git folders in source and destination
-        rm(os.path.join(self.out_path, ".git"), is_directory=True)
-        rm(os.path.join(self.in_path, ".git"), is_directory=True)
+        shutil.rmtree(os.path.join(self.out_path, ".git"), ignore_errors=True)
+        shutil.rmtree(os.path.join(self.in_path, ".git"), ignore_errors=True)
 
     @pytest.mark.usefixtures('deletion_scenario_fixtures')
     def test_run_with_deletion(self):

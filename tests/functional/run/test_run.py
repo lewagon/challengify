@@ -99,7 +99,7 @@ class TestRun():
         git_add(out_path)
         git_commit(out_path, message="Initial commit")
 
-        yield challengify, in_path, out_path, control_path
+        yield challengify, file_to_delete, in_path, out_path, control_path
 
         # Cleanup
 
@@ -113,12 +113,13 @@ class TestRun():
 
     def test_run_with_deletion(self, deletion_scenario):
 
-        challengify, in_path, out_path, control_path = deletion_scenario
+        challengify, file_to_delete, in_path, out_path, control_path = deletion_scenario
 
         # Act
-        git_diff_command = ["git", "diff", "--name-only", "HEAD"]
-        rc, output, error = run_command(git_diff_command, cwd=in_path)
-        diff_files = output.decode("utf-8").split()
+        # git_diff_command = ["git", "diff", "--name-only", "HEAD"]
+        # rc, output, error = run_command(git_diff_command, cwd=in_path)
+        # diff_files = output.decode("utf-8").split()
+        diff_files = [file_to_delete]
 
         run_sync(
             challengify=challengify,

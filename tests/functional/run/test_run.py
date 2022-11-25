@@ -93,13 +93,13 @@ class TestRun(unittest.TestCase):
 
         # Cleanup
         # Put back the "to-be-deleted" file in destination and source
-        cp(os.path.join(self.in_path, "template_to_delete.py"),os.path.join(self.out_path, "03", "02", "to_delete.py"))
-        cp(os.path.join(self.in_path, "template_to_delete.py"),os.path.join(self.in_path, "03", "02", "to_delete.py"))
+        cp(os.path.join(self.in_path, "template_to_delete.py"), os.path.join(self.out_path, "03", "02", "to_delete.py"))
+        cp(os.path.join(self.in_path, "template_to_delete.py"), os.path.join(self.in_path, "03", "02", "to_delete.py"))
         # Remove the .git folders in source and destination
         shutil.rmtree(os.path.join(self.out_path, ".git"), ignore_errors=True)
         shutil.rmtree(os.path.join(self.in_path, ".git"), ignore_errors=True)
 
-    @pytest.mark.usefixtures('deletion_scenario_fixtures')
+    @pytest.mark.usefixtures("deletion_scenario_fixtures")
     def test_run_with_deletion(self):
 
         # Act
@@ -119,7 +119,7 @@ class TestRun(unittest.TestCase):
             iterate_yaml_path=".")
 
         # Assert
-        rc, output, error = are_directories_identical(self.out_path, self.control_path, ignored_files=['.git'])
+        rc, output, error = are_directories_identical(self.out_path, self.control_path, ignored_files=[".git"])
 
         if rc != 0:
             print(Fore.RED
@@ -132,5 +132,5 @@ class TestRun(unittest.TestCase):
         assert rc == 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

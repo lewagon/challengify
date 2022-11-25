@@ -168,7 +168,7 @@ def run_sync(
         sources = [os.path.join(iterate_yaml_path, source) for source in sources]
 
     # retrieve git controlled files in scope
-    controlled_files, deleted_files = resolve_scope(sources, ["*"], verbose=verbose)
+    controlled_files, deleted_files = resolve_scope(sources, ["*"], return_inexisting=True, verbose=verbose)
 
     if deleted_files:
         # delete files in destination if they exist

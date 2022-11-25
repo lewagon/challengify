@@ -8,7 +8,6 @@ from wagon_common.helpers.git.create import git_init, git_add, git_commit
 from wagon_sync.challengify import Challengify
 from wagon_sync.run_sync import run_sync
 
-import unittest
 import pytest
 
 import os
@@ -17,7 +16,7 @@ import shutil
 from colorama import Fore, Style
 
 
-class TestRun(unittest.TestCase):
+class TestRun():
     """
     test that challenge versions are correctly generated from source codebase
     """
@@ -101,7 +100,9 @@ class TestRun(unittest.TestCase):
         git_add(out_path)
         git_commit(out_path, message="Initial commit")
 
-        yield challengify, in_path, out_path, control_path
+        deletion_scenario = challengify, in_path, out_path, control_path
+
+        yield deletion_scenario
 
         # Cleanup
 
@@ -123,7 +124,7 @@ class TestRun(unittest.TestCase):
         diff_files = output.decode("utf-8").split()
 
         run_sync(
-            challengify=self.challengify,
+            challengify=challengify,
             sources=diff_files,
             destination=out_path,
             force=True,
@@ -134,7 +135,7 @@ class TestRun(unittest.TestCase):
             iterate_yaml_path=".")
 
         # Assert
-        rc, output, error = are_directories_identical(out_path, self.control_path, ignored_files=[".git"])
+        rc, output, error = are_directories_identical(out_path, control_path, ignored_files=[".git"])
 
         if rc != 0:
             print(Fore.RED
@@ -146,7 +147,3 @@ class TestRun(unittest.TestCase):
             print(output.decode("utf-8"))
 
         assert rc == 0
-
-
-if __name__ == "__main__":
-    unittest.main()

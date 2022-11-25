@@ -74,7 +74,7 @@ class TestRun(unittest.TestCase):
         self.challengify = Challengify()
 
         data_path = os.path.join("tests", "data", "run")
-        file_to_delete="03/02/to_delete.py"
+        file_to_delete = "03/02/to_delete.py"
 
         # Git init,add,commit in source path
         self.in_path = os.path.join(data_path, "source", "08-Test-Run-With-Deletion")
@@ -130,6 +130,7 @@ class TestRun(unittest.TestCase):
                   + f"\n- error: {error}")
             print(output.decode("utf-8"))
         assert rc == 0
+
 
 if __name__ == '__main__':
     unittest.main()

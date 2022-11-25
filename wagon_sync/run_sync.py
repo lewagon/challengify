@@ -170,17 +170,19 @@ def run_sync(
     # retrieve git controlled files in scope
     controlled_files, deleted_files = resolve_scope(sources, ["*"], return_inexisting=True, verbose=verbose)
 
-    if deleted_files:
-        # delete files in destination if they exist
-        for deleted_file in deleted_files:
-            deleted_file_at_destination = os.path.join(destination, deleted_file)
-            if os.path.isfile(deleted_file_at_destination):
-                os.remove(deleted_file_at_destination)
-            elif os.path.isdir(deleted_file_at_destination):
-                shutil.rmtree(deleted_file_at_destination)
+    # delete files in destination if they exist
+    processed_deleted_files = []
+    for deleted_file in deleted_files:
+        deleted_file_at_destination = os.path.join(destination, deleted_file)
+        if os.path.isfile(deleted_file_at_destination):
+            os.remove(deleted_file_at_destination)
+            processed_deleted_files.append(deleted_file_at_destination)
+        elif os.path.isdir(deleted_file_at_destination):
+            shutil.rmtree(deleted_file_at_destination)
+            processed_deleted_files.append(deleted_file_at_destination)
 
-        if verbose:
-            print_files("red", f"Files deleted in destination {destination}", deleted_files)
+    if verbose:
+        print_files("red", f"Files deleted in destination {destination}", processed_deleted_files)
 
     if not controlled_files:
 

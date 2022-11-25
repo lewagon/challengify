@@ -21,6 +21,7 @@ from wagon_common.helpers.git.repo import get_git_top_level_directory
 import glob
 
 import os
+import shutil
 
 from colorama import Fore, Style
 
@@ -167,7 +168,25 @@ def run_sync(
         sources = [os.path.join(iterate_yaml_path, source) for source in sources]
 
     # retrieve git controlled files in scope
-    controlled_files = resolve_scope(sources, ["*"], verbose=verbose)[0]
+    controlled_files, deleted_files = resolve_scope(sources, ["*"], return_inexisting=True, verbose=verbose)
+
+    # delete files in destination if they exist
+    processed_deleted_files = []
+    for deleted_file in deleted_files:
+        deleted_file_at_destination = os.path.join(destination, deleted_file)
+        if os.path.isfile(deleted_file_at_destination):
+            os.remove(deleted_file_at_destination)
+            processed_deleted_files.append(deleted_file_at_destination)
+        elif os.path.isdir(deleted_file_at_destination):
+            shutil.rmtree(deleted_file_at_destination)
+            processed_deleted_files.append(deleted_file_at_destination)
+
+    if verbose:
+        print_files("red", f"Files deleted in destination {destination}", processed_deleted_files)
+
+    # 🔥 TODO: return list of deleted files to caller in addition to original_files, corrected_files ([], [] if no git controlled files are found)
+
+    controlled_files = controlled_files[0]
 
     if not controlled_files:
 

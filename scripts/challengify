@@ -28,7 +28,7 @@ def wasync():
 @click.argument(
     "sources",                          # list of sources to sync
     nargs=-1,                           # variable number of arguments
-    type=click.Path(exists=True))       # verify that the source params exist
+    type=click.Path())                  # accept inexisting source params (git deleted files)
 @click.option(
     "-d", "--destination",
     default=None,

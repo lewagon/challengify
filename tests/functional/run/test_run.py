@@ -93,7 +93,6 @@ class TestRun():
         # Simulate file deletion and git tracking in source path
         os.remove(os.path.join(in_path, file_to_delete))
         git_add(in_path)
-        git_commit(in_path, message="Deletion commit")
 
         # Git init, add, commit in processed path
         git_init(out_path)

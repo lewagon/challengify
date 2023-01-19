@@ -41,6 +41,7 @@ LANGUAGE_INLINE_COMMENT_DELIMITERS = dict(
     js=dict(        prefix="// "),
     sql=dict(       prefix="-- "),
     css=dict(       prefix="/* ",           suffix=" */"),
+    xml=dict(       prefix="<!-- ",         suffix=" -->"),
     html=dict(      prefix="<!-- ",         suffix=" -->"),
     html_erb=dict(  prefix="<%#= ",         suffix=" %>"),
     js_erb=dict(    prefix="<%#= ",         suffix=" %>"),

@@ -1,4 +1,10 @@
 
+# 0.3.10 2023-01-19
+
+### Added
+
+- Adds support for `.xml` file type
+
 # 0.3.9 2022-11-25
 
 ### Added

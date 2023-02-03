@@ -72,7 +72,7 @@ def wasync():
     "-s", "--from-scratch",
     default=None,
     is_flag=True,
-    help="Delete all contents in destination folder before running (default: False).")
+    help="Delete all content in destination folder before running (default: False).")
 def run(sources, destination, ignore_cwd, force, dry_run, verbose, all, test, format, from_scratch):
     """
     Generate challenges from provided source files and directories of solutions.

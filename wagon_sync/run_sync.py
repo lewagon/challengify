@@ -149,16 +149,6 @@ def run_sync(
         # challengify run
         destination = get_destination_cwd(destination)
 
-    # if --from-scratch, delete all files in destination
-    if from_scratch:
-        print(Fore.RED
-              + f"\nDeleting all files in destination directory: {destination}"
-              + Style.RESET_ALL)
-        rm_and_clean_success = git_rm_and_clean(path=destination, verbose=verbose)
-        if not rm_and_clean_success:
-            # cancel sync
-            return
-
     # verify that destination directory does not exist
     # or is a git repo and has a clean status
     # or sync is forced
@@ -169,6 +159,16 @@ def run_sync(
 
         # cancel sync
         return
+
+    # if --from-scratch, delete all files in destination
+    if from_scratch:
+        print(Fore.RED
+              + f"\nDeleting all files in destination directory: {destination}"
+              + Style.RESET_ALL)
+        rm_and_clean_success = git_rm_and_clean(path=destination, verbose=verbose)
+        if not rm_and_clean_success:
+            # cancel sync
+            return
 
     version_info = f" ({version_info})" if version_info is not None else ""
 

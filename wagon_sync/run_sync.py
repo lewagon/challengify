@@ -159,8 +159,6 @@ def run_sync(
             # cancel sync
             return
 
-    breakpoint()
-
     # verify that destination directory does not exist
     # or is a git repo and has a clean status
     # or sync is forced

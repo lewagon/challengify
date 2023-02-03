@@ -68,15 +68,20 @@ def wasync():
     default=None,
     is_flag=True,
     help="Format generated code (default: False).")
-def run(sources, destination, ignore_cwd, force, dry_run, verbose, all, test, format):
+@click.option(
+    "-s", "--from-scratch",
+    default=None,
+    is_flag=True,
+    help="Delete all contents in destination folder before running (default: False).")
+def run(sources, destination, ignore_cwd, force, dry_run, verbose, all, test, format, from_scratch):
     """
     Generate challenges from provided source files and directories of solutions.
     """
 
-    return run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all, test, format)
+    return run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all, test, format, from_scratch)
 
 
-def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all, test, format):
+def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all, test, format, from_scratch):
     """
     Decorationless command handler callable from multiple decorated commands
     """
@@ -93,7 +98,8 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
               + f"\nverbose {verbose}"
               + f"\nall {all}"
               + f"\ntest {test}"
-              + f"\nformat {format}")
+              + f"\nformat {format}"
+              + f"\nfrom_scratch {from_scratch}")
 
     # load default parameters
     run_destination_default, \
@@ -103,7 +109,8 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
         run_verbose_default, \
         run_all_default, \
         run_test_default, \
-        run_format_default = load_home_defaults(verbose)
+        run_format_default, \
+        run_from_scrach_default = load_home_defaults(verbose)
 
     # click flag options do not allow to know whether the user entered a flag
     # or whether the default value was used unless the default is None
@@ -125,6 +132,8 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
         test = run_test_default
     if format is None:
         format = run_format_default
+    if from_scratch is None:
+        from_scratch = run_from_scrach_default
 
     if verbose:
         print(Fore.BLUE
@@ -138,7 +147,8 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
               + f"\nverbose {verbose}"
               + f"\nall {all}"
               + f"\ntest {test}"
-              + f"\nformat {format}")
+              + f"\nformat {format}",
+              + f"\nfrom_scratch {from_scratch}")
 
     # verify that at least one directory was provided
     if not all and len(sources) < 1:
@@ -163,7 +173,8 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
         verbose,
         test=test,
         user_autoformater=format,
-        ignore_tld=ignore_cwd)
+        ignore_tld=ignore_cwd,
+        from_scratch=from_scratch)
 
 
 @wasync.command()

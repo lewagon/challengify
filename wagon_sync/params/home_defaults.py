@@ -24,6 +24,8 @@ CMD_RUN_TEST = "test"
 CMD_RUN_TEST_DEFAULT = False
 CMD_RUN_FORMAT = "format"
 CMD_RUN_FORMAT_DEFAULT = False
+CMD_RUN_FROM_SCRATCH = "from_scratch"
+CMD_RUN_FROM_SCRATCH_DEFAULT = False
 
 
 def build_conf_path():
@@ -64,6 +66,7 @@ def create_home_defaults(force):
     run[CMD_RUN_ALL] = CMD_RUN_ALL_DEFAULT
     run[CMD_RUN_TEST] = CMD_RUN_TEST_DEFAULT
     run[CMD_RUN_FORMAT] = CMD_RUN_FORMAT_DEFAULT
+    run[CMD_RUN_FROM_SCRATCH] = CMD_RUN_FROM_SCRATCH_DEFAULT
 
     data = {}
     data[CMD_RUN] = run
@@ -119,6 +122,7 @@ def load_home_defaults(verbose):
     run_all_default = run_defaults.get(CMD_RUN_ALL, CMD_RUN_ALL_DEFAULT)
     run_test_default = run_defaults.get(CMD_RUN_TEST, CMD_RUN_TEST_DEFAULT)
     run_format_default = run_defaults.get(CMD_RUN_FORMAT, CMD_RUN_FORMAT_DEFAULT)
+    run_from_scratch_default = run_defaults.get(CMD_RUN_FROM_SCRATCH, CMD_RUN_FROM_SCRATCH_DEFAULT)
 
     return (
         run_destination_default,
@@ -128,4 +132,5 @@ def load_home_defaults(verbose):
         run_verbose_default,
         run_all_default,
         run_test_default,
-        run_format_default)
+        run_format_default,
+        run_from_scratch_default)

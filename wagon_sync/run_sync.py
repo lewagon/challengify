@@ -129,7 +129,8 @@ def run_sync(
         additional_ignores=[],          # ignored files and preprocessing
         custom_files=[],                # list of custom target files
         version_iterator=None,          # for the challengify iterate command
-        version_info=None):             # version info for challengify iterate
+        version_info=None,              # version info for challengify iterate
+        from_scratch=False):            # whether to delete all files in destination before sync
     """
     iterate through sources
     expand source path

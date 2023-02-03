@@ -15,7 +15,7 @@ from wagon_sync.autoformat import autoformat_code
 
 from wagon_common.helpers.scope import resolve_scope
 from wagon_common.helpers.output import print_files
-from wagon_common.helpers.git.repo import get_git_top_level_directory
+from wagon_common.helpers.git.repo import get_git_top_level_directory, git_rm_and_clean
 
 
 import glob
@@ -148,6 +148,18 @@ def run_sync(
 
         # challengify run
         destination = get_destination_cwd(destination)
+
+    # if --from-scratch, delete all files in destination
+    if from_scratch:
+        print(Fore.RED
+              + f"\nDeleting all files in destination directory: {destination}"
+              + Style.RESET_ALL)
+        rm_and_clean_success = git_rm_and_clean(path=destination, verbose=verbose)
+        if not rm_and_clean_success:
+            # cancel sync
+            return
+
+    breakpoint()
 
     # verify that destination directory does not exist
     # or is a git repo and has a clean status

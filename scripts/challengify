@@ -147,7 +147,7 @@ def run_function(sources, destination, ignore_cwd, force, dry_run, verbose, all,
               + f"\nverbose {verbose}"
               + f"\nall {all}"
               + f"\ntest {test}"
-              + f"\nformat {format}",
+              + f"\nformat {format}"
               + f"\nfrom_scratch {from_scratch}")
 
     # verify that at least one directory was provided

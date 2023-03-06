@@ -15,7 +15,7 @@ from wagon_sync.autoformat import autoformat_code
 
 from wagon_common.helpers.scope import resolve_scope
 from wagon_common.helpers.output import print_files
-from wagon_common.helpers.git.repo import get_git_top_level_directory
+from wagon_common.helpers.git.repo import get_git_top_level_directory, git_rm_and_clean
 
 
 import glob
@@ -129,7 +129,8 @@ def run_sync(
         additional_ignores=[],          # ignored files and preprocessing
         custom_files=[],                # list of custom target files
         version_iterator=None,          # for the challengify iterate command
-        version_info=None):             # version info for challengify iterate
+        version_info=None,              # version info for challengify iterate
+        from_scratch=False):            # whether to delete all files in destination before sync
     """
     iterate through sources
     expand source path
@@ -158,6 +159,25 @@ def run_sync(
 
         # cancel sync
         return
+
+    # if --from-scratch, delete all files in destination
+    if from_scratch:
+
+        print(Fore.RED
+              + f"\nDeleting all files in destination directory: {destination}"
+              + Style.RESET_ALL)
+
+        rm_and_clean_success = git_rm_and_clean(path=destination, verbose=verbose)
+
+        if not rm_and_clean_success:
+
+            # cancel sync
+            print(Fore.RED
+                  + f"\nError while wiping destination git directory. Sync cancelled ❌"
+                  + Style.RESET_ALL
+                  + f"\n- destination: {destination}")
+
+            return
 
     version_info = f" ({version_info})" if version_info is not None else ""
 

@@ -4,4 +4,4 @@ pyyaml
 black
 pylint
 pytest
-wagon_common>=0.2.6
+wagon_common>=0.2.12

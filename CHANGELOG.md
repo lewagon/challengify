@@ -1,4 +1,10 @@
 
+# 0.3.11 2023-03-06
+
+### Added
+
+- Adds `--from-scratch` flag to wipe destination before challengification
+
 # 0.3.10 2023-01-19
 
 ### Added

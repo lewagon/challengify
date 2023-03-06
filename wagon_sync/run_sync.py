@@ -162,12 +162,21 @@ def run_sync(
 
     # if --from-scratch, delete all files in destination
     if from_scratch:
+
         print(Fore.RED
               + f"\nDeleting all files in destination directory: {destination}"
               + Style.RESET_ALL)
+
         rm_and_clean_success = git_rm_and_clean(path=destination, verbose=verbose)
+
         if not rm_and_clean_success:
+
             # cancel sync
+            print(Fore.RED
+                  + f"\nError while wiping destination git directory. Sync cancelled ❌"
+                  + Style.RESET_ALL
+                  + f"\n- destination: {destination}")
+
             return
 
     version_info = f" ({version_info})" if version_info is not None else ""

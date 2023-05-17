@@ -14,6 +14,7 @@ alias cha="challengify $@"              # alias
 ```
 doc                           internal documentation (**private**)
 docs                          **public** documentation depoyed through the `gh-pages` branch
+_config.yml                   jekyll theme for github page
 ```
 
 ## sub commands

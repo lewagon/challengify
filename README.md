@@ -9,6 +9,13 @@ pip uninstall -y challengify            # uninstall
 alias cha="challengify $@"              # alias
 ```
 
+## project structure
+
+```
+doc                           internal documentation (**private**)
+docs                          **public** documentation depoyed through the `gh-pages` branch
+```
+
 ## sub commands
 
 | command | usage |
@@ -54,7 +61,7 @@ assumptions:
 
 ## transformations
 
-[challengify tranformations](public/README.md)
+[challengify tranformations](docs/README.md)
 
 ## transformations rollback
 

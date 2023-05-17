@@ -1,6 +1,12 @@
 
 generate challenges from solutions using code block delimiters
 
+## content creators
+
+the tool remains private but is actionable through [challengify github actions](https://github.com/lewagon/.github/tree/main/workflow-deployer/configuration_files/challengify) deployed on the solutions repositories
+
+the [public documentation](https://lewagon.github.io/challengify/) only covers the code file delimiters and notebook tags
+
 ## install
 
 ``` bash
@@ -13,7 +19,7 @@ alias cha="challengify $@"              # alias
 
 ```
 doc                           internal documentation (**private**)
-docs                          [**public** documentation](https://lewagon.github.io/challengify/) depoyed through the `gh-pages` branch
+docs                          **public** documentation depoyed through the `gh-pages` branch
 _config.yml                   jekyll theme for github page
 ```
 

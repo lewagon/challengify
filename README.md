@@ -14,7 +14,7 @@ the [public documentation](https://lewagon.github.io/challengify/) only covers t
 ```
 doc                           internal documentation (private)
 docs                          public documentation depoyed through the `gh-pages` branch
-_config.yml                   jekyll theme for github page
+_config.yml                   jekyll theme for the github page
 ```
 
 ## install

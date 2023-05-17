@@ -9,20 +9,20 @@ the [public documentation](https://lewagon.github.io/challengify/) only covers t
 - `challengify run` code file delimiters
 - `challengify run` notebook tags
 
-## install
-
-``` bash
-pip install challengify                 # from gemfury using `~/.pip/pip.conf`
-pip uninstall -y challengify            # uninstall
-alias cha="challengify $@"              # alias
-```
-
 ## project structure
 
 ```
 doc                           internal documentation (**private**)
 docs                          **public** documentation depoyed through the `gh-pages` branch
 _config.yml                   jekyll theme for github page
+```
+
+## install
+
+``` bash
+pip install challengify                 # from gemfury using `~/.pip/pip.conf`
+pip uninstall -y challengify            # uninstall
+alias cha="challengify $@"              # alias
 ```
 
 ## sub commands

@@ -54,7 +54,7 @@ assumptions:
 
 ## transformations
 
-[challengify tranformations](doc/public/README.md)
+[challengify tranformations](public/README.md)
 
 ## transformations rollback
 

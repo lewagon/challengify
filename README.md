@@ -118,17 +118,6 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
 
 <img src="doc/implode.png" alt="implode" width="700"/>
 
-## transformations rollback
-
-the destination directory is assumed to be git controlled
-
-``` bash
-git restore .                           # remove uncommitted changes in existing files
-
-git clean -nfd                          # remove added files, dry run
-# git clean -fd                         # actually remove added files
-```
-
 ## replacements
 
 notebook replacements occur depending on cell type (markdown or code) and metadata declared language
@@ -140,3 +129,14 @@ text file replacements occur depending on the language (file extension)
 | notebook markdown | `> YOUR ANSWER HERE` |
 | python | `pass  # YOUR CODE HERE` |
 | other | `# YOUR CODE HERE` |
+
+## transformations rollback
+
+the destination directory is assumed to be git controlled
+
+``` bash
+git restore .                           # remove uncommitted changes in existing files
+
+git clean -nfd                          # remove added files, dry run
+# git clean -fd                         # actually remove added files
+```

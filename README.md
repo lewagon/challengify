@@ -3,7 +3,7 @@ generate challenges from solutions using code block delimiters
 
 ## content creators
 
-the tool is private but is actionable by the content creators through [challengify publication workflows](https://github.com/lewagon/.github/tree/main/workflow-deployer/configuration_files/challengify) deploed on the solutions repositories
+the tool is private but is actionable by the content creators through the [challengify publication workflows](https://github.com/lewagon/.github/tree/main/workflow-deployer/configuration_files/challengify) deploed on the solutions repositories
 
 the [public documentation](https://lewagon.github.io/challengify/) only covers the code file delimiters and notebook tags
 

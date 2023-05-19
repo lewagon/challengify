@@ -26,18 +26,6 @@ this is achieved by editing a `.challengifyignore` file, which works similarly t
 01-Python/02-Data-Sourcing/01-CSV/some_test_file.py
 ```
 
-## replacements
-
-notebook replacements occur depending on cell type (markdown or code) and metadata declared language
-
-text file replacements occur depending on the language (file extension)
-
-| language | replacement |
-| --- | --- |
-| notebook markdown | `> YOUR ANSWER HERE` |
-| python | `pass  # YOUR CODE HERE` |
-| other | `# YOUR CODE HERE` |
-
 ## code file transformations
 
 ### text file delimiters
@@ -105,3 +93,15 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
     "keep_output": true
   },
 ```
+
+## replacements
+
+code files text replacements occur depending on the language (file extension)
+
+notebook replacements occur depending on cell type (markdown or code) and metadata declared language
+
+| language | replacement |
+| --- | --- |
+| python | `pass  # YOUR CODE HERE` |
+| notebook markdown | `> YOUR ANSWER HERE` |
+| other | `# YOUR CODE HERE` |

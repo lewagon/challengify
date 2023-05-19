@@ -96,9 +96,9 @@ the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadat
 
 ## replacements
 
-code files text replacements occur depending on the language (file extension)
+code files text replacements occur depending on the programming language of the content (file extension)
 
-notebook replacements occur depending on cell type (markdown or code) and metadata declared language
+notebook replacements occur depending on the cell type (markdown or code) and on the notebook metadata declared language
 
 | language | replacement |
 | --- | --- |

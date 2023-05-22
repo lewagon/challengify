@@ -96,7 +96,7 @@ The output and standard error of all cells is deleted unless the following conf 
 
 ## Generated Replacements 🪄 
 
-Code files' text replacements occur depending on the programming language of the content (file extension).
+Text replacements within code files are linked to the programming language being written, which in turn is defined by the file’s extension.
 
 Notebook replacements occur depending on the cell type (markdown or code) and on the notebook metadata declared language.
 

@@ -94,7 +94,7 @@ The output and standard error of all cells is deleted unless the following conf 
   },
 ```
 
-## replacements
+## Generated Replacements 🪄 
 
 code files text replacements occur depending on the programming language of the content (file extension)
 

@@ -71,7 +71,7 @@ This is done by editing a `.challengifyignore` file, which works similarly to a 
 | `delete` | the cell is deleted |
 | `delete_begin` | delete all further cells, including this one |
 | `delete_end` | last cell to be deleted by `delete_begin` |
-| `challengify` | the content of the cell is replaced |
+| `challengify` | the content of the cell is replaced. See below for replacements. |
 | `steps` | single line comments are kept, everything else after the first comment is replaced |
 | `clear_output` | the output and standard error of the cell are emptied (only valid if the `keep_output` notebook metadata option is set to True) |
 

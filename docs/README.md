@@ -98,7 +98,7 @@ The output and standard error of all cells is deleted unless the following conf 
 
 code files text replacements occur depending on the programming language of the content (file extension)
 
-notebook replacements occur depending on the cell type (markdown or code) and on the notebook metadata declared language
+Notebook replacements occur depending on the cell type (markdown or code) and on the notebook metadata declared language.
 
 | language | replacement |
 | --- | --- |

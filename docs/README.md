@@ -60,7 +60,7 @@ This is done by editing a `.challengifyignore` file, which works similarly to a 
 
 <img src="img/implode.png" alt="implode" width="700"/>
 
-## notebook transformations
+## Notebook Transformations ♻️ 
 
 ### notebook cell tags
 

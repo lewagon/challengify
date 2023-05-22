@@ -1,6 +1,22 @@
 
 generate challenges from solutions using code block delimiters
 
+## content creators
+
+the tool is private but is actionable by the content creators through the [challengify publication workflows](https://github.com/lewagon/.github/tree/main/workflow-deployer/configuration_files/challengify) deployed on the [solutions repositories](https://github.com/lewagon/.github/blob/main/workflow-deployer/params/deployments.yml)
+
+the [public documentation](https://lewagon.github.io/challengify/) only covers the features used by the content creators:
+- `challengify run` code file delimiters
+- `challengify run` notebook tags
+
+## project structure
+
+```
+docs                          public documentation depoyed through the `gh-pages` branch
+private_docs                  internal documentation (private)
+_config.yml                   jekyll theme for the github page
+```
+
 ## install
 
 ``` bash
@@ -9,22 +25,14 @@ pip uninstall -y challengify            # uninstall
 alias cha="challengify $@"              # alias
 ```
 
-## project structure
-
-```
-doc                           internal documentation (**private**)
-docs                          [**public** documentation](https://lewagon.github.io/challengify/) depoyed through the `gh-pages` branch
-_config.yml                   jekyll theme for github page
-```
-
 ## sub commands
 
 | command | usage |
 | --- | --- |
-| [iterate](doc/README_iterate.md) | generate several challenge versions from a single codebase |
-| [test](doc/README_test.md) | generate temporary challengified files |
-| [generate](doc/README_generate.md) | create `~/.challengify.yaml` conf file |
-| [inject](doc/README_inject.md) | deprecated |
+| [iterate](private_docs/README_iterate.md) | generate several challenge versions from a single codebase |
+| [test](private_docs/README_test.md) | generate temporary challengified files |
+| [generate](private_docs/README_generate.md) | create `~/.challengify.yaml` conf file |
+| [inject](private_docs/README_inject.md) | deprecated |
 
 ## commands
 

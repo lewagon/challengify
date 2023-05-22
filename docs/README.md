@@ -86,7 +86,7 @@ This is done by editing a `.challengifyignore` file, which works similarly to a 
 
 The output and standard error of all cells is deleted unless the following conf is added to the notebook metadata:
 
-the notebook metadata can be edited using the menu `Edit > Edit Notebook Metadata`
+> The notebook metadata can be edited using the menu `Edit > Edit Notebook Metadata`
 
 ``` json
   "challengify": {

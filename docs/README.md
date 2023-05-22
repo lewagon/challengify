@@ -64,7 +64,7 @@ This is done by editing a `.challengifyignore` file, which works similarly to a 
 
 ### notebook cell tags
 
-the tags can be viewed using the menu `View > Cell Toolbar > Tags`
+> The tags can be viewed/enabled using the menu `View > Cell Toolbar > Tags`
 
 | tag | usage |
 | --- | --- |

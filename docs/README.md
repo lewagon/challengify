@@ -9,7 +9,7 @@ The pull requests created on the solution repo are also challengified and kept i
 
 ## Ignored Files 🚫 
 
-it is possible to ignore files, directories and patterns so that the corresponding content is not published to the challenge repo
+It is possible to ignore files, directories and patterns so that the corresponding content is not challengified neither published to the challenge repo.
 
 this is achieved by editing a `.challengifyignore` file, which works similarly to a `.gitignore` file:
 

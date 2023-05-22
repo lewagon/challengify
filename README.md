@@ -29,10 +29,10 @@ alias cha="challengify $@"              # alias
 
 | command | usage |
 | --- | --- |
-| [iterate](doc/README_iterate.md) | generate several challenge versions from a single codebase |
-| [test](doc/README_test.md) | generate temporary challengified files |
-| [generate](doc/README_generate.md) | create `~/.challengify.yaml` conf file |
-| [inject](doc/README_inject.md) | deprecated |
+| [iterate](private_docs/README_iterate.md) | generate several challenge versions from a single codebase |
+| [test](private_docs/README_test.md) | generate temporary challengified files |
+| [generate](private_docs/README_generate.md) | create `~/.challengify.yaml` conf file |
+| [inject](private_docs/README_inject.md) | deprecated |
 
 ## commands
 

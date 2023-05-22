@@ -1,5 +1,5 @@
 
-## content creation
+## Content Creation 📝 
 
 the publication workflows attached to the `.github` directory of a `*-solution` repo allow to generate the matching `*-challenge` repo
 

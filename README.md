@@ -20,7 +20,7 @@ _config.yml                   jekyll theme for the github page
 ## install
 
 ``` bash
-pip install challengify                 # from gemfury using `~/.pip/pip.conf`
+pip install git+https://github.com/lewagon/challengify
 pip uninstall -y challengify            # uninstall
 alias cha="challengify $@"              # alias
 ```

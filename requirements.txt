@@ -4,4 +4,5 @@ pyyaml
 black
 pylint
 pytest
-git+https://github.com/lewagon/python-utilities
+
+wagon_common @ git+https://github.com/lewagon/python-utilities

@@ -1,4 +1,10 @@
 
+# 0.3.13 (2026-10-19)
+
+### Updated
+
+- Adds a protection against the loading of binary files matching content patterns like a committed `.DS_Store` file
+
 # 0.3.12 (2025-01-27)
 
 ### Updated

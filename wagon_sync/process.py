@@ -12,6 +12,8 @@ from wagon_sync.params.delimiters import TEST_CHALLENGIFICATION_SUFFIX
 
 import os
 
+from colorama import Fore, Style
+
 
 def get_file_extension(file_path):
 
@@ -94,11 +96,27 @@ def process(
     # call handler
     if not dry_run:
 
-        handler_function(
-            challengify,
-            file_path,
-            destination_path,
-            file_extension,
-            version_iterator=version_iterator)
+        try:
+
+            handler_function(
+                challengify,
+                file_path,
+                destination_path,
+                file_extension,
+                version_iterator=version_iterator)
+
+        except UnicodeDecodeError:
+
+            # copy binary files as is instead of processing their content
+            print(Fore.YELLOW
+                  + f"Warning: binary file {file_path} copied as is without processing its content"
+                  + Style.RESET_ALL)
+
+            process_file(
+                challengify,
+                file_path,
+                destination_path,
+                file_extension,
+                version_iterator=version_iterator)
 
     return destination_file_path, destination_path

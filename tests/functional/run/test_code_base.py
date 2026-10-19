@@ -39,13 +39,13 @@ class TestCodeBase(unittest.TestCase):
 
         # read files
         with open(control_file, "r") as file:
-            out_content = file.read()
+            control_content = file.read()
 
         with open(out_file, "r") as file:
-            processed_content = file.read()
+            out_content = file.read()
 
         # remove processed file
         os.remove(out_file)
 
         # compare results
-        self.assertEqual(out_content, processed_content)
+        self.assertEqual(control_content, out_content)
